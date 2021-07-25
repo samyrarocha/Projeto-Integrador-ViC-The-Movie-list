@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.data
+package com.example.projeto_integrador.common.data
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

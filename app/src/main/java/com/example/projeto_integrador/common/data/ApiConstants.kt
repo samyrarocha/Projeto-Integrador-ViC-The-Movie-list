@@ -1,9 +1,8 @@
-package com.example.projeto_integrador.data
+package com.example.projeto_integrador.common.data
 
 object ApiConstants {
 
-    const val BASE_END_POINT = "https://api.themoviedb.org/3/"
-    const val KEY = "983c7bfca62f85298874222ed504acf5"
+    const val BASE_ENDPOINT = "https://api.themoviedb.org/3/"
 
     const val TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ODNjN2JmY2E2MmY4NTI5ODg3NDIyMmVkNTA0YWNmNSIsInN1YiI6IjYwZjQ3MjM3NTM4NjZlMDAyZDNmMWMxMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MpqkuQF6E5fDH46V1rSF7YHpQVDOt-wly1k2eFbA6tw"
     const val MOVIES_ENDPOINT = "movies"
@@ -27,5 +26,7 @@ object ApiParameters {
     const val CREDITS = "credits"
     const val DISCOVER_GENRE = "with_genres"
     const val DISCOVER_SORT = "sort_by"
+    const val API_KEY = "api_key"
+    const val MOVIE = "movie"
 
 }

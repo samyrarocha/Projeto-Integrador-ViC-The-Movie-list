@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -43,10 +44,14 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
-    // Testing Dependencies
+    // Android Test implamentation
     testImplementation "junit:junit:$junit_version"
+
+    //Test implamentation
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
 
     // MOVIE APP DEPENDENCIES HERE
 

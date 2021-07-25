@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.data.mappers
+package com.example.projeto_integrador.common.data.mappers
 
 
 interface ApiMapper<E, D> {
