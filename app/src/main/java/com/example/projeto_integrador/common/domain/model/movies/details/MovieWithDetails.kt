@@ -4,9 +4,14 @@ import com.example.projeto_integrador.common.domain.model.movies.Genre
 
 
 class MovieWithDetails (
-    val id: Long,
-    val title: String,
-    val voteAverage: Int,
+    val discoverMovieId: Long,
+    val discoverMovieTitle: String,
+    val discoverVoteAverage: Int,
     val favorite: Boolean,
+    val discoverPosterPath: String,
     val details: Details
-    )
+) {
+    val aproval: Int
+        get() = discoverVoteAverage.times(10)
+
+}
