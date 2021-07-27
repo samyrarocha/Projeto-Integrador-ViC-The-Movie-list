@@ -9,8 +9,19 @@ interface TmdbApi {
     @GET(ApiConstants.DISCOVER_ENDPOINT) // 1
     suspend fun getdiscover( // 2
         @Query(ApiParameters.PAGE) pageToLoad: Int, // 3
-        @Query(ApiParameters.DISCOVER_GENRE) genreFilter: Int,
-    ) // 4
+        @Query(ApiParameters.DISCOVER_GENRE) genreFilter: String,
+        @Query(ApiParameters.DISCOVER_SORT) sortFilter: String,
+    ): ApiPaginatedMovies// 4
 
+    @GET(ApiConstants.SEARCH_ENDPOINT) // 1
+    suspend fun getSearch( // 2
+        @Query(ApiParameters.PAGE) pageToLoad: Int, // 3
+        @Query(ApiParameters.QUERY) searchQuery: String
+    ): ApiPaginatedMovies// 4
+
+    @GET(ApiConstants.MOVIES_ENDPOINT) // 1
+    suspend fun getMovie( // 2
+        @Query(ApiParameters.MOVIE_ID) movieId: Long, // 3
+    ): ApiPaginatedMovies// 4
 
 }

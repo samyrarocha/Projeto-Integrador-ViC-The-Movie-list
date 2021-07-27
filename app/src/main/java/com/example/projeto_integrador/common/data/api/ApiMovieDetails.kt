@@ -1,5 +1,6 @@
 package com.example.projeto_integrador.common.data
 
+import com.example.projeto_integrador.common.data.api.ApiGenre
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -15,8 +16,4 @@ data class ApiMovieDetails (
     @field:Json(name = "release_date") val releaseDate: String?,
 )
 
-@JsonClass(generateAdapter = true)
-data class ApiGenre (
-    @field:Json(name = "id") val genreId: Long?,
-    @field:Json(name = "name") val genreName: String?,
-)
+

@@ -21,6 +21,7 @@ object ApiParameters {
     const val CONTENT_TYPE_HEADER = "Content-Type"
 
     const val PAGE = "page"
+    const val MOVIE_ID = "movie_id"
     const val MOVIE_LIST = "list"
     const val POPULAR = "popular"
     const val IMAGES = "images"
@@ -28,5 +29,9 @@ object ApiParameters {
     const val DISCOVER_GENRE = "with_genres"
     const val DISCOVER_SORT = "sort_by"
     const val IMAGE_POSTER_SIZE = "poster_sizes"
+    const val QUERY = "query"
+    const val MOVIE_APPEND_TO_RESPONSE = "append_to_response"
+    const val IMAGE_FILE_SIZE = "file_size"
+    const val IMAGE_FILE_PATH = "file_path"
 
 }
