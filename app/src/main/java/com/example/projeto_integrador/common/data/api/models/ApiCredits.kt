@@ -1,6 +1,5 @@
-package com.example.projeto_integrador.common.data.api
+package com.example.projeto_integrador.common.data.api.models
 
-import com.example.projeto_integrador.common.domain.model.movies.details.credits.CreditsGender
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

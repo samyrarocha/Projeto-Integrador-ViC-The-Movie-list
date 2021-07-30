@@ -1,6 +1,6 @@
-package com.example.projeto_integrador.common.data.api.mappers
+package com.example.projeto_integrador.common.data.api.models.mappers
 
-import com.example.projeto_integrador.common.data.api.ApiPagination
+import com.example.projeto_integrador.common.data.api.models.ApiPagination
 import com.example.projeto_integrador.common.domain.model.pagination.Pagination
 import javax.inject.Inject
 

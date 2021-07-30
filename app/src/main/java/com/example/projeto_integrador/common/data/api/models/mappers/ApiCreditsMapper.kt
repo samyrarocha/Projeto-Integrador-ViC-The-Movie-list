@@ -1,8 +1,8 @@
-package com.example.projeto_integrador.common.data.api.mappers
+package com.example.projeto_integrador.common.data.api.models.mappers
 
-import com.example.projeto_integrador.common.data.api.ApiCast
-import com.example.projeto_integrador.common.data.api.ApiCredits
-import com.example.projeto_integrador.common.data.api.ApiCrew
+import com.example.projeto_integrador.common.data.api.models.ApiCast
+import com.example.projeto_integrador.common.data.api.models.ApiCredits
+import com.example.projeto_integrador.common.data.api.models.ApiCrew
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.Credits
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.cast.Cast
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.crew.Crew

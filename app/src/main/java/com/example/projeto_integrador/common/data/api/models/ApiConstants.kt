@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.data
+package com.example.projeto_integrador.common.data.api.models
 
 object ApiConstants {
 
@@ -10,7 +10,6 @@ object ApiConstants {
     const val MOVIES_ENDPOINT = "movies"
     const val GENRE_ENDPOINT = "genre"
     const val SEARCH_ENDPOINT = "search"
-    const val LANGUAGE_ENDPOINT = "language"
     const val DISCOVER_ENDPOINT = "discover"
 
 }
@@ -22,13 +21,12 @@ object ApiParameters {
 
     const val PAGE = "page"
     const val MOVIE_ID = "movie_id"
-    const val MOVIE_LIST = "list"
-    const val POPULAR = "popular"
     const val IMAGES = "images"
     const val CREDITS = "credits"
     const val DISCOVER_GENRE = "with_genres"
     const val DISCOVER_SORT = "sort_by"
     const val IMAGE_POSTER_SIZE = "poster_sizes"
+    const val LANGUAGE = "language"
     const val QUERY = "query"
     const val MOVIE_APPEND_TO_RESPONSE = "append_to_response"
     const val IMAGE_FILE_SIZE = "file_size"

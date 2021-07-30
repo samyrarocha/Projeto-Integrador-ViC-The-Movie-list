@@ -1,6 +1,5 @@
-package com.example.projeto_integrador.common.data
+package com.example.projeto_integrador.common.data.api.models
 
-import com.example.projeto_integrador.common.data.api.ApiGenre
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

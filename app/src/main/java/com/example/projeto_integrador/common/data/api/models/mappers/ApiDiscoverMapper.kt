@@ -1,6 +1,7 @@
-package com.example.projeto_integrador.common.data.api.mappers
+package com.example.projeto_integrador.common.data.api.models.mappers
 
-import com.example.projeto_integrador.common.data.api.*
+import com.example.projeto_integrador.common.data.api.models.ApiDiscover
+import com.example.projeto_integrador.common.data.api.models.ApiMovie
 import com.example.projeto_integrador.common.domain.model.movies.Discover
 import com.example.projeto_integrador.common.domain.model.movies.Movie
 import javax.inject.Inject
