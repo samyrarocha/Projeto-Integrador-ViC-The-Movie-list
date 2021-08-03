@@ -6,10 +6,10 @@ import com.example.projeto_integrador.common.data.api.models.ApiCrew
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.Credits
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.cast.Cast
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.crew.Crew
-import javax.inject.Inject
 
 
-class ApiCreditsMapper @Inject constructor(
+
+class ApiCreditsMapper constructor(
     private val apiCastMapper: ApiCastMapper,
     private val apiCrewMapper: ApiCrewMapper
     ): ApiMapper<ApiCredits, Credits> {
@@ -23,7 +23,7 @@ class ApiCreditsMapper @Inject constructor(
     }
 }
 
-class ApiCastMapper @Inject constructor(): ApiMapper<List<ApiCast>, List<Cast>> {
+class ApiCastMapper: ApiMapper<List<ApiCast>, List<Cast>> {
 
     override fun mapToDomain(apiEntity: List<ApiCast>): List<Cast> {
         val castResultsList: MutableList<Cast> = mutableListOf()
@@ -40,7 +40,7 @@ class ApiCastMapper @Inject constructor(): ApiMapper<List<ApiCast>, List<Cast>> 
     }
 }
 
-class ApiCrewMapper @Inject constructor(): ApiMapper<List<ApiCrew>, List<Crew>> {
+class ApiCrewMapper: ApiMapper<List<ApiCrew>, List<Crew>> {
 
     override fun mapToDomain(apiEntity: List<ApiCrew>): List<Crew> {
         val crewResultList: MutableList<Crew> = mutableListOf()

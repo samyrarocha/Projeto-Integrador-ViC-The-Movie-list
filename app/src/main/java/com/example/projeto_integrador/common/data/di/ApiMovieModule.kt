@@ -4,30 +4,29 @@ import com.example.projeto_integrador.common.data.api.interceptors.LoggingInterc
 import com.example.projeto_integrador.common.data.api.interceptors.NetworkStatusInterceptor
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.data.api.models.TmdbApi
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 
-@Module
-@InstallIn(SingletonComponent::class)
-object ApiMovieModule {
+val ApiMovieModule = module {
+    factory { HttpLoggingInterceptor() }
+    factory { NetworkStatusInterceptor(get()) }
+    factory { provideApi(get())}
+    factory { provideOkHttpClient(get(), get()) }
+    factory { provideRetrofit(get()) }
+    factory { provideOkHttpLoggingInterceptor(get()) }
 
-    @Provides
-    @Singleton
+}
+
     fun provideApi (builder: Retrofit.Builder): TmdbApi {
         return builder
             .build()
             .create(TmdbApi::class.java)
     }
 
-    @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_ENDPOINT)
@@ -35,10 +34,9 @@ object ApiMovieModule {
             .addConverterFactory(MoshiConverterFactory.create())
     }
 
-    @Provides
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        networkStatusInterceptor: NetworkStatusInterceptor,
+        networkStatusInterceptor: NetworkStatusInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(networkStatusInterceptor)
@@ -46,7 +44,6 @@ object ApiMovieModule {
             .build()
     }
 
-    @Provides
     fun provideOkHttpLoggingInterceptor(loggingInterceptor: LoggingInterceptor): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor(loggingInterceptor)
 
@@ -54,4 +51,3 @@ object ApiMovieModule {
 
         return interceptor
     }
-}

@@ -4,40 +4,38 @@ import com.example.projeto_integrador.common.data.api.interceptors.LoggingInterc
 import com.example.projeto_integrador.common.data.api.interceptors.NetworkStatusInterceptor
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.data.api.models.TmdbApi
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object ApiImageModule {
 
-    @Provides
-    @Singleton
-    fun provideApi(builder: Retrofit.Builder): TmdbApi {
+val ApiImageModule = module {
+    factory { HttpLoggingInterceptor() }
+    factory { NetworkStatusInterceptor(get()) }
+    factory { provideImageOkHttpClient(get(), get()) }
+    factory { provideImageRetrofit(get()) }
+    factory { provideImageOkHttpLoggingInterceptor(get()) }
+}
+
+    fun provideImageMovieApi (builder: Retrofit.Builder): TmdbApi {
         return builder
             .build()
             .create(TmdbApi::class.java)
     }
 
-    @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
+    fun provideImageRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_IMAGE_ENDPOINT)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
     }
 
-    @Provides
-    fun provideOkHttpClient(
+
+    fun provideImageOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        networkStatusInterceptor: NetworkStatusInterceptor,
+        networkStatusInterceptor: NetworkStatusInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(networkStatusInterceptor)
@@ -45,8 +43,8 @@ object ApiImageModule {
             .build()
     }
 
-    @Provides
-    fun provideOkHttpLoggingInterceptor(loggingInterceptor: LoggingInterceptor): HttpLoggingInterceptor {
+
+    fun provideImageOkHttpLoggingInterceptor(loggingInterceptor: LoggingInterceptor): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor(loggingInterceptor)
 
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -54,4 +52,3 @@ object ApiImageModule {
         return interceptor
 
     }
-}

@@ -6,7 +6,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class ApiDiscover(
     @field:Json(name = "page") val discoverPage: Int,
-    @field:Json(name = "results") val discoverResults: List<ApiMovie>
+    @field:Json(name = "results") val discoverResults: List<ApiMovie>,
+    @field:Json(name = "total_results") val numberOfItems: Int,
+    @field:Json(name = "total_pages") val totalPages: Int
 )
 
 @JsonClass(generateAdapter = true)

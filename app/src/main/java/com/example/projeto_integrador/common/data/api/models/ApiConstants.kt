@@ -33,3 +33,9 @@ object ApiParameters {
     const val IMAGE_FILE_PATH = "file_path"
 
 }
+
+object ApiParameterValues {
+    const val LANGUAGE_VALUE = "pt-BR"
+    const val IMAGE_FEED_SIZE = "w300"
+    const val IMAGE_DETAILS_SIZE = "w500"
+}
