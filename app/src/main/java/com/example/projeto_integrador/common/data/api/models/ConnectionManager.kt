@@ -2,10 +2,8 @@ package com.example.projeto_integrador.common.data.api.models
 
 import android.content.Context
 import android.net.*
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 
-class ConnectionManager @Inject constructor(@ApplicationContext private val context: Context) {
+class ConnectionManager constructor( private val context: Context) {
 
     fun isConnected(): Boolean{
         val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

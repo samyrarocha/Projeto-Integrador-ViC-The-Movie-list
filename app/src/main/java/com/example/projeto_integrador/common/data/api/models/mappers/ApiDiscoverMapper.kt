@@ -1,7 +1,7 @@
 package com.example.projeto_integrador.common.data.api.models.mappers
 
 import com.example.projeto_integrador.common.data.api.models.ApiDiscover
-import com.example.projeto_integrador.common.data.api.models.ApiMovie
+import com.example.projeto_integrador.common.data.api.models.MovieResponse
 import com.example.projeto_integrador.common.domain.model.movies.Discover
 import com.example.projeto_integrador.common.domain.model.movies.Movie
 
@@ -19,9 +19,9 @@ class ApiDiscoverMapper constructor(
     }
 }
 
-class ApiMovieMapper: ApiMapper<List<ApiMovie>, List<Movie>> {
+class ApiMovieMapper: ApiMapper<List<MovieResponse>, List<Movie>> {
 
-    override fun mapToDomain(apiEntity: List<ApiMovie>): List<Movie> {
+    override fun mapToDomain(apiEntity: List<MovieResponse>): List<Movie> {
         val movieResultList: MutableList<Movie> = mutableListOf()
         for (item in apiEntity) {
             val movie = Movie(

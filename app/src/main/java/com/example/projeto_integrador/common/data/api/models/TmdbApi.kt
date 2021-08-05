@@ -26,7 +26,7 @@ interface TmdbApi {
         @Query(ApiParameters.LANGUAGE) dataLanguage: String,
         @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String,
         @Query(ApiParameters.CREDITS) credits: Credits?
-    ): ApiMovie// 4
+    ): MovieResponse// 4
 
     @GET(ApiConstants.GENRE_ENDPOINT) // 1
     suspend fun getGenre( // 2
