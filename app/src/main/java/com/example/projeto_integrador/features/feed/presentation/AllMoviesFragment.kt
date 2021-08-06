@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,7 @@ class AllMoviesFragment: Fragment() {
 
     private val binding get() = _binding!!
 
-    private var viewModel: AllMoviesFragmentViewModel by activityViewModels()
+    private val viewModel: AllMoviesFragmentViewModel by viewModels()
     private var _binding: FragmenteAllMoviesBinding? = null
 
     override fun onCreateView(
@@ -61,12 +61,16 @@ class AllMoviesFragment: Fragment() {
 
     private fun setupRecyclerView(moviesAdapter: MoviesAdapter) {
         binding.moviesRecyclerView.apply {
-            adapter = allMoviesAdapter
+            adapter = moviesAdapter
             layoutManager = LinearLayoutManager(context, ITEMS_PER_ROW)
             setHasFixedSize(true)
-            addOnScrollListener(createInfiniteSrollListener (layoutManager as LinearLayoutManager))
+            addOnScrollListener(createInfiniteSrollListener (layoutManager as LinearLayoutManager()))
 
         }
+    }
+
+    private fun requestInitialMovieList() {
+        viewModel.onEvent(AllMoviesEvent.RequestInitialMoviesList)
     }
 
     private fun createInfiniteSrollListener(
@@ -116,10 +120,6 @@ class AllMoviesFragment: Fragment() {
         if (snackbarMessage.isNotEmpty()) {
             Snackbar.make(requireView(), snackbarMessage, Snackbar.LENGTH_SHORT).show()
         }
-    }
-
-    private fun requestInitialMovieList() {
-        viewModel.onEvent(AllMoviesEvent.RequestInitialMovieList)
     }
 
     override fun onDestroyView() {

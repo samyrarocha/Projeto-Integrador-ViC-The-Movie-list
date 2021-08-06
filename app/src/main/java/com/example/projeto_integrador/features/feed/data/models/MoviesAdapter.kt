@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import android.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projeto_integrador.databinding.RecyclerViewMovieItemBinding
 
 
 class MoviesAdapter: ListAdapter<UIMovie, MoviesAdapter.MoviesViewHolder>(
     ITEM_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
-        val binding = RecyclerViewMovieBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = RecyclerViewMovieItemBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
 
         return MoviesViewHolder(binding)
@@ -23,13 +24,13 @@ class MoviesAdapter: ListAdapter<UIMovie, MoviesAdapter.MoviesViewHolder>(
         holder.bind(item)
     }
 
-    class MoviesViewHolder(
+    inner class MoviesViewHolder(
         private val binding: RecyclerViewMovieItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UIMovie) {
             binding.name.text = item.name
-            binding.image.setImage(item.image)
+            binding.itemMovieImageView.setImageResource(item.image)
         }
     }
 

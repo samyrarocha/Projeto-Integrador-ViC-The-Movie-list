@@ -4,9 +4,8 @@ import com.example.projeto_integrador.common.data.api.models.ApiSearch
 import com.example.projeto_integrador.common.data.api.models.ApiSearchResults
 import com.example.projeto_integrador.common.domain.model.movies.Search
 import com.example.projeto_integrador.common.domain.model.movies.SearchResults
-import javax.inject.Inject
 
-class ApiSearchMapper @Inject constructor(
+class ApiSearchMapper(
     private val apiSearchResultsMapper: ApiSearchResultsMapper
 ): ApiMapper<ApiSearch, Search> {
 
@@ -18,7 +17,7 @@ class ApiSearchMapper @Inject constructor(
     }
 }
 
-class ApiSearchResultsMapper @Inject constructor():
+class ApiSearchResultsMapper:
     ApiMapper<List<ApiSearchResults>, List<SearchResults>> {
     override fun mapToDomain(apiEntity: List<ApiSearchResults>): List<SearchResults> {
         val searchResultsList: MutableList<SearchResults> = mutableListOf()

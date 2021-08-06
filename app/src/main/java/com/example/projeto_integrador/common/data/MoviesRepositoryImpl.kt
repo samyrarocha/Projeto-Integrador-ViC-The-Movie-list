@@ -7,9 +7,8 @@ import com.example.projeto_integrador.common.data.api.models.mappers.ApiDiscover
 import com.example.projeto_integrador.common.domain.model.movies.Discover
 import com.example.projeto_integrador.common.domain.model.movies.Movie
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
-import kotlinx.coroutines.handleCoroutineException
-import kotlinx.coroutines.runBlocking
-import org.koin.dsl.koinApplication
+import io.reactivex.Flowable
+import io.reactivex.rxkotlin.toFlowable
 
 class MoviesRepositoryImpl (
     private val api: TmdbApi,
@@ -17,6 +16,10 @@ class MoviesRepositoryImpl (
     ): MoviesRepository {
 
     var movies: List<Movie> = emptyList()
+
+    fun getMovies(): Flowable<List<Movie>> {
+        return movies.toFlowable().map { movies }
+    }
 
     override suspend fun requestMoreMovies(pageToLoad: Int, genreFilter: String?): Discover {
         try {
@@ -34,7 +37,7 @@ class MoviesRepositoryImpl (
 
     }
 
-    override fun storeMovies(movies: List<Movie>) {
+    fun storeMovies(movies: List<Movie>) {
         this.movies = movies
     }
 
