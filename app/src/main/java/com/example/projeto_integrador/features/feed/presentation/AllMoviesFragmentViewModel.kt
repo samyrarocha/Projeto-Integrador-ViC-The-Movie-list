@@ -17,6 +17,7 @@ import com.example.projeto_integrador.features.feed.uttils.DispatchersProvider
 import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -28,6 +29,10 @@ class AllMoviesFragmentViewModel
     private val  dispatchersProvider: DispatchersProvider,
     private val compositeDisposable: CompositeDisposable
         ): ViewModel() {
+
+    companion object {
+        const val UI_PAGE_SIZE = DEFAULT_BUFFER_SIZE
+    }
 
     private val _state = MutableLiveData<AllMoviesViewState>()
     val state: LiveData<AllMoviesViewState>  = _state
@@ -56,9 +61,10 @@ class AllMoviesFragmentViewModel
                 {onNewMovieList(it)},
                 {onFailure(it)}
             )
+            .addTo(compositeDisposable)
     }
 
-    private fun onNewMovieList(movies: List<Movie>) {
+    fun onNewMovieList(movies: List<Movie>) {
         val allMovies = movies.map { uiMovieMapper.mapToView(it) }
 
         val currentList = state.value!!.movies

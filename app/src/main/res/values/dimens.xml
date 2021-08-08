@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="half_default_margin">8dp</dimen>
-    <dimen name="default_margin">16dp</dimen>
-    <dimen name="default_card_size">200dp</dimen>
-    <dimen name="default_card_corner_radius">10dp</dimen>
-    <dimen name="animals_near_you_image_height">160dp</dimen>
-    <dimen name="small_margin">4dp</dimen>
+
+    //Card Layout recycler view
+    <dimen name="all_movies_recycle_view_layout_height">500dp</dimen>
+    <dimen name="all_movies_recycle_view_layout_width">310dp</dimen>
+
+    //Image recycler view
+    <dimen name="default_card_margin_top">349dp</dimen>
+    <dimen name="default_card_margin_left">80dp</dimen>
+    <dimen name="default_card_corner_radius">50dp</dimen>
+    <dimen name="all_movies_image_height">458.92dp</dimen>
+    <dimen name="all_movies_image_width">310dp</dimen>
+
+    //Movie title recycler view
+    <dimen name="default_movie_title_width">204dp</dimen>
+    <dimen name="default_movie_title_height">38dp</dimen>
+    <dimen name="default_movie_title_margin_top">824dp</dimen>
+    <dimen name="default_movie_title_margin_left">133dp</dimen>
+
+    //Rating title recycler view
+    <dimen name="default_rating_title_width">36dp</dimen>
+    <dimen name="default_rating_title_height">22dp</dimen>
+    <dimen name="default_rating_title_margin_top">895dp</dimen>
+    <dimen name="default_rating_title_margin_left">236dp</dimen>
+
+    //Rating image view recycler view
+    <dimen name="default_rating_image_width">16.63dp</dimen>
+    <dimen name="default_rating_image_height">15.84dp</dimen>
+    <dimen name="default_rating_image_margin_top">1.66dp</dimen>
+    <dimen name="default_rating_image_margin_left">1.7dp</dimen>
+
+    //Favorited image button recycler view
+    <dimen name="favorited_image_width">24dp</dimen>
+    <dimen name="favorited_image_height">21.35dp</dimen>
+    <dimen name="favorited_image_margin_top">1.31dp</dimen>
+
+    //Search Edit Text
+    <dimen name="search_edit_text_width">352dp</dimen>
+    <dimen name="search_edit_text_height">31dp</dimen>
+
+    //All Movies tab text view
+    <dimen name="all_movies_tab_text_view_width">218dp</dimen>
+    <dimen name="all_movies_tab_text_view_height">38dp</dimen>
+
+    //Favorite tab text view
+    <dimen name="favorite_movies_tab_text_view_width">129dp</dimen>
+    <dimen name="favorite_movies_tab_text_view_height">38dp</dimen>
+
+    //Image recycler view
+    <dimen name="search_image_margin_top">3dp</dimen>
+    <dimen name="search_image_margin_left">3dp</dimen>
+    <dimen name="search_image_height">16dp</dimen>
+    <dimen name="search_image_width">16dp</dimen>
+
+    //Genre Button recycler view
+    <dimen name="genre_button_margin_top">237dp</dimen>
+    <dimen name="genre_button_margin_left">32dp</dimen>
+    <dimen name="genre_button_corner_radius">50dp</dimen>
+    <dimen name="genre_button_height">40dp</dimen>
+    <dimen name="genre_button_width">105dp</dimen>
+
+    //Genre Button Text recycler view
+    <dimen name="genre_button_text_margin_top">245dp</dimen>
+    <dimen name="genre_button_text_margin_left">62dp</dimen>
+    <dimen name="genre_button_text_height">24dp</dimen>
+    <dimen name="genre_button_text_width">45dp</dimen>
+
+
+
 </resources>

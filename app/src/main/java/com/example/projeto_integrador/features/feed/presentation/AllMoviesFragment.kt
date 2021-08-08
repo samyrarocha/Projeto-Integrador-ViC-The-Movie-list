@@ -5,26 +5,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.projeto_integrador.R
+import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
+import com.example.projeto_integrador.features.feed.data.models.AllMoviesFragmentAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
-import com.example.projeto_integrador.features.feed.data.models.MoviesAdapter
+import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 
 class AllMoviesFragment: Fragment() {
 
     companion object {
         private const val ITEMS_PER_ROW = 1
+        const val ARG_POSITION = "position"
     }
 
     private val binding get() = _binding!!
 
     private val viewModel: AllMoviesFragmentViewModel by viewModels()
-    private var _binding: FragmenteAllMoviesBinding? = null
+    private var _binding: FragmentAllMoviesBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +39,14 @@ class AllMoviesFragment: Fragment() {
         _binding = FragmentAllMoviesBinding.inflate(inflater, container, false)
 
         return binding.root
+
+        TabLayoutMediator(_binding!!.allMoviesTabLayout, _binding!!.allMoviesViewPager)
+        {tab, position ->
+            tab.text = getString(R.string.all_movies_tab).split(" ")[0]
+        }.attach()
+
+        _binding!!.allMoviesViewPager.layoutDirection = ViewPager2.LAYOUT_DIRECTION_RTL
+        _binding!!.allMoviesTabLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,30 +54,36 @@ class AllMoviesFragment: Fragment() {
 
         setupUI()
         requestInitialMovieList()
-        viewModel.isLoggedIn.observe(viewLifecycleOwner, Observer<Boolean> {
-            loggedIn ->
-            if(loggedIn) {
-                requestMoreMovies()
-            }
-        })
     }
 
     private fun setupUI() {
-        val adapter = createAdapter()
+        val adapter = createRecyclerViewAdapter()
         setupRecyclerView(adapter)
         observeViewStateUpdates(adapter)
     }
 
-    private fun createAdapter(): MoviesAdapter {
-        return MoviesAdapter()
+    fun getInstance(position: Int): Fragment {
+        val allMoviesFragment = AllMoviesFragment()
+        val bundle = Bundle()
+        bundle.putInt(ARG_POSITION, position)
+        allMoviesFragment.arguments = bundle
+        return allMoviesFragment
     }
 
-    private fun setupRecyclerView(moviesAdapter: MoviesAdapter) {
+    private fun createRecyclerViewAdapter(): AllMoviesRecyclerViewAdapter {
+        return AllMoviesRecyclerViewAdapter()
+    }
+
+//    private fun createFragmentAdapter(): AllMoviesFragmentAdapter {
+//        return AllMoviesFragmentAdapter(this, )
+//    }
+
+    private fun setupRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
         binding.moviesRecyclerView.apply {
-            adapter = moviesAdapter
-            layoutManager = LinearLayoutManager(context, ITEMS_PER_ROW)
+            adapter = allMoviesRecyclerViewAdapter
+            layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            addOnScrollListener(createInfiniteSrollListener (layoutManager as LinearLayoutManager()))
+            addOnScrollListener(createInfiniteSrollListener (layoutManager as LinearLayoutManager))
 
         }
     }
@@ -86,17 +105,17 @@ class AllMoviesFragment: Fragment() {
         }
     }
 
-    private fun observeViewStateUpdates(adapter: MoviesAdapter) {
+    private fun observeViewStateUpdates(recyclerViewAdapterAll: AllMoviesRecyclerViewAdapter) {
         viewModel.state.observe(viewLifecycleOwner) {
-            updateScreenState(it, adapter)
+            updateScreenState(it, recyclerViewAdapterAll)
         }
     }
 
     private fun requestMoreMovies() {
-        viewModel.onEvent(AllMoviesEvent.RequestMoreAnimals)
+        viewModel.onEvent(AllMoviesEvent.RequestMoreMovies)
     }
 
-    private fun updateScreenState(state: AllMoviesViewState, adapter: MoviesAdapter) {
+    private fun updateScreenState(state: AllMoviesViewState, adapter: AllMoviesRecyclerViewAdapter) {
         binding.progressBar.isVisible = state.loading
         adapter.submitList(state.movies)
         handleNoMoreMovies(state.noMoreMovies)

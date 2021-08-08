@@ -1,28 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recycler_view_item_container"
-    android:layout_width="match_parent"
-    android:layout_margin="@dimen/half_default_margin"
-    android:layout_height="@dimen/default_card_size">
+    android:orientation="vertical"
+    android:layout_width="@dimen/all_movies_recycle_view_layout_width"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/recycler_view_item"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/itemRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/itemMovieImageView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/animals_near_you_image_height"
-            android:contentDescription="@string/itemMovieTitle"/>
+            android:layout_width="@dimen/all_movies_image_width"
+            android:layout_height="@dimen/all_movies_image_height"
+            android:contentDescription="@string/itemMovieTitle" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_margin="@dimen/small_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/itemMovieTitleTextView"
+        android:layout_width="@dimen/default_movie_title_width"
+        android:layout_height="@dimen/default_movie_title_height"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/itemRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView"
+        tools:text="Filme"
+        tools:textSize="32dp"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/itemFavoritedImageView"
+        android:layout_width="@dimen/default_rating_image_width"
+        android:layout_height="@dimen/default_rating_image_width"
+        android:layout_gravity="center"
+        android:background="@drawable/heartbuttonpressed"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toBottomOf="@+id/itemMovieTitleTextView"
+        app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/itemNotFavoritedImageView"
+        android:layout_width="@dimen/default_rating_image_width"
+        android:layout_height="@dimen/default_rating_image_width"
+        android:layout_gravity="center"
+        android:background="@drawable/heartbuttonnotpressed"
+        app:layout_constraintBottom_toBottomOf="@+id/itemMovieTitleTextView"
+        app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/itemRatingTitleTextView"
+        android:layout_width="@dimen/default_rating_title_width"
+        android:layout_height="@dimen/default_rating_title_height"
+        android:layout_gravity="center"
+        android:fontFamily="@font/rating_text"
+        android:textAlignment="gravity"
+        android:textColor="@color/rating_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/itemFavoritedImageView"
+        app:layout_constraintStart_toStartOf="@+id/itemMovieTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/itemMovieTitleTextView"
+        tools:text="80%"
+        tools:textSize="18dp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/itemRatingImageView"
+        android:layout_width="@dimen/default_rating_image_width"
+        android:layout_height="@dimen/default_rating_image_width"
+        android:layout_gravity="center"
+        android:background="@drawable/starrating"
+        android:textAlignment="gravity"
+        app:layout_constraintEnd_toStartOf="@+id/itemRatingTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/itemMovieTitleTextView" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
