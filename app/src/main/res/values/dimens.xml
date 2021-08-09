@@ -9,8 +9,8 @@
     <dimen name="default_card_margin_top">349dp</dimen>
     <dimen name="default_card_margin_left">80dp</dimen>
     <dimen name="default_card_corner_radius">50dp</dimen>
-    <dimen name="all_movies_image_height">458.92dp</dimen>
-    <dimen name="all_movies_image_width">310dp</dimen>
+    <dimen name="all_movies_image_height">367.14dp</dimen>
+    <dimen name="all_movies_image_width">248dp</dimen>
 
     //Movie title recycler view
     <dimen name="default_movie_title_width">204dp</dimen>

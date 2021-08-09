@@ -9,115 +9,37 @@
     android:backgroundTint="@color/background_color"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/appCompatEditText"
-        android:layout_width="@dimen/search_edit_text_width"
-        android:layout_height="@dimen/search_edit_text_height"
-        android:hint="@string/search_for_movie_hint_text"
-        android:gravity="top"
-        android:alpha="0.5"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/genreButton_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp"
+        tools:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/genre_button_recycler_view"
+        tools:spanCount="2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movies_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genreButton_recycler_view"
+        android:layout_marginTop="24dp"
+        tools:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/recycler_view_movie_item"
+        tools:spanCount="1" />
+
+        <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/search_edit_text_width"
-        android:layout_height="@dimen/search_edit_text_height"
-        android:background="@drawable/searchimageview"/>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/allMoviesTabLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/titles_text_color"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/allMoviesTabTextView"
-        android:layout_width="@dimen/all_movies_tab_text_view_width"
-        android:layout_height="@dimen/all_movies_tab_text_view_height"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="top"
-        android:text="@string/all_movies_tab"
-        android:fontFamily="@font/titles"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/favoriteMoviesTabTextView"
-        android:layout_width="@dimen/favorite_movies_tab_text_view_width"
-        android:layout_height="@dimen/favorite_movies_tab_text_view_height"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="top"
-        android:text="@string/favorite_tab"
-        android:fontFamily="@font/titles"
-        android:alpha="0.3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" />
-
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/allMoviesViewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/movies_recycler_view"
-        app:layout_constraintEnd_toEndOf="@+id/movies_recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" >
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/todos_os_fi" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movies_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:descendantFocusability="blocksDescendants"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/todos_os_fi"
-            tools:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/recycler_view_movie_item"
-            tools:spanCount="2" />
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/todos_os_fi" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/genreButton_recycler_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:descendantFocusability="blocksDescendants"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/todos_os_fi"
-                tools:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/recycler_view_movie_item"
-                tools:spanCount="2" />
-
-
-    </androidx.viewpager2.widget.ViewPager2>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

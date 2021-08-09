@@ -7,32 +7,35 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/genreButtonCardView"
-        android:layout_width="@dimen/genre_button_width"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/genre_button_corner_radius"
-        app:layout_constraintBottom_toBottomOf="@+id/genreButton"
-        app:layout_constraintEnd_toEndOf="@+id/genreButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/genreButton" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/genreButton"
-        android:layout_width="@dimen/genre_button_width"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/genre_button_height"
-        android:alpha="0.15"
-        android:background="@drawable/genrebuttonvector"
+        app:cardCornerRadius="@dimen/genre_button_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/genreButton"
+            android:layout_width="@dimen/genre_button_width"
+            android:layout_height="@dimen/genre_button_height"
+            android:alpha="0.15"
+            android:background="#28303D"
+            app:layout_constraintStart_toStartOf="@id/genreButtonCardView"
+            app:layout_constraintEnd_toEndOf="@id/genreButtonCardView"
+            app:layout_constraintTop_toTopOf="@id/genreButtonCardView"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView"
         android:layout_width="@dimen/genre_button_text_width"
         android:layout_height="@dimen/genre_button_text_height"
-        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/genreButtonCardView"
+        app:layout_constraintEnd_toEndOf="@id/genreButtonCardView"
+        app:layout_constraintTop_toTopOf="@id/genreButtonCardView"
+        android:layout_marginTop="8dp"
         android:textColor="@color/genre_button_text_color"
-        app:layout_constraintBottom_toBottomOf="@+id/genreButton"
-        app:layout_constraintEnd_toEndOf="@+id/genreButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/genreButton" />
+        tools:text="Ação"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

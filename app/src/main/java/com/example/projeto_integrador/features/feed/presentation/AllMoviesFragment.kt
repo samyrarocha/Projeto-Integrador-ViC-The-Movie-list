@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
-import com.example.projeto_integrador.features.feed.data.models.AllMoviesFragmentAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayoutMediator
+import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
 
 class AllMoviesFragment: Fragment() {
 
@@ -31,6 +30,8 @@ class AllMoviesFragment: Fragment() {
     private val viewModel: AllMoviesFragmentViewModel by viewModels()
     private var _binding: FragmentAllMoviesBinding? = null
 
+    private val picasso:Picasso by inject()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,13 +41,6 @@ class AllMoviesFragment: Fragment() {
 
         return binding.root
 
-        TabLayoutMediator(_binding!!.allMoviesTabLayout, _binding!!.allMoviesViewPager)
-        {tab, position ->
-            tab.text = getString(R.string.all_movies_tab).split(" ")[0]
-        }.attach()
-
-        _binding!!.allMoviesViewPager.layoutDirection = ViewPager2.LAYOUT_DIRECTION_RTL
-        _binding!!.allMoviesTabLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,12 +65,8 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun createRecyclerViewAdapter(): AllMoviesRecyclerViewAdapter {
-        return AllMoviesRecyclerViewAdapter()
+        return AllMoviesRecyclerViewAdapter(picasso = picasso)
     }
-
-//    private fun createFragmentAdapter(): AllMoviesFragmentAdapter {
-//        return AllMoviesFragmentAdapter(this, )
-//    }
 
     private fun setupRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
         binding.moviesRecyclerView.apply {
@@ -141,11 +131,11 @@ class AllMoviesFragment: Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        adapter = null
-        binding.recyclerView.adapter = null
-        _binding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//
+//        adapter = null
+//        binding.recyclerView.adapter = null
+//        _binding = null
+//    }
 }

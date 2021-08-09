@@ -1,6 +1,8 @@
 package com.example.projeto_integrador.features.feed.di
 
 import com.example.projeto_integrador.common.data.MoviesRepositoryImpl
+import com.example.projeto_integrador.common.data.di.ApiMovieModule
+import com.example.projeto_integrador.common.data.di.picassoModule
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMovies
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment
@@ -33,11 +35,13 @@ internal val allMoviesModule = module {
 
     factory<AllMoviesFragment> { get() }
 
-
 }
 
-internal val AllMoviesDependencies by lazy {
+
+internal val allMoviesDependencies by lazy {
     loadKoinModules(allMoviesModule)
 }
 
-fun initAllMoviesDependencies() = allMoviesModule
+fun initAllMoviesDependencies() = allMoviesDependencies
+
+

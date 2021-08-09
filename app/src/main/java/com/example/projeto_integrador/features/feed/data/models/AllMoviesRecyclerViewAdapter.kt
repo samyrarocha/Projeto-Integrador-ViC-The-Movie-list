@@ -2,18 +2,21 @@ package com.example.projeto_integrador.features.feed.data.models
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projeto_integrador.common.data.api.models.ApiConstants
+import com.example.projeto_integrador.common.data.api.models.ApiDiscover
+import com.example.projeto_integrador.common.data.api.models.MovieResponse
 import com.example.projeto_integrador.common.domain.model.movies.Discover
 import com.example.projeto_integrador.databinding.RecyclerViewMovieItemBinding
-import com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment
-import com.example.projeto_integrador.features.feed.presentation.AllMoviesFragmentViewModel
+import com.squareup.picasso.Picasso
+import retrofit2.Retrofit
 
 
-class AllMoviesRecyclerViewAdapter:
-    RecyclerView.Adapter<AllMoviesRecyclerViewAdapter.MoviesViewHolder>() {
+class AllMoviesRecyclerViewAdapter(val picasso: Picasso) :
+    ListAdapter<UIMovie, AllMoviesRecyclerViewAdapter.MoviesViewHolder>
+        (ITEM_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val binding = RecyclerViewMovieItemBinding.inflate(LayoutInflater.from(parent.context),
@@ -30,28 +33,19 @@ class AllMoviesRecyclerViewAdapter:
     }
 
     inner class MoviesViewHolder(
-        private val binding: RecyclerViewMovieItemBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+        private val binding: RecyclerViewMovieItemBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UIMovie) {
-            //binding.name.text = item.name
-           // binding.itemMovieImageView.setImageResource(item.image)
+            binding.itemMovieTitleTextView.text = item.name
+            picasso.load(ApiConstants.BASE_IMAGE_ENDPOINT + "original" + item.image).into(binding.itemMovieImageView)
         }
-    }
-
-    /**
-     * Returns the total number of items in the data set held by the adapter.
-     *
-     * @return The total number of items in this adapter.
-     */
-    override fun getItemCount(): Int {
-        var itemCount =
     }
 
 }
 
 private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<UIMovie>() {
-    override fun areItemsTheSame(oldItem: UIMovie, newItem: UIMovie): Boolean{
+    override fun areItemsTheSame(oldItem: UIMovie, newItem: UIMovie): Boolean {
         return oldItem.id == newItem.id
     }
 

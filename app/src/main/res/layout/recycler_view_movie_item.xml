@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recycler_view_item_container"
     android:orientation="vertical"
-    android:layout_width="@dimen/all_movies_recycle_view_layout_width"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/itemRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/all_movies_image_width"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:cardCornerRadius="@dimen/default_card_corner_radius"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,38 +26,28 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/itemMovieTitleTextView"
-        android:layout_width="@dimen/default_movie_title_width"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/default_movie_title_height"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/titles"
         android:textAlignment="center"
         android:textColor="@color/titles_text_color"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/itemRecyclerView"
         app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView"
-        tools:text="Filme"
+        tools:text="Ford vs Ferrari"
         tools:textSize="32dp"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/itemFavoritedImageView"
-        android:layout_width="@dimen/default_rating_image_width"
-        android:layout_height="@dimen/default_rating_image_width"
-        android:layout_gravity="center"
-        android:background="@drawable/heartbuttonpressed"
-        android:textAlignment="gravity"
-        app:layout_constraintBottom_toBottomOf="@+id/itemMovieTitleTextView"
-        app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/itemNotFavoritedImageView"
         android:layout_width="@dimen/default_rating_image_width"
-        android:layout_height="@dimen/default_rating_image_width"
-        android:layout_gravity="center"
-        android:background="@drawable/heartbuttonnotpressed"
-        app:layout_constraintBottom_toBottomOf="@+id/itemMovieTitleTextView"
-        app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/heartbuttonnotpressed"
+        app:layout_constraintStart_toEndOf="@id/itemMovieTitleTextView"
+        app:layout_constraintBottom_toBottomOf="@id/itemMovieTitleTextView"
+        app:layout_constraintTop_toTopOf="@id/itemMovieTitleTextView"
+        android:layout_marginStart="8dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/itemRatingTitleTextView"
@@ -67,9 +57,10 @@
         android:fontFamily="@font/rating_text"
         android:textAlignment="gravity"
         android:textColor="@color/rating_text_color"
-        app:layout_constraintEnd_toStartOf="@+id/itemFavoritedImageView"
-        app:layout_constraintStart_toStartOf="@+id/itemMovieTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/itemMovieTitleTextView"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/itemRatingImageView"
+        app:layout_constraintTop_toBottomOf="@id/itemMovieTitleTextView"
         tools:text="80%"
         tools:textSize="18dp" />
 
@@ -77,11 +68,11 @@
         android:id="@+id/itemRatingImageView"
         android:layout_width="@dimen/default_rating_image_width"
         android:layout_height="@dimen/default_rating_image_width"
-        android:layout_gravity="center"
-        android:background="@drawable/starrating"
-        android:textAlignment="gravity"
-        app:layout_constraintEnd_toStartOf="@+id/itemRatingTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/itemMovieTitleTextView" />
+        android:src="@drawable/starrating"
+        app:layout_constraintStart_toStartOf="@id/itemMovieTitleTextView"
+        app:layout_constraintTop_toTopOf="@id/itemRatingTitleTextView"
+        app:layout_constraintEnd_toEndOf="@id/itemMovieTitleTextView"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingTitleTextView"/>
 
 
 
