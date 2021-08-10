@@ -1,39 +1,43 @@
 package com.example.projeto_integrador.features.feed.di
 
 import com.example.projeto_integrador.common.data.MoviesRepositoryImpl
-import com.example.projeto_integrador.common.data.di.ApiMovieModule
-import com.example.projeto_integrador.common.data.di.picassoModule
+import com.example.projeto_integrador.common.data.api.models.TmdbApi
+import com.example.projeto_integrador.common.data.api.models.mappers.ApiDiscoverMapper
+import com.example.projeto_integrador.common.data.api.models.mappers.ApiMovieMapper
+import com.example.projeto_integrador.common.data.di.ApiService
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
-import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMovies
-import com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment
-import com.example.projeto_integrador.features.feed.presentation.AllMoviesFragmentViewModel
+import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
+import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
 internal val allMoviesModule = module {
 
+    //Service
+    factory { ApiService(retrofit = get()).createService(TmdbApi::class.java)}
+
     factory<MoviesRepository> {
-        MoviesRepositoryImpl(get(), get())
+        MoviesRepositoryImpl(
+            api = get(),
+            apiDiscoverMapper =  ApiDiscoverMapper(
+            apiMovieMapper = ApiMovieMapper()
+            )
+        )
     }
 
     //Use cases
     factory {
-        RequestNextPageOfMovies(get())
-        GetMovies(get())
+        RequestNextPageOfMoviesUseCase(get())
     }
 
     viewModel {
-        AllMoviesFragmentViewModel(
+        AllMoviesViewModel(
             uiMovieMapper = get(),
-            requestNextPageOfMovies = get(),
-            dispatchersProvider = get(),
-            compositeDisposable = get(),
-            getMovies = get()
+            requestNextPageOfMoviesUseCase = get(),
+            dispatchersProvider = get()
         )
     }
-
-    factory<AllMoviesFragment> { get() }
 
 }
 

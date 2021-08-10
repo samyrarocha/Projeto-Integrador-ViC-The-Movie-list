@@ -9,7 +9,7 @@ data class Movie(
     val favorite: Boolean = false,
     val discoverPosterPath: String
 ) {
-    val aproval: Int
+    val popularity: Int
         get() = discoverVoteAverage.times(10)
 
 }

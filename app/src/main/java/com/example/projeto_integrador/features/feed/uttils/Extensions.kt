@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 
 inline fun CoroutineScope.createExceptionHandler(
-    message: String,
+    message: Int,
     crossinline action: (throwable: Throwable) -> Unit
 ) = CoroutineExceptionHandler { _, throwable ->
     throwable.printStackTrace()

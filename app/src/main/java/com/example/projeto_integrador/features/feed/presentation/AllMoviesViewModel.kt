@@ -5,30 +5,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.projeto_integrador.R
 import com.example.projeto_integrador.common.domain.model.NetworkUnavailableException
 import com.example.projeto_integrador.common.domain.model.NoMoreMoviesException
 import com.example.projeto_integrador.common.domain.model.movies.Discover
 import com.example.projeto_integrador.common.domain.model.movies.Movie
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
-import com.example.projeto_integrador.features.feed.di.GetMovies
-import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMovies
+import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProvider
 import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AllMoviesFragmentViewModel
-    (
+class AllMoviesViewModel(
     private val uiMovieMapper: UiMovieMapper,
-    private val requestNextPageOfMovies: RequestNextPageOfMovies,
-    private val getMovies: GetMovies,
-    private val  dispatchersProvider: DispatchersProvider,
-    private val compositeDisposable: CompositeDisposable
-        ): ViewModel() {
+    private val requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase,
+    private val dispatchersProvider: DispatchersProvider,
+): ViewModel() {
 
     companion object {
         const val UI_PAGE_SIZE = DEFAULT_BUFFER_SIZE
@@ -36,6 +31,7 @@ class AllMoviesFragmentViewModel
 
     private val _state = MutableLiveData<AllMoviesViewState>()
     val state: LiveData<AllMoviesViewState>  = _state
+
     var isLoadingMoreMovies: Boolean = false
     var isLastPage = false
 
@@ -46,7 +42,6 @@ class AllMoviesFragmentViewModel
         subscribeToMovieUpdate()
     }
 
-
     fun onEvent(event: AllMoviesEvent){
         when(event) {
             is AllMoviesEvent.RequestInitialMoviesList -> loadMovies()
@@ -55,43 +50,40 @@ class AllMoviesFragmentViewModel
     }
 
     private fun subscribeToMovieUpdate() {
-        getMovies()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {onNewMovieList(it)},
-                {onFailure(it)}
-            )
-            .addTo(compositeDisposable)
+        viewModelScope.launch {
+            runCatching {
+                withContext(Dispatchers.IO) {
+                    requestNextPageOfMoviesUseCase(page++)
+                }
+            }.onSuccess {
+                onNewMovieList(it.movies)
+            }.onFailure {
+                onFailure(it)
+            }
+        }
     }
 
     fun onNewMovieList(movies: List<Movie>) {
-        val allMovies = movies.map { uiMovieMapper.mapToView(it) }
-
-        val currentList = state.value!!.movies
-        val newMovie = allMovies.subtract(currentList)
-        val updateList = currentList + newMovie
-
-        _state.value = state.value!!.copy(
+        _state.value = _state.value?.copy(
             loading = false,
-            movies = updateList
+            movies = movies.map { uiMovieMapper.mapToView(it) }
         )
     }
 
     private fun loadMovies() {
-        if (state.value!!.movies.isEmpty()) {
+        if (state.value?.movies?.isEmpty() == true) {
             loadNextMoviePage()
         }
     }
 
     private fun loadNextMoviePage() {
-        val errorMessage = "Failed to fetch movies"
-        val exceptionHandler = viewModelScope.createExceptionHandler(errorMessage){
+        val exceptionHandler = viewModelScope.createExceptionHandler(R.string.an_error_occurred){
             onFailure(it)
         }
 
         viewModelScope.launch(exceptionHandler) {
             val discover = withContext(dispatchersProvider.io()) {
-                requestNextPageOfMovies(++page)
+                requestNextPageOfMoviesUseCase(++page)
             }
             onPaginationInfoObtained(discover)
         }
@@ -106,22 +98,18 @@ class AllMoviesFragmentViewModel
         when(failure) {
             is NetworkErrorException,
             is NetworkUnavailableException -> {
-                _state.value = state.value!!.copy(
+                _state.value = _state.value?.copy(
                     loading = false,
                     failure = Event(failure)
                 )
             }
             is NoMoreMoviesException -> {
-                _state.value = state.value!!.copy(
+                _state.value = _state.value?.copy(
+                    loading = false,
                     noMoreMovies = true,
                     failure = Event(failure)
                 )
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
     }
 }

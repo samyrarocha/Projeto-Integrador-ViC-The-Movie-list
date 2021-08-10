@@ -4,8 +4,6 @@ import com.example.projeto_integrador.common.data.api.interceptors.LoggingInterc
 import com.example.projeto_integrador.common.data.api.interceptors.NetworkStatusInterceptor
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.data.api.models.ConnectionManager
-import com.example.projeto_integrador.common.data.api.models.TmdbApi
-import com.example.projeto_integrador.features.feed.di.allMoviesModule
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,7 +18,6 @@ val ApiMovieModule = module {
     single { HttpLoggingInterceptor() }
     single { ConnectionManager(context = androidContext()) }
     factory<Interceptor> { NetworkStatusInterceptor(connectionManager = get()) }
-    factory { ApiService(retrofit = get()).createService(TmdbApi::class.java)}
     single {
         provideImageOkHttpClient(
             httpLoggingInterceptor = get(),

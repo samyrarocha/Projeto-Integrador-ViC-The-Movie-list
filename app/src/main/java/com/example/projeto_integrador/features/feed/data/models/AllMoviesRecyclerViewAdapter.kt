@@ -6,15 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
-import com.example.projeto_integrador.common.data.api.models.ApiDiscover
-import com.example.projeto_integrador.common.data.api.models.MovieResponse
-import com.example.projeto_integrador.common.domain.model.movies.Discover
+import com.example.projeto_integrador.common.domain.model.movies.MediaSizes
 import com.example.projeto_integrador.databinding.RecyclerViewMovieItemBinding
 import com.squareup.picasso.Picasso
-import retrofit2.Retrofit
 
 
-class AllMoviesRecyclerViewAdapter(val picasso: Picasso) :
+class AllMoviesRecyclerViewAdapter :
     ListAdapter<UIMovie, AllMoviesRecyclerViewAdapter.MoviesViewHolder>
         (ITEM_COMPARATOR) {
 
@@ -38,10 +35,17 @@ class AllMoviesRecyclerViewAdapter(val picasso: Picasso) :
 
         fun bind(item: UIMovie) {
             binding.itemMovieTitleTextView.text = item.name
-            picasso.load(ApiConstants.BASE_IMAGE_ENDPOINT + "original" + item.image).into(binding.itemMovieImageView)
+            Picasso.get()
+                .load(
+                ApiConstants.BASE_IMAGE_ENDPOINT
+                        + MediaSizes.ORIGINAL
+                        + item.image
+                )
+                .into(
+                    binding.itemMovieImageView
+                )
         }
     }
-
 }
 
 private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<UIMovie>() {

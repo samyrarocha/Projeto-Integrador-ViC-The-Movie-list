@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
@@ -15,22 +14,18 @@ import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
-import org.koin.android.ext.android.inject
 
 class AllMoviesFragment: Fragment() {
 
     companion object {
-        private const val ITEMS_PER_ROW = 1
         const val ARG_POSITION = "position"
     }
 
     private val binding get() = _binding!!
 
-    private val viewModel: AllMoviesFragmentViewModel by viewModels()
+    private val viewModel: AllMoviesViewModel by viewModel
     private var _binding: FragmentAllMoviesBinding? = null
 
-    private val picasso:Picasso by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +60,7 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun createRecyclerViewAdapter(): AllMoviesRecyclerViewAdapter {
-        return AllMoviesRecyclerViewAdapter(picasso = picasso)
+        return AllMoviesRecyclerViewAdapter()
     }
 
     private fun setupRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
@@ -87,7 +82,7 @@ class AllMoviesFragment: Fragment() {
     ): RecyclerView.OnScrollListener {
         return object: InfiniteScrollListener(
             layoutManager,
-            AllMoviesFragmentViewModel.UI_PAGE_SIZE
+            AllMoviesViewModel.UI_PAGE_SIZE
         ) {
             override fun loadMoreItems() {requestMoreMovies()}
             override fun isLoading(): Boolean = viewModel.isLoadingMoreMovies

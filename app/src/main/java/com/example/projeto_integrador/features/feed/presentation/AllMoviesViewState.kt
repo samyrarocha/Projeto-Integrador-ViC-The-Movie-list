@@ -7,5 +7,6 @@ data class AllMoviesViewState(
     val loading: Boolean = true,
     val movies: List<UIMovie> = emptyList(),
     val noMoreMovies: Boolean = false,
-    val failure: Event<Throwable>? = null
+    val failure: Event<Throwable>? = null,
+    val message: Int? = null
 )

@@ -2,7 +2,6 @@ package com.example.projeto_integrador
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.projeto_integrador.databinding.ActivityMainBinding
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment
 
 
