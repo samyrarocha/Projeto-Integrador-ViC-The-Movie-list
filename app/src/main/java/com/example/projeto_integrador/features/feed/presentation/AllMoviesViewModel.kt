@@ -14,6 +14,7 @@ import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProvider
+import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +23,7 @@ import kotlinx.coroutines.withContext
 class AllMoviesViewModel(
     private val uiMovieMapper: UiMovieMapper,
     private val requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase,
-    private val dispatchersProvider: DispatchersProvider,
+    private val dispatchersProvider: DispatchersProviderImp,
 ): ViewModel() {
 
     companion object {

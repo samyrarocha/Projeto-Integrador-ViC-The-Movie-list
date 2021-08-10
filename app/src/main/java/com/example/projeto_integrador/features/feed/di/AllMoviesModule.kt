@@ -6,8 +6,11 @@ import com.example.projeto_integrador.common.data.api.models.mappers.ApiDiscover
 import com.example.projeto_integrador.common.data.api.models.mappers.ApiMovieMapper
 import com.example.projeto_integrador.common.data.di.ApiService
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
+import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
+import com.example.projeto_integrador.features.feed.uttils.DispatchersProvider
+import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
@@ -31,9 +34,11 @@ internal val allMoviesModule = module {
         RequestNextPageOfMoviesUseCase(get())
     }
 
+    single { DispatchersProviderImp() as DispatchersProvider }
+
     viewModel {
         AllMoviesViewModel(
-            uiMovieMapper = get(),
+            uiMovieMapper = UiMovieMapper(),
             requestNextPageOfMoviesUseCase = get(),
             dispatchersProvider = get()
         )

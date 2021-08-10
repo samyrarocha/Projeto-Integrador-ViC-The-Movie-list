@@ -14,6 +14,7 @@ import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllMoviesFragment: Fragment() {
 
@@ -23,7 +24,7 @@ class AllMoviesFragment: Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: AllMoviesViewModel by viewModel
+    private val viewModel: AllMoviesViewModel by viewModel()
     private var _binding: FragmentAllMoviesBinding? = null
 
 
@@ -35,7 +36,6 @@ class AllMoviesFragment: Fragment() {
         _binding = FragmentAllMoviesBinding.inflate(inflater, container, false)
 
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

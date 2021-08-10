@@ -15,27 +15,32 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 val ApiMovieModule = module {
-    single { HttpLoggingInterceptor() }
+    single { HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT) }
     single { ConnectionManager(context = androidContext()) }
-    factory<Interceptor> { NetworkStatusInterceptor(connectionManager = get()) }
+    factory<Interceptor> { NetworkStatusInterceptor(
+        connectionManager = ConnectionManager(
+            context = androidContext()
+        )
+    )
+    }
     single {
-        provideImageOkHttpClient(
+        provideOkHttpClient(
             httpLoggingInterceptor = get(),
             networkStatusInterceptor = get()
         )
     }
-    single { provideImageRetrofit(okHttpClient = get()) }
+    single { provideRetrofit(okHttpClient = OkHttpClient()) }
 
 }
 
-    fun provideImageRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_ENDPOINT)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create()).build()
     }
 
-    fun provideImageOkHttpClient(
+    fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         networkStatusInterceptor: NetworkStatusInterceptor
     ): OkHttpClient {
