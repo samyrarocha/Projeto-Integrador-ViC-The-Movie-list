@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
-import com.example.projeto_integrador.databinding.GenreButtonRecyclerViewBinding
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
@@ -69,7 +68,7 @@ class AllMoviesFragment: Fragment() {
     private fun setupMovieRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
         binding.moviesRecyclerView.apply {
             adapter = allMoviesRecyclerViewAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addOnScrollListener(createInfiniteScrollListener (layoutManager as LinearLayoutManager))
 

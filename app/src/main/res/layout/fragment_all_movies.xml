@@ -5,7 +5,6 @@
     android:id="@+id/fragment_all_movies_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:backgroundTint="@color/background_color"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -23,7 +22,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movies_recycler_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:descendantFocusability="blocksDescendants"
         app:layout_constraintStart_toStartOf="parent"
