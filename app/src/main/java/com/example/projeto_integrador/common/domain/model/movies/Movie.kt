@@ -5,11 +5,11 @@ import android.media.Image
 data class Movie(
     val discoverMovieId: Long,
     val discoverMovieTitle: String,
-    val discoverVoteAverage: Int,
+    val discoverVoteAverage: Float,
     val favorite: Boolean = false,
     val discoverPosterPath: String
 ) {
-    val popularity: Int
+    val popularity: Float
         get() = discoverVoteAverage.times(10)
 
 }

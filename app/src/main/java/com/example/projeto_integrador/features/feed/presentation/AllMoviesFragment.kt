@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
+import com.example.projeto_integrador.databinding.GenreButtonRecyclerViewBinding
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter

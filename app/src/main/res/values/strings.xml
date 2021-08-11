@@ -3,6 +3,7 @@
     <string name="itemMovieTitle">itemMovieTitle</string>
     <string name="search_for_movie_hint_text">Pesquisar por um filme...</string>
     <string name="an_error_occurred">O sistema falhou</string>
+    <string name="no_more_movies">Você chegou ao final da lista</string>
     <string name="all_movies_tab">Todos os filmes</string>
     <string name="favorite_tab">Favoritos</string>
 </resources>

@@ -36,7 +36,7 @@ class AllMoviesViewModel(
     var isLoadingMoreMovies: Boolean = false
     var isLastPage = false
 
-    private var page = 0
+    private var page = 1
 
     init {
         _state.value = AllMoviesViewState(loading = true)
@@ -54,7 +54,7 @@ class AllMoviesViewModel(
         viewModelScope.launch {
             runCatching {
                 withContext(Dispatchers.IO) {
-                    requestNextPageOfMoviesUseCase(page++)
+                    requestNextPageOfMoviesUseCase(++page)
                 }
             }.onSuccess {
                 onNewMovieList(it.movies)
@@ -78,7 +78,7 @@ class AllMoviesViewModel(
     }
 
     private fun loadNextMoviePage() {
-        val exceptionHandler = viewModelScope.createExceptionHandler(R.string.an_error_occurred){
+        val exceptionHandler = viewModelScope.createExceptionHandler(R.string.no_more_movies){
             onFailure(it)
         }
 

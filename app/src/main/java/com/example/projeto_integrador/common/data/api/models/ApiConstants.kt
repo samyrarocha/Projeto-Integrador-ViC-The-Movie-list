@@ -8,9 +8,9 @@ object ApiConstants {
     const val CONTENT_TYPE_ENDPOINT = "application/json;charset=utf-8"
 
     const val MOVIES_ENDPOINT = "movies"
-    const val GENRE_ENDPOINT = "genre"
-    const val SEARCH_ENDPOINT = "search"
-    const val DISCOVER_ENDPOINT = "discover"
+    const val GENRE_ENDPOINT = "genre/movie/list"
+    const val SEARCH_ENDPOINT = "search/company"
+    const val DISCOVER_ENDPOINT = "discover/movie"
 
 }
 

@@ -5,7 +5,6 @@ import com.example.projeto_integrador.common.data.api.interceptors.LoggingInterc
 import com.example.projeto_integrador.common.data.api.interceptors.NetworkStatusInterceptor
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.data.api.models.ConnectionManager
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -18,7 +17,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 val ApiMovieModule = module {
     single { HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT) }
     single { ConnectionManager(context = androidContext()) }
-    factory<Interceptor> { NetworkStatusInterceptor(
+    single { NetworkStatusInterceptor(
         connectionManager = ConnectionManager(
             context = androidContext()
         )
@@ -31,7 +30,8 @@ val ApiMovieModule = module {
             apiKeyInterceptor = ApiKeyInterceptor()
         )
     }
-    single { provideRetrofit(okHttpClient = OkHttpClient()) }
+    single { provideRetrofit(okHttpClient = get()) }
+
 }
 
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {

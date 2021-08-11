@@ -11,7 +11,6 @@ class ApiKeyInterceptor: Interceptor {
 
         val originalHttpUrl = originalRequest.url
 
-        // TODO ==== This block adds query params to - If not in use just remove the block
         val httpUrlBuilder = originalHttpUrl.newBuilder()
             .addQueryParameter("api_key", BuildConfig.API_KEY)
             .build()
