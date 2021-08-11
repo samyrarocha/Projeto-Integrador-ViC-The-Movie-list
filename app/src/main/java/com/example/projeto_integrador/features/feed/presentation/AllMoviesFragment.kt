@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
-import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
+import com.example.projeto_integrador.features.feed.data.models.Event
+import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,6 +37,7 @@ class AllMoviesFragment: Fragment() {
         _binding = FragmentAllMoviesBinding.inflate(inflater, container, false)
 
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,30 +48,39 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun setupUI() {
-        val adapter = createRecyclerViewAdapter()
-        setupRecyclerView(adapter)
-        observeViewStateUpdates(adapter)
+        val movieRecyclerViewAdapter = createMoviesRecyclerViewAdapter()
+        val genreRecyclerViewAdapter = createGenreRecyclerViewAdapter()
+        setupMovieRecyclerView(movieRecyclerViewAdapter)
+        observeMovieViewStateUpdates(movieRecyclerViewAdapter)
+        setupGenreRecyclerView(genreRecyclerViewAdapter)
+        observeGenreViewStateUpdates(genreRecyclerViewAdapter)
     }
 
-    fun getInstance(position: Int): Fragment {
-        val allMoviesFragment = AllMoviesFragment()
-        val bundle = Bundle()
-        bundle.putInt(ARG_POSITION, position)
-        allMoviesFragment.arguments = bundle
-        return allMoviesFragment
-    }
 
-    private fun createRecyclerViewAdapter(): AllMoviesRecyclerViewAdapter {
+    private fun createMoviesRecyclerViewAdapter(): AllMoviesRecyclerViewAdapter {
         return AllMoviesRecyclerViewAdapter()
     }
 
-    private fun setupRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
+    private fun createGenreRecyclerViewAdapter(): GenreRecyclerViewAdapter {
+        return GenreRecyclerViewAdapter()
+    }
+
+    private fun setupMovieRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
         binding.moviesRecyclerView.apply {
             adapter = allMoviesRecyclerViewAdapter
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            addOnScrollListener(createInfiniteSrollListener (layoutManager as LinearLayoutManager))
+            addOnScrollListener(createInfiniteScrollListener (layoutManager as LinearLayoutManager))
 
+        }
+    }
+
+    private fun setupGenreRecyclerView(genreRecyclerViewAdapter: GenreRecyclerViewAdapter) {
+        binding.genreButtonRecyclerView.apply {
+            adapter = genreRecyclerViewAdapter
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            addOnScrollListener(createInfiniteScrollListener (layoutManager as LinearLayoutManager))
         }
     }
 
@@ -77,7 +88,7 @@ class AllMoviesFragment: Fragment() {
         viewModel.onEvent(AllMoviesEvent.RequestInitialMoviesList)
     }
 
-    private fun createInfiniteSrollListener(
+    private fun createInfiniteScrollListener(
         layoutManager: LinearLayoutManager
     ): RecyclerView.OnScrollListener {
         return object: InfiniteScrollListener(
@@ -90,9 +101,19 @@ class AllMoviesFragment: Fragment() {
         }
     }
 
-    private fun observeViewStateUpdates(recyclerViewAdapterAll: AllMoviesRecyclerViewAdapter) {
+    private fun observeMovieViewStateUpdates(
+        recyclerViewAdapterAll: AllMoviesRecyclerViewAdapter
+    ) {
         viewModel.state.observe(viewLifecycleOwner) {
-            updateScreenState(it, recyclerViewAdapterAll)
+            updateMoviesScreenState(it, recyclerViewAdapterAll)
+        }
+    }
+
+    private fun observeGenreViewStateUpdates(
+        genreRecyclerViewAdapter: GenreRecyclerViewAdapter
+    ) {
+        viewModel.state.observe(viewLifecycleOwner) {
+            updateGenreScreenState(it, genreRecyclerViewAdapter)
         }
     }
 
@@ -100,16 +121,29 @@ class AllMoviesFragment: Fragment() {
         viewModel.onEvent(AllMoviesEvent.RequestMoreMovies)
     }
 
-    private fun updateScreenState(state: AllMoviesViewState, adapter: AllMoviesRecyclerViewAdapter) {
+    private fun updateMoviesScreenState(
+        state: AllMoviesViewState,
+        allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter
+    ) {
         binding.progressBar.isVisible = state.loading
-        adapter.submitList(state.movies)
+        allMoviesRecyclerViewAdapter.submitList(state.movies)
         handleNoMoreMovies(state.noMoreMovies)
         handleFailures(state.failure)
     }
 
-    private fun handleNoMoreMovies(noMoreMovies: Boolean) {
-
+    private fun updateGenreScreenState(
+        state: AllMoviesViewState,
+        genreRecyclerViewAdapter: GenreRecyclerViewAdapter
+    ) {
+        binding.progressBar.isVisible = state.loading
+        genreRecyclerViewAdapter.submitList(state.genre)
+        handleNoMoreGenres(state.noMoreGenre)
+        handleFailures(state.failure)
     }
+
+    private fun handleNoMoreMovies(noMoreMovies: Boolean) { }
+
+    private fun handleNoMoreGenres(noMoreGenres: Boolean) { }
 
     private fun handleFailures(failure: Event<Throwable>?) {
         val unhandledFailure = failure?.getContentIfNotHandled() ?: return

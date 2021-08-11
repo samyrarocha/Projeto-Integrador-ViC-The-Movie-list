@@ -27,7 +27,7 @@ class AllMoviesViewModel(
 ): ViewModel() {
 
     companion object {
-        const val UI_PAGE_SIZE = DEFAULT_BUFFER_SIZE
+        const val UI_PAGE_SIZE = 20
     }
 
     private val _state = MutableLiveData<AllMoviesViewState>()

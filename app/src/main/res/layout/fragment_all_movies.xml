@@ -10,13 +10,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/genreButton_recycler_view"
+        android:id="@+id/genreButtonRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="24dp"
-        tools:layoutManager="LinearLayoutManager"
+        app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/genre_button_recycler_view"
         tools:spanCount="2" />
 
@@ -27,9 +27,9 @@
         android:descendantFocusability="blocksDescendants"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/genreButton_recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/genreButtonRecyclerView"
         android:layout_marginTop="24dp"
-        tools:layoutManager="LinearLayoutManager"
+        app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/recycler_view_movie_item"
         tools:spanCount="1" />
 

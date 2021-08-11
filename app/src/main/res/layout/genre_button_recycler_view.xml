@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/genreButtonCardView"
+        android:id="@+id/genreButtonRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/genre_button_height"
         app:cardCornerRadius="@dimen/genre_button_corner_radius"
@@ -20,19 +20,19 @@
             android:layout_height="@dimen/genre_button_height"
             android:alpha="0.15"
             android:background="#28303D"
-            app:layout_constraintStart_toStartOf="@id/genreButtonCardView"
-            app:layout_constraintEnd_toEndOf="@id/genreButtonCardView"
-            app:layout_constraintTop_toTopOf="@id/genreButtonCardView"/>
+            app:layout_constraintStart_toStartOf="@id/genreButtonRecyclerView"
+            app:layout_constraintEnd_toEndOf="@id/genreButtonRecyclerView"
+            app:layout_constraintTop_toTopOf="@id/genreButtonRecyclerView"/>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView"
+        android:id="@+id/genreButtontextView"
         android:layout_width="@dimen/genre_button_text_width"
         android:layout_height="@dimen/genre_button_text_height"
-        app:layout_constraintStart_toStartOf="@id/genreButtonCardView"
-        app:layout_constraintEnd_toEndOf="@id/genreButtonCardView"
-        app:layout_constraintTop_toTopOf="@id/genreButtonCardView"
+        app:layout_constraintStart_toStartOf="@id/genreButtonRecyclerView"
+        app:layout_constraintEnd_toEndOf="@id/genreButtonRecyclerView"
+        app:layout_constraintTop_toTopOf="@id/genreButtonRecyclerView"
         android:layout_marginTop="8dp"
         android:textColor="@color/genre_button_text_color"
         tools:text="Ação"/>

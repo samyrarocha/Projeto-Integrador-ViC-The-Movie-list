@@ -1,5 +1,6 @@
 package com.example.projeto_integrador.common.data.di
 
+import com.example.projeto_integrador.common.data.api.interceptors.ApiKeyInterceptor
 import com.example.projeto_integrador.common.data.api.interceptors.LoggingInterceptor
 import com.example.projeto_integrador.common.data.api.interceptors.NetworkStatusInterceptor
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
@@ -26,27 +27,30 @@ val ApiMovieModule = module {
     single {
         provideOkHttpClient(
             httpLoggingInterceptor = get(),
-            networkStatusInterceptor = get()
+            networkStatusInterceptor = get(),
+            apiKeyInterceptor = ApiKeyInterceptor()
         )
     }
     single { provideRetrofit(okHttpClient = OkHttpClient()) }
-
 }
 
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_ENDPOINT)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create()).build()
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
     }
 
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        networkStatusInterceptor: NetworkStatusInterceptor
+        networkStatusInterceptor: NetworkStatusInterceptor,
+        apiKeyInterceptor: ApiKeyInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(networkStatusInterceptor)
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(apiKeyInterceptor)
             .build()
     }
 
