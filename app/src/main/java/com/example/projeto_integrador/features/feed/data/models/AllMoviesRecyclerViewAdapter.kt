@@ -38,7 +38,7 @@ class AllMoviesRecyclerViewAdapter :
             Picasso.get()
                 .load(
                 ApiConstants.BASE_IMAGE_ENDPOINT
-                        + MediaSizes.ORIGINAL
+                        + MediaSizes.original
                         + item.image
                 )
                 .into(

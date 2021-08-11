@@ -11,9 +11,9 @@ data class Media(val image: List<ImageSize>) {
 
         fun getAvailableImage(): MediaSizes {
             return when {
-                isValidImage(feedPoster) -> MediaSizes.W342
-                isValidImage(detailsPoster) -> MediaSizes.W500
-                else -> return MediaSizes.ORIGINAL
+                isValidImage(feedPoster) -> MediaSizes.w342
+                isValidImage(detailsPoster) -> MediaSizes.w500
+                else -> return MediaSizes.original
             }
         }
 

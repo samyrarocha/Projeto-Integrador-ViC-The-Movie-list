@@ -3,7 +3,7 @@ package com.example.projeto_integrador.common.data.api.models
 object ApiConstants {
 
     const val BASE_ENDPOINT = "https://api.themoviedb.org/3/"
-    const val BASE_IMAGE_ENDPOINT = "http://image.tmdb.org/t/p/"
+    const val BASE_IMAGE_ENDPOINT = "https://image.tmdb.org/t/p/"
     const val AUTH_ENDPOINT = "https://api.themoviedb.org/3/movie/76341"
     const val CONTENT_TYPE_ENDPOINT = "application/json;charset=utf-8"
 
