@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
@@ -69,6 +70,7 @@ class AllMoviesFragment: Fragment() {
     private fun setupMovieRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
         binding.moviesRecyclerView.apply {
             adapter = allMoviesRecyclerViewAdapter
+            LinearSnapHelper().attachToRecyclerView(this)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addOnScrollListener(createInfiniteScrollListener (layoutManager as LinearLayoutManager))

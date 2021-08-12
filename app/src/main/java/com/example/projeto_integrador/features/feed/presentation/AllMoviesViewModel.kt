@@ -66,7 +66,7 @@ class AllMoviesViewModel(
         viewModelScope.launch {
             runCatching {
                 withContext(Dispatchers.IO) {
-                    requestNextPageOfMoviesUseCase(++page)
+                    requestNextPageOfMoviesUseCase(page)
                 }
             }.onSuccess {
                 onNewMovieList(it.movies)
