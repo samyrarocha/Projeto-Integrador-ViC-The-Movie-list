@@ -102,6 +102,7 @@ class AllMoviesViewModel(
             loading = false,
             genre = genre.map { uiGenreMapper.mapToView(it) }
         )
+        _state.value = AllMoviesViewState(loading = false, genre = genre.map { uiGenreMapper.mapToView(it) })
     }
 
     private fun loadMovies() {

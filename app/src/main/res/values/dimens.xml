@@ -36,7 +36,7 @@
     <dimen name="favorited_image_margin_top">1.31dp</dimen>
 
     //Search Edit Text
-    <dimen name="search_edit_text_width">352dp</dimen>
+    <dimen name="search_edit_text_width">300dp</dimen>
     <dimen name="search_edit_text_height">31dp</dimen>
 
     //All Movies tab text view

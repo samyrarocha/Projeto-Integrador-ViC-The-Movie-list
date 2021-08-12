@@ -35,6 +35,7 @@ class AllMoviesRecyclerViewAdapter :
 
         fun bind(item: UIMovie) {
             binding.itemMovieTitleTextView.text = item.name
+            binding.itemRatingTitleTextView.text = item.popularity.toInt().toString() + "%"
             Picasso.get()
                 .load(
                 ApiConstants.BASE_IMAGE_ENDPOINT

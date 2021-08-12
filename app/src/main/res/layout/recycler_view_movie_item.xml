@@ -5,15 +5,17 @@
     android:id="@+id/recycler_view_item_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="24dp"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/itemRecyclerView"
         android:layout_width="@dimen/all_movies_image_width"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
         android:orientation="vertical"
         app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:cardElevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,6 +23,7 @@
             android:id="@+id/itemMovieImageView"
             android:layout_width="@dimen/all_movies_image_width"
             android:layout_height="@dimen/all_movies_image_height"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/itemMovieTitle" />
 
     </androidx.cardview.widget.CardView>
@@ -28,43 +31,48 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/itemMovieTitleTextView"
         android:layout_width="0dp"
-        android:layout_height="@dimen/default_movie_title_height"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/titles"
         android:textAlignment="center"
         android:textColor="@color/titles_text_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/itemNotFavoritedImageView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/itemRecyclerView"
         app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView"
-        tools:text="Ford vs Ferrari"
-        tools:textSize="32dp" />
+        tools:text="Ford vs Ferrari" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/itemNotFavoritedImageView"
-        android:layout_width="@dimen/default_rating_image_width"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:src="@drawable/heartbuttonnotpressed"
         app:layout_constraintBottom_toBottomOf="@id/itemMovieTitleTextView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/itemRecyclerView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
-        app:layout_constraintTop_toTopOf="@id/itemMovieTitleTextView" />
+        app:layout_constraintTop_toTopOf="@id/itemMovieTitleTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/itemRatingTitleTextView"
-        android:layout_width="@dimen/default_rating_title_width"
-        android:layout_height="@dimen/default_rating_title_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/rating_text"
         android:textAlignment="gravity"
         android:textColor="@color/rating_text_color"
-        app:layout_constraintStart_toEndOf="@id/itemRatingImageView"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/itemRatingImageView"
         app:layout_constraintTop_toBottomOf="@id/itemMovieTitleTextView"
         tools:text="80%"
         tools:textSize="18dp" />
@@ -74,9 +82,12 @@
         android:layout_width="@dimen/default_rating_image_width"
         android:layout_height="@dimen/default_rating_image_width"
         android:src="@drawable/starrating"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintBottom_toBottomOf="@id/itemRatingTitleTextView"
         app:layout_constraintEnd_toEndOf="@id/itemMovieTitleTextView"
-        app:layout_constraintStart_toStartOf="@id/itemMovieTitleTextView"
+        app:layout_constraintEnd_toStartOf="@+id/itemRatingTitleTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/itemRatingTitleTextView" />
 
 

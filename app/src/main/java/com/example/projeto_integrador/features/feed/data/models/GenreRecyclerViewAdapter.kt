@@ -30,7 +30,7 @@ class GenreRecyclerViewAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UIGenre) {
-            binding.genreButtontextView.text = item.name
+            binding.genreButton.text = item.name
         }
     }
 }
