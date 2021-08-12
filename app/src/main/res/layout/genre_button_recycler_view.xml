@@ -5,26 +5,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/genreButtonRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/genre_button_height"
-        app:cardCornerRadius="@dimen/genre_button_corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/genreButton"
-            android:layout_width="@dimen/genre_button_width"
-            android:layout_height="@dimen/genre_button_height"
-            android:alpha="0.15"
-            android:background="#28303D"
-            app:layout_constraintStart_toStartOf="@id/genreButtonRecyclerView"
-            app:layout_constraintEnd_toEndOf="@id/genreButtonRecyclerView"
-            app:layout_constraintTop_toTopOf="@id/genreButtonRecyclerView"/>
-
-    </androidx.cardview.widget.CardView>
+        android:alpha="0.15"
+        android:background="#28303D"
+        app:layout_constraintStart_toStartOf="@id/genreButtonRecyclerView"
+        app:layout_constraintEnd_toEndOf="@id/genreButtonRecyclerView"
+        app:layout_constraintTop_toTopOf="@id/genreButtonRecyclerView"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/genreButtontextView"

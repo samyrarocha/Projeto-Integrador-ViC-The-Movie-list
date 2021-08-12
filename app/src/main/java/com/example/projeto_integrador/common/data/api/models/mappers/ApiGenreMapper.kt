@@ -4,7 +4,7 @@ import com.example.projeto_integrador.common.data.api.models.ApiGenre
 import com.example.projeto_integrador.common.domain.model.movies.Genre
 
 
-class ApiGenrerMapper: ApiMapper<ApiGenre, Genre> {
+class ApiGenreMapper: ApiMapper<ApiGenre, Genre> {
 
     override fun mapToDomain(apiEntity: ApiGenre): Genre {
         return Genre(

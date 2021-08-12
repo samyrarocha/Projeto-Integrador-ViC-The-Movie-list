@@ -45,6 +45,7 @@ class AllMoviesFragment: Fragment() {
 
         setupUI()
         requestInitialMovieList()
+        requestGenreList()
     }
 
     private fun setupUI() {
@@ -85,7 +86,11 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun requestInitialMovieList() {
-        viewModel.onEvent(AllMoviesEvent.RequestInitialMoviesList)
+        viewModel.onMoviesEvent(AllMoviesEvent.RequestInitialMoviesList)
+    }
+
+    private fun requestGenreList() {
+        viewModel.onGenreEvent(GenreEvent.RequestGenreList)
     }
 
     private fun createInfiniteScrollListener(
@@ -118,7 +123,7 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun requestMoreMovies() {
-        viewModel.onEvent(AllMoviesEvent.RequestMoreMovies)
+        viewModel.onMoviesEvent(AllMoviesEvent.RequestMoreMovies)
     }
 
     private fun updateMoviesScreenState(

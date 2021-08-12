@@ -9,9 +9,12 @@ import com.example.projeto_integrador.R
 import com.example.projeto_integrador.common.domain.model.NetworkUnavailableException
 import com.example.projeto_integrador.common.domain.model.NoMoreMoviesException
 import com.example.projeto_integrador.common.domain.model.movies.Discover
+import com.example.projeto_integrador.common.domain.model.movies.Genre
 import com.example.projeto_integrador.common.domain.model.movies.Movie
 import com.example.projeto_integrador.features.feed.data.models.Event
+import com.example.projeto_integrador.features.feed.data.models.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
+import com.example.projeto_integrador.features.feed.domain.usecases.GenreListUseCase
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProvider
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
@@ -22,7 +25,9 @@ import kotlinx.coroutines.withContext
 
 class AllMoviesViewModel(
     private val uiMovieMapper: UiMovieMapper,
+    private val uiGenreMapper: UiGenreMapper,
     private val requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase,
+    private val genreListUseCase: GenreListUseCase,
     private val dispatchersProvider: DispatchersProviderImp,
 ): ViewModel() {
 
@@ -41,12 +46,19 @@ class AllMoviesViewModel(
     init {
         _state.value = AllMoviesViewState(loading = true)
         subscribeToMovieUpdate()
+        subscribeToGenreUpdate()
     }
 
-    fun onEvent(event: AllMoviesEvent){
+    fun onMoviesEvent(event: AllMoviesEvent){
         when(event) {
             is AllMoviesEvent.RequestInitialMoviesList -> loadMovies()
             is AllMoviesEvent.RequestMoreMovies -> loadNextMoviePage()
+        }
+    }
+
+    fun onGenreEvent(event: GenreEvent){
+        when(event) {
+            is GenreEvent.RequestGenreList -> loadGenres()
         }
     }
 
@@ -64,10 +76,31 @@ class AllMoviesViewModel(
         }
     }
 
+    private fun subscribeToGenreUpdate() {
+        viewModelScope.launch {
+            runCatching {
+                withContext(Dispatchers.IO) {
+                    genreListUseCase()
+                }
+            }.onSuccess {
+                onNewGenreList(it)
+            }.onFailure {
+                onFailure(it)
+            }
+        }
+    }
+
     fun onNewMovieList(movies: List<Movie>) {
         _state.value = _state.value?.copy(
             loading = false,
             movies = movies.map { uiMovieMapper.mapToView(it) }
+        )
+    }
+
+    fun onNewGenreList(genre: List<Genre>) {
+        _state.value = _state.value?.copy(
+            loading = false,
+            genre = genre.map { uiGenreMapper.mapToView(it) }
         )
     }
 
@@ -76,6 +109,8 @@ class AllMoviesViewModel(
             loadNextMoviePage()
         }
     }
+
+    private fun loadGenres() {}
 
     private fun loadNextMoviePage() {
         val exceptionHandler = viewModelScope.createExceptionHandler(R.string.no_more_movies){

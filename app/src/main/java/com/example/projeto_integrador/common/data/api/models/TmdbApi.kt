@@ -31,6 +31,6 @@ interface TmdbApi {
     @GET(ApiConstants.GENRE_ENDPOINT) // 1
     suspend fun getGenre( // 2
         @Query(ApiParameters.LANGUAGE) dataLanguage: String// 3
-    ): ApiGenre// 4
+    ): ApiGenreList// 4
 
 }
