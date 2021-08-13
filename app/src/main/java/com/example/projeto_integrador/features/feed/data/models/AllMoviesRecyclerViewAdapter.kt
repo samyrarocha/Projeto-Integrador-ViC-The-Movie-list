@@ -30,7 +30,7 @@ class AllMoviesRecyclerViewAdapter :
     }
 
     inner class MoviesViewHolder(
-        private val binding: RecyclerViewMovieItemBinding,
+        private val binding: RecyclerViewMovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UIMovie) {

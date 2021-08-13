@@ -73,12 +73,12 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun setupGenreRecyclerView() {
-        binding.genreRecyclerView.apply {
-            adapter = GenreRecyclerViewAdapter()
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            setHasFixedSize(true)
-            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
-        }
+        binding.genreRecyclerView.adapter= genreRecyclerViewAdapter
+        binding.genreRecyclerView.layoutManager= LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
     }
 
     private fun requestInitialMovieList() {
@@ -117,7 +117,7 @@ class AllMoviesFragment: Fragment() {
 
     private fun AllMoviesViewState.updateScreenState() {
         binding.progressBar.isVisible = loading
-//        allMoviesRecyclerViewAdapter.submitList(movies)
+        allMoviesRecyclerViewAdapter.submitList(movies)
         genreRecyclerViewAdapter.submitList(genre)
         handleFailures(failure)
     }

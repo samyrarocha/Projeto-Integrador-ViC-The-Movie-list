@@ -26,7 +26,7 @@ class GenreRecyclerViewAdapter :
     }
 
     inner class GenreViewHolder(
-        private val binding: GenreButtonRecyclerViewBinding,
+        private val binding: GenreButtonRecyclerViewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UIGenre) {
