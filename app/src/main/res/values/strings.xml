@@ -8,4 +8,5 @@
     <string name="favorite_tab">Favoritos</string>
     <string name="search_mode">Modo pesquisa</string>
     <string name="go_back_to_the_start">Voltar ao início</string>
+    <string name="user_rating_description">Avaliação\ndos usuários</string>
 </resources>

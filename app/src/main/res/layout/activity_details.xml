@@ -1,171 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:fillViewport="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/detailsTopBarLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/detailsTopBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/detailsPosterImageView"
+                android:layout_width="match_parent"
+                android:layout_height="288dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/poster_sample">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/detailsPosterImageView"
-            android:layout_width="match_parent"
-            android:layout_height="288dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/detailsRatingImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="148dp"
+            android:src="@drawable/rectangle_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.501">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/detailsStarRatingImageView"
+            android:layout_width="@dimen/details_rating_image_width"
+            android:layout_height="@dimen/details_rating_image_width"
+            android:layout_marginStart="72dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/starrating"
+            app:layout_constraintBottom_toBottomOf="@+id/detailsRatingImageView"
+            app:layout_constraintStart_toStartOf="@+id/detailsRatingImageView"
+            app:layout_constraintTop_toTopOf="@+id/detailsRatingImageView" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/detailsFavoriteImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/detailsMovieTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/detailsStarRatingImageView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsRatingImageView"
             tools:background="@drawable/heartbuttonnotpressed">
 
         </androidx.appcompat.widget.AppCompatImageView>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsRatingTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/titles"
+            android:textColor="@color/titles_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/detailsRatingImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detailsStarRatingImageView"
+            app:layout_constraintTop_toTopOf="@+id/detailsRatingImageView"
+            tools:text="81%" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/detailsRatingImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/rectangle_8"
-        android:layout_marginBottom="112dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsRatingDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/titles"
+            android:text="@string/user_rating_description"
+            android:textColor="@color/titles_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/detailsRatingTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsRatingTextView" />
 
-    </androidx.appcompat.widget.AppCompatImageView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsMovieTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/titles"
+            android:textAlignment="center"
+            android:textColor="@color/titles_text_color"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsRatingImageView"
+            tools:text="Filmezinho">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/detailsMovieTitleTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsRatingImageView"
-        tools:text="Filmezinho">
+        </androidx.appcompat.widget.AppCompatTextView>
 
-    </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsYearTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/titles"
+            android:textAlignment="center"
+            android:textColor="@color/titles_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/detailsMovieTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView"
+            tools:text="Filmezinho">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/detailsYearTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/detailsMovieTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView"
-        tools:text="Filmezinho">
+        </androidx.appcompat.widget.AppCompatTextView>
 
-    </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsPGTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/titles"
+            android:textAlignment="center"
+            android:textColor="@color/titles_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/detailsYearTextView"
+            app:layout_constraintTop_toTopOf="@+id/detailsYearTextView"
+            tools:text="Filmezinho">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/detailsPGTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/detailsYearTextView"
-        app:layout_constraintTop_toTopOf="@+id/detailsYearTextView"
-        tools:text="Filmezinho">
+        </androidx.appcompat.widget.AppCompatTextView>
 
-    </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsRuntimeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/titles"
+            android:textAlignment="center"
+            android:textColor="@color/titles_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/detailsPGTextView"
+            app:layout_constraintTop_toTopOf="@+id/detailsYearTextView"
+            tools:text="Filmezinho">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/detailsRuntimeTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/detailsPGTextView"
-        app:layout_constraintTop_toTopOf="@+id/detailsYearTextView"
-        tools:text="Filmezinho">
+        </androidx.appcompat.widget.AppCompatTextView>
 
-    </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/genreRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/detailsYearTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsYearTextView"
+            tools:listitem="@layout/genre_button_recycler_view" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/detailsGenreRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/detailsYearTextView"
-        app:layout_constraintTop_toBottomOf="@id/detailsYearTextView"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsSynopsisTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/titles"
+            android:textAlignment="center"
+            android:textColor="@color/titles_text_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genreRecyclerView"
+            tools:text="Sinopse">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/detailsSynopsisTitleTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsGenreRecyclerView"
-        tools:text="Sinopse">
+        </androidx.appcompat.widget.AppCompatTextView>
 
-    </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsOverviewTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/titles"
+            android:textColor="@color/titles_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/detailsSynopsisTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsSynopsisTitleTextView"
+            tools:text="American car designer Carroll Shelby and driver Kn Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order.">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/detailsOverviewTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="@id/detailsSynopsisTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsSynopsisTitleTextView"
-        tools:text="Sinopse">
+        </androidx.appcompat.widget.AppCompatTextView>
 
-    </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsCastTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/titles"
+            android:textAlignment="center"
+            android:text="Elenco"
+            android:textColor="@color/titles_text_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsOverviewTextView"
+            tools:text="Elenco">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/castAndCrewRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/detailsSynopsisTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsOverviewTextView"
-        tools:listitem="@layout/cast_and_crew_recycler_view" />
+        </androidx.appcompat.widget.AppCompatTextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/castAndCrewRecyclerView"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/detailsCastTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsCastTitleTextView"
+            tools:listitem="@layout/cast_and_crew_recycler_view" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
