@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
@@ -29,6 +28,12 @@ class AllMoviesFragment: Fragment() {
 
     private val viewModel: AllMoviesViewModel by viewModel()
     private var _binding: FragmentAllMoviesBinding? = null
+    private val allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter by lazy {
+        AllMoviesRecyclerViewAdapter()
+    }
+    private val genreRecyclerViewAdapter: GenreRecyclerViewAdapter by lazy {
+        GenreRecyclerViewAdapter()
+    }
 
 
     override fun onCreateView(
@@ -51,40 +56,28 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun setupUI() {
-        val movieRecyclerViewAdapter = createMoviesRecyclerViewAdapter()
-        val genreRecyclerViewAdapter = createGenreRecyclerViewAdapter()
-        setupMovieRecyclerView(movieRecyclerViewAdapter)
-        observeMovieViewStateUpdates(movieRecyclerViewAdapter)
-        setupGenreRecyclerView(genreRecyclerViewAdapter)
-        observeGenreViewStateUpdates(genreRecyclerViewAdapter)
+        setupMovieRecyclerView()
+        observeViewStateUpdates()
+        setupGenreRecyclerView()
     }
 
-
-    private fun createMoviesRecyclerViewAdapter(): AllMoviesRecyclerViewAdapter {
-        return AllMoviesRecyclerViewAdapter()
-    }
-
-    private fun createGenreRecyclerViewAdapter(): GenreRecyclerViewAdapter {
-        return GenreRecyclerViewAdapter()
-    }
-
-    private fun setupMovieRecyclerView(allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter) {
+    private fun setupMovieRecyclerView() {
         binding.moviesRecyclerView.apply {
             adapter = allMoviesRecyclerViewAdapter
             PagerSnapHelper().attachToRecyclerView(this)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
-            addOnScrollListener(createInfiniteScrollListener (layoutManager as LinearLayoutManager))
+            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
 
         }
     }
 
-    private fun setupGenreRecyclerView(genreRecyclerViewAdapter: GenreRecyclerViewAdapter) {
-        binding.genreButtonRecyclerView.apply {
-            adapter = genreRecyclerViewAdapter
+    private fun setupGenreRecyclerView() {
+        binding.genreRecyclerView.apply {
+            adapter = GenreRecyclerViewAdapter()
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
-            addOnScrollListener(createInfiniteScrollListener (layoutManager as LinearLayoutManager))
+            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
         }
     }
 
@@ -99,29 +92,22 @@ class AllMoviesFragment: Fragment() {
     private fun createInfiniteScrollListener(
         layoutManager: LinearLayoutManager
     ): RecyclerView.OnScrollListener {
-        return object: InfiniteScrollListener(
+        return object : InfiniteScrollListener(
             layoutManager,
             AllMoviesViewModel.UI_PAGE_SIZE
         ) {
-            override fun loadMoreItems() {requestMoreMovies()}
+            override fun loadMoreItems() {
+                requestMoreMovies()
+            }
+
             override fun isLoading(): Boolean = viewModel.isLoadingMoreMovies
             override fun isLastPage(): Boolean = viewModel.isLastPage
         }
     }
 
-    private fun observeMovieViewStateUpdates(
-        recyclerViewAdapterAll: AllMoviesRecyclerViewAdapter
-    ) {
-        viewModel.state.observe(viewLifecycleOwner) {
-            updateMoviesScreenState(it, recyclerViewAdapterAll)
-        }
-    }
-
-    private fun observeGenreViewStateUpdates(
-        genreRecyclerViewAdapter: GenreRecyclerViewAdapter
-    ) {
-        viewModel.state.observe(viewLifecycleOwner) {
-            updateGenreScreenState(it, genreRecyclerViewAdapter)
+    private fun observeViewStateUpdates() {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            state.updateScreenState()
         }
     }
 
@@ -129,29 +115,13 @@ class AllMoviesFragment: Fragment() {
         viewModel.onMoviesEvent(AllMoviesEvent.RequestMoreMovies)
     }
 
-    private fun updateMoviesScreenState(
-        state: AllMoviesViewState,
-        allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter
-    ) {
-        binding.progressBar.isVisible = state.loading
-        allMoviesRecyclerViewAdapter.submitList(state.movies)
-        handleNoMoreMovies(state.noMoreMovies)
-        handleFailures(state.failure)
+    private fun AllMoviesViewState.updateScreenState() {
+        binding.progressBar.isVisible = loading
+//        allMoviesRecyclerViewAdapter.submitList(movies)
+        genreRecyclerViewAdapter.submitList(genre)
+        handleFailures(failure)
     }
 
-    private fun updateGenreScreenState(
-        state: AllMoviesViewState,
-        genreRecyclerViewAdapter: GenreRecyclerViewAdapter
-    ) {
-        binding.progressBar.isVisible = state.loading
-        genreRecyclerViewAdapter.submitList(state.genre)
-        handleNoMoreGenres(state.noMoreGenre)
-        handleFailures(state.failure)
-    }
-
-    private fun handleNoMoreMovies(noMoreMovies: Boolean) { }
-
-    private fun handleNoMoreGenres(noMoreGenres: Boolean) { }
 
     private fun handleFailures(failure: Event<Throwable>?) {
         val unhandledFailure = failure?.getContentIfNotHandled() ?: return
@@ -160,13 +130,15 @@ class AllMoviesFragment: Fragment() {
 
         val snackbarMessage = if (unhandledFailure.message.isNullOrEmpty()) {
             fallbackMessage
+        } else {
+            unhandledFailure.message!!
         }
-        else {
-            unhandledFailure.message!! }
         if (snackbarMessage.isNotEmpty()) {
             Snackbar.make(requireView(), snackbarMessage, Snackbar.LENGTH_SHORT).show()
         }
     }
+
+
 
 //    override fun onDestroyView() {
 //        super.onDestroyView()

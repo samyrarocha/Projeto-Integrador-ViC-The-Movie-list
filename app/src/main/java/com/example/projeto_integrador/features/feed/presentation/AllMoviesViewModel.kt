@@ -12,11 +12,11 @@ import com.example.projeto_integrador.common.domain.model.movies.Discover
 import com.example.projeto_integrador.common.domain.model.movies.Genre
 import com.example.projeto_integrador.common.domain.model.movies.Movie
 import com.example.projeto_integrador.features.feed.data.models.Event
+import com.example.projeto_integrador.features.feed.data.models.UIGenre
 import com.example.projeto_integrador.features.feed.data.models.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.domain.usecases.GenreListUseCase
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
-import com.example.projeto_integrador.features.feed.uttils.DispatchersProvider
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +36,7 @@ class AllMoviesViewModel(
     }
 
     private val _state = MutableLiveData<AllMoviesViewState>()
-    val state: LiveData<AllMoviesViewState>  = _state
+    val state: LiveData<AllMoviesViewState> = _state
 
     var isLoadingMoreMovies: Boolean = false
     var isLastPage = false
@@ -45,19 +45,20 @@ class AllMoviesViewModel(
 
     init {
         _state.value = AllMoviesViewState(loading = true)
+
         subscribeToMovieUpdate()
         subscribeToGenreUpdate()
     }
 
-    fun onMoviesEvent(event: AllMoviesEvent){
-        when(event) {
+    fun onMoviesEvent(event: AllMoviesEvent) {
+        when (event) {
             is AllMoviesEvent.RequestInitialMoviesList -> loadMovies()
             is AllMoviesEvent.RequestMoreMovies -> loadNextMoviePage()
         }
     }
 
-    fun onGenreEvent(event: GenreEvent){
-        when(event) {
+    fun onGenreEvent(event: GenreEvent) {
+        when (event) {
             is GenreEvent.RequestGenreList -> loadGenres()
         }
     }
@@ -66,7 +67,7 @@ class AllMoviesViewModel(
         viewModelScope.launch {
             runCatching {
                 withContext(Dispatchers.IO) {
-                    requestNextPageOfMoviesUseCase(page)
+                    requestNextPageOfMoviesUseCase(page, "")
                 }
             }.onSuccess {
                 onNewMovieList(it.movies)
@@ -90,6 +91,21 @@ class AllMoviesViewModel(
         }
     }
 
+    private fun subscribeToGenreFilterUpdate(uiGenre: UIGenre) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                withContext(Dispatchers.IO) {
+                    requestNextPageOfMoviesUseCase(page, uiGenre.id.toString())
+                }
+            }.onSuccess {
+                onNewMovieList(it.movies)
+            }.onFailure {
+                onFailure(it)
+            }
+        }
+    }
+
+
     fun onNewMovieList(movies: List<Movie>) {
         _state.value = _state.value?.copy(
             loading = false,
@@ -102,7 +118,6 @@ class AllMoviesViewModel(
             loading = false,
             genre = genre.map { uiGenreMapper.mapToView(it) }
         )
-        _state.value = AllMoviesViewState(loading = false, genre = genre.map { uiGenreMapper.mapToView(it) })
     }
 
     private fun loadMovies() {
@@ -114,13 +129,13 @@ class AllMoviesViewModel(
     private fun loadGenres() {}
 
     private fun loadNextMoviePage() {
-        val exceptionHandler = viewModelScope.createExceptionHandler(R.string.no_more_movies){
+        val exceptionHandler = viewModelScope.createExceptionHandler(R.string.no_more_movies) {
             onFailure(it)
         }
 
         viewModelScope.launch(exceptionHandler) {
             val discover = withContext(dispatchersProvider.io()) {
-                requestNextPageOfMoviesUseCase(++page)
+                requestNextPageOfMoviesUseCase(page++, "")
             }
             onPaginationInfoObtained(discover)
         }
@@ -132,7 +147,7 @@ class AllMoviesViewModel(
 
 
     private fun onFailure(failure: Throwable) {
-        when(failure) {
+        when (failure) {
             is NetworkErrorException,
             is NetworkUnavailableException -> {
                 _state.value = _state.value?.copy(

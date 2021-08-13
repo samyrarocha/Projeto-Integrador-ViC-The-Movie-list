@@ -3,9 +3,7 @@ package com.example.projeto_integrador.features.feed.di
 import com.example.projeto_integrador.common.data.GenreRepositoryImp
 import com.example.projeto_integrador.common.data.MoviesRepositoryImpl
 import com.example.projeto_integrador.common.data.api.models.TmdbApi
-import com.example.projeto_integrador.common.data.api.models.mappers.ApiDiscoverMapper
-import com.example.projeto_integrador.common.data.api.models.mappers.ApiGenreMapper
-import com.example.projeto_integrador.common.data.api.models.mappers.ApiMovieMapper
+import com.example.projeto_integrador.common.data.api.models.mappers.*
 import com.example.projeto_integrador.common.data.di.ApiService
 import com.example.projeto_integrador.common.domain.repositories.GenreRepository
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
@@ -27,9 +25,8 @@ internal val allMoviesModule = module {
     factory<MoviesRepository> {
         MoviesRepositoryImpl(
             api = get(),
-            apiDiscoverMapper =  ApiDiscoverMapper(
-            apiMovieMapper = ApiMovieMapper()
-            )
+            apiDiscoverMapper =  ApiDiscoverMapper(apiMovieMapper = ApiMovieMapper()),
+            apiSearchMapper = ApiSearchMapper(apiSearchResultsMapper = ApiSearchResultsMapper())
         )
     }
 

@@ -6,4 +6,6 @@
     <string name="no_more_movies">Você chegou ao final da lista</string>
     <string name="all_movies_tab">Todos os filmes</string>
     <string name="favorite_tab">Favoritos</string>
+    <string name="search_mode">Modo pesquisa</string>
+    <string name="go_back_to_the_start">Voltar ao início</string>
 </resources>

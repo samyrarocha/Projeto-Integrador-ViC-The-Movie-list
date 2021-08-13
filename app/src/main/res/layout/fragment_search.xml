@@ -5,41 +5,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/background_color"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/fragment_all_movies_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="@color/background_color">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/genreRecyclerView"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/searchTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:orientation="horizontal"
-            app:layoutManager="LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:text="@string/search_mode"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/movies_recycler_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/genre_button_recycler_view"
-            tools:spanCount="2" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goBackToTheStartButton"
+            android:layout_width="wrap_content"
+            android:textColor="#11C76F"
+            android:layout_height="wrap_content"
+            android:text="@string/go_back_to_the_start"
+            app:layout_constraintStart_toStartOf="@+id/searchTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/searchTitleTextView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movies_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:clipToPadding="false"
             android:descendantFocusability="blocksDescendants"
             android:orientation="horizontal"
             android:paddingHorizontal="24dp"
             app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/genreRecyclerView"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/recycler_view_movie_item"
             tools:spanCount="1" />
 
