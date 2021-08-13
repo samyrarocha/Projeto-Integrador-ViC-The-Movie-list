@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.features.feed.presentation
+package com.example.projeto_integrador.features.moviedetails
 
 
 import android.os.Bundle
@@ -15,10 +15,11 @@ import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
+import com.example.projeto_integrador.features.feed.presentation.AllMoviesEvent
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AllMoviesFragment: Fragment() {
+class MovieDetailsFragment: Fragment() {
 
     companion object {
         const val ARG_POSITION = "position"
@@ -26,7 +27,7 @@ class AllMoviesFragment: Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: AllMoviesViewModel by viewModel()
+    private val viewModel: MovieDetailsViewModel by viewModel()
     private var _binding: FragmentAllMoviesBinding? = null
     private val allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter by lazy {
         AllMoviesRecyclerViewAdapter()
@@ -102,7 +103,7 @@ class AllMoviesFragment: Fragment() {
     ): RecyclerView.OnScrollListener {
         return object : InfiniteScrollListener(
             layoutManager,
-            AllMoviesViewModel.UI_PAGE_SIZE
+            MovieDetailsViewModel.UI_PAGE_SIZE
         ) {
             override fun loadMoreItems() {
                 requestMoreMovies()
@@ -123,7 +124,7 @@ class AllMoviesFragment: Fragment() {
         viewModel.onMoviesEvent(AllMoviesEvent.RequestMoreMovies)
     }
 
-    private fun AllMoviesViewState.updateScreenState() {
+    private fun MovieDetailsViewState.updateScreenState() {
         binding.progressBar.isVisible = loading
         allMoviesRecyclerViewAdapter.submitList(movies)
         genreRecyclerViewAdapter.submitList(genre)

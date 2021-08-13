@@ -1,10 +1,10 @@
-package com.example.projeto_integrador.features.feed.presentation
+package com.example.projeto_integrador.features.moviedetails
 
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
 import com.example.projeto_integrador.features.feed.data.ui.UIMovie
 
-data class AllMoviesViewState(
+data class MovieDetailsViewState(
     val loading: Boolean = true,
     val movies: List<UIMovie> = emptyList(),
     val genre: List<UIGenre> = emptyList(),

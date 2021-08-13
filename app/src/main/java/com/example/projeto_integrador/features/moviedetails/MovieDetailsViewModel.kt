@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.features.feed.presentation
+package com.example.projeto_integrador.features.moviedetails
 
 import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AllMoviesViewModel(
+class MovieDetailsViewModel(
     private val uiMovieMapper: UiMovieMapper,
     private val uiGenreMapper: UiGenreMapper,
     private val requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase,
@@ -35,8 +35,8 @@ class AllMoviesViewModel(
         const val UI_PAGE_SIZE = 20
     }
 
-    private val _state = MutableLiveData<AllMoviesViewState>()
-    val state: LiveData<AllMoviesViewState> = _state
+    private val _state = MutableLiveData<MovieDetailsViewState>()
+    val state: LiveData<MovieDetailsViewState> = _state
 
     var isLoadingMoreMovies: Boolean = false
     var isLastPage = false
@@ -47,7 +47,7 @@ class AllMoviesViewModel(
     private var page = 1
 
     init {
-        _state.value = AllMoviesViewState(loading = true)
+        _state.value = MovieDetailsViewState(loading = true)
 
         subscribeToMovieUpdate()
         subscribeToGenreUpdate()

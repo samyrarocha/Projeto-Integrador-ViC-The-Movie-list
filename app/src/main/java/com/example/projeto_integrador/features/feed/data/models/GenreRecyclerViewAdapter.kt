@@ -6,10 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.databinding.GenreButtonRecyclerViewBinding
+import com.example.projeto_integrador.features.feed.data.ui.UIGenre
 
-class GenreRecyclerViewAdapter :
+class GenreRecyclerViewAdapter(
+    private val onClickPerformed: (selectedGenres: MutableList<Long?>) -> Unit
+) :
     ListAdapter<UIGenre, GenreRecyclerViewAdapter.GenreViewHolder>
         (GENRE_COMPARATOR) {
+
+    private val selectedGenres: MutableList<Long?> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         val binding = GenreButtonRecyclerViewBinding.inflate(LayoutInflater.from(parent.context),
@@ -31,6 +36,17 @@ class GenreRecyclerViewAdapter :
 
         fun bind(item: UIGenre) {
             binding.genreButton.text = item.name
+            binding.genreButton.setOnClickListener {
+                onClickPerformed(selectedGenres)
+            }
+//            binding.genreButton.setOnCheckedChangeListener { _, isChecked ->
+//                if (isChecked){
+//                    selectedGenres.add(item.id)
+//                }else{
+//                    selectedGenres.remove(item.id)
+//                }
+//
+//            }
         }
     }
 }

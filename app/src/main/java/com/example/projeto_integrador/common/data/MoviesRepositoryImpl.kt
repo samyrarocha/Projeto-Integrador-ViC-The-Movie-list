@@ -1,10 +1,13 @@
 package com.example.projeto_integrador.common.data
 
+import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.data.api.models.ApiParameterValues
+import com.example.projeto_integrador.common.data.api.models.ApiParameters
 import com.example.projeto_integrador.common.data.api.models.TmdbApi
 import com.example.projeto_integrador.common.data.api.models.mappers.ApiDiscoverMapper
 import com.example.projeto_integrador.common.data.api.models.mappers.ApiSearchMapper
 import com.example.projeto_integrador.common.domain.model.movies.Discover
+import com.example.projeto_integrador.common.domain.model.movies.Movie
 import com.example.projeto_integrador.common.domain.model.movies.Search
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
 import com.example.projeto_integrador.features.search.domain.model.SearchParameters
@@ -38,6 +41,21 @@ class MoviesRepositoryImpl(
         )
 
         return apiSearchMapper.mapToDomain(apiSearch)
+
+    }
+
+    override suspend fun getMovieDetails(
+        movieId: Long,
+        language: String,
+    ): Movie {
+
+        val apiMovie = api.getMovie(
+            movieId = movieId,
+            ApiParameterValues.LANGUAGE_VALUE,
+            ApiParameters.CREDITS,
+
+
+        )
 
     }
 

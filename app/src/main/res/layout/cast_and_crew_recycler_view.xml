@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/castAndCrewRecyclerView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/castAndCrewCardView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="24dp"
+        android:orientation="vertical"
+        app:cardElevation="16dp"
+        app:cardCornerRadius="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:backgroundTint="@color/black">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/castAndCrewImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/itemMovieTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/castAndCrewNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/castAndCrewCardView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/castAndCrewCardView"
+        app:layout_constraintTop_toBottomOf="@+id/castAndCrewCardView"
+        tools:text="Ford vs Ferrari" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/castAndCrewJobTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/castAndCrewNameTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/castAndCrewNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/castAndCrewNameTextView"
+        tools:text="Ford vs Ferrari" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

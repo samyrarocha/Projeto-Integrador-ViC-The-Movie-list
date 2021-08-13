@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/detailsTopBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/detailsPosterImageView"
+            android:layout_width="match_parent"
+            android:layout_height="288dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/heartbuttonnotpressed">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/detailsRatingImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rectangle_8"
+        android:layout_marginBottom="112dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detailsMovieTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsRatingImageView"
+        tools:text="Filmezinho">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detailsYearTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/detailsMovieTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView"
+        tools:text="Filmezinho">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detailsPGTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/detailsYearTextView"
+        app:layout_constraintTop_toTopOf="@+id/detailsYearTextView"
+        tools:text="Filmezinho">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detailsRuntimeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/detailsPGTextView"
+        app:layout_constraintTop_toTopOf="@+id/detailsYearTextView"
+        tools:text="Filmezinho">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detailsGenreRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/detailsYearTextView"
+        app:layout_constraintTop_toBottomOf="@id/detailsYearTextView"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detailsSynopsisTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsGenreRecyclerView"
+        tools:text="Sinopse">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detailsOverviewTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/titles"
+        android:textAlignment="center"
+        android:textColor="@color/titles_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="@id/detailsSynopsisTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsSynopsisTitleTextView"
+        tools:text="Sinopse">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/castAndCrewRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/detailsSynopsisTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsOverviewTextView"
+        tools:listitem="@layout/cast_and_crew_recycler_view" />
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

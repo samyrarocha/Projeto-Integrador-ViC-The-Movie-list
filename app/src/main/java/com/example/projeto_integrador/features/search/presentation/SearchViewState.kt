@@ -1,10 +1,7 @@
 package com.example.projeto_integrador.features.search.presentation
 
-import android.hardware.camera2.CaptureFailure
 import com.example.projeto_integrador.features.feed.data.models.Event
-import com.example.projeto_integrador.features.feed.data.models.UIMovie
-import com.example.projeto_integrador.features.search.domain.usecase.SearchMovies
-import java.util.Collections.copy
+import com.example.projeto_integrador.features.feed.data.ui.UIMovie
 
 
 class SearchViewState(

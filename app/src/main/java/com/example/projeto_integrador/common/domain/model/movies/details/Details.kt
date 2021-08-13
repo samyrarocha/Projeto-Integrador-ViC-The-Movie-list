@@ -9,5 +9,4 @@ data class Details(
     val detailsRuntime: String,
     val detailsGenreName: List<Genre>,
     val credits: List<Credits>
-    //val certification: Certification
 )

@@ -23,6 +23,7 @@ object ApiParameters {
     const val MOVIE_ID = "movie_id"
     const val IMAGES = "images"
     const val CREDITS = "credits"
+    const val RELEASE_DATES = "release_dates"
     const val DISCOVER_GENRE = "with_genres"
     const val DISCOVER_SORT = "sort_by"
     const val IMAGE_POSTER_SIZE = "poster_sizes"
