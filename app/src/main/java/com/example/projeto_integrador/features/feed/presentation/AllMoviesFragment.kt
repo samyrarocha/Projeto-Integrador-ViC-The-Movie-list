@@ -43,13 +43,8 @@ class AllMoviesFragment: Fragment() {
         }
     }
     private fun navigateToDetails(movieId: Long){
-        val fragment = MovieDetailsFragment()
-        val arguments = Bundle()
-        arguments.putLong("movie_id", movieId)
-        fragment.arguments = arguments
-        val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_all_movies, fragment, "MovieDetailsFragmentFragment")
-        fragmentTransaction.commit()
+        val bundle = bundleOf("movie_id" to movieId)
+        view?.findNavController()?.navigate(R.id.navigateToMovieDetails, bundle)
 
     }
 
