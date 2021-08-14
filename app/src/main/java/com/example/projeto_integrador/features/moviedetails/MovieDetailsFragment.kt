@@ -11,46 +11,32 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
+import com.example.projeto_integrador.common.data.api.models.ApiConstants
+import com.example.projeto_integrador.common.domain.model.movies.MediaSizes
 import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
+import com.example.projeto_integrador.databinding.FragmentMovieDetailsBinding
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesEvent
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment: Fragment() {
 
-    companion object {
-        const val ARG_POSITION = "position"
-    }
 
     private val binding get() = _binding!!
 
     private val viewModel: MovieDetailsViewModel by viewModel()
-    private var _binding: FragmentAllMoviesBinding? = null
-    private val allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter by lazy {
-        AllMoviesRecyclerViewAdapter()
-    }
-    private val genreRecyclerViewAdapter: GenreRecyclerViewAdapter by lazy {
-        GenreRecyclerViewAdapter(){
-            updateSelectedGenres(it)
-        }
-    }
-
-    private fun updateSelectedGenres(selectedGenres: MutableList<Long?>){
-        viewModel.onMoviesEvent(
-            AllMoviesEvent.UpdateGenres(selectedGenres)
-        )
-    }
-
+    private var _binding: FragmentMovieDetailsBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAllMoviesBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
         return binding.root
 
@@ -58,61 +44,16 @@ class MovieDetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val movieId = arguments?.getLong("movie_id")
+        movieId?.let {
+            viewModel.getMovieDetails(it)
+        }
 
-        setupUI()
-        requestInitialMovieList()
-        requestGenreList()
-    }
-
-    private fun setupUI() {
-        setupMovieRecyclerView()
         observeViewStateUpdates()
-        setupGenreRecyclerView()
+
     }
 
-    private fun setupMovieRecyclerView() {
-        binding.moviesRecyclerView.apply {
-            adapter = allMoviesRecyclerViewAdapter
-            PagerSnapHelper().attachToRecyclerView(this)
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            setHasFixedSize(true)
-            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
 
-        }
-    }
-
-    private fun setupGenreRecyclerView() {
-        binding.genreRecyclerView.adapter= genreRecyclerViewAdapter
-        binding.genreRecyclerView.layoutManager= LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-    }
-
-    private fun requestInitialMovieList() {
-        viewModel.onMoviesEvent(AllMoviesEvent.RequestInitialMoviesList)
-    }
-
-    private fun requestGenreList() {
-        viewModel.onGenreEvent(GenreEvent.RequestGenreList)
-    }
-
-    private fun createInfiniteScrollListener(
-        layoutManager: LinearLayoutManager
-    ): RecyclerView.OnScrollListener {
-        return object : InfiniteScrollListener(
-            layoutManager,
-            MovieDetailsViewModel.UI_PAGE_SIZE
-        ) {
-            override fun loadMoreItems() {
-                requestMoreMovies()
-            }
-
-            override fun isLoading(): Boolean = viewModel.isLoadingMoreMovies
-            override fun isLastPage(): Boolean = viewModel.isLastPage
-        }
-    }
 
     private fun observeViewStateUpdates() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
@@ -120,14 +61,23 @@ class MovieDetailsFragment: Fragment() {
         }
     }
 
-    private fun requestMoreMovies() {
-        viewModel.onMoviesEvent(AllMoviesEvent.RequestMoreMovies)
-    }
-
     private fun MovieDetailsViewState.updateScreenState() {
-        binding.progressBar.isVisible = loading
-        allMoviesRecyclerViewAdapter.submitList(movies)
-        genreRecyclerViewAdapter.submitList(genre)
+        binding.movieDetailsProgressBar.isVisible = loading
+        binding.detailsMovieTitleTextView.text = movieDetails?.detailsTitle ?: ""
+        binding.detailsOverviewTextView.text = movieDetails?.overview ?: ""
+        binding.detailsYearTextView.text = movieDetails?.releaseDate ?: ""
+        val popularity = movieDetails?.detailsVoteAverage ?: 0
+        binding.detailsRatingTextView.text = "${popularity.toInt()*10}%"
+        binding.detailsRuntimeTextView.text = movieDetails?.detailsRuntime.toString() ?: ""
+        Picasso.get()
+            .load(
+                ApiConstants.BASE_IMAGE_ENDPOINT
+                        + MediaSizes.original
+                        + movieDetails?.detailsPosterPath
+            )
+            .into(
+                binding.detailsPosterImageView
+            )
         handleFailures(failure)
     }
 
@@ -146,14 +96,4 @@ class MovieDetailsFragment: Fragment() {
             Snackbar.make(requireView(), snackbarMessage, Snackbar.LENGTH_SHORT).show()
         }
     }
-
-
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//
-//        adapter = null
-//        binding.recyclerView.adapter = null
-//        _binding = null
-//    }
 }

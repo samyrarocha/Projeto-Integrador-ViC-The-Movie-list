@@ -9,4 +9,6 @@
     <string name="search_mode">Modo pesquisa</string>
     <string name="go_back_to_the_start">Voltar ao início</string>
     <string name="user_rating_description">Avaliação\ndos usuários</string>
+    <string name="synopsis">Sinopse</string>
+    <string name="certification">PG-13</string>
 </resources>

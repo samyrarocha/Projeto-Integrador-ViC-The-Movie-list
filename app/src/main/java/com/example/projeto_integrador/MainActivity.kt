@@ -3,6 +3,7 @@ package com.example.projeto_integrador
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment
+import com.example.projeto_integrador.features.moviedetails.MovieDetailsFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -13,8 +14,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.beginTransaction().add(
-            R.id.fragment_all_movies, AllMoviesFragment()
+            R.id.fragment_all_movies, MovieDetailsFragment()
         ).commit()
+
+
 
 
     }

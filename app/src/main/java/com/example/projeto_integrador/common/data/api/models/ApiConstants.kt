@@ -8,6 +8,7 @@ object ApiConstants {
     const val CONTENT_TYPE_ENDPOINT = "application/json;charset=utf-8"
 
     const val MOVIES_ENDPOINT = "movies"
+    const val MOVIES_DETAILS_ENDPOINT = "movie"
     const val GENRE_ENDPOINT = "genre/movie/list"
     const val SEARCH_ENDPOINT = "search/company"
     const val DISCOVER_ENDPOINT = "discover/movie"
@@ -20,7 +21,7 @@ object ApiParameters {
     const val CONTENT_TYPE_HEADER = "Content-Type"
 
     const val PAGE = "page"
-    const val MOVIE_ID = "movie_id"
+    const val MOVIE_ID = "movieId"
     const val IMAGES = "images"
     const val CREDITS = "credits"
     const val RELEASE_DATES = "release_dates"

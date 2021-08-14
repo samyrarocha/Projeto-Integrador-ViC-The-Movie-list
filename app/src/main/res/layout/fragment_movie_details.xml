@@ -139,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="16dp"
+            android:text="@string/certification"
             android:fontFamily="@font/titles"
             android:textAlignment="center"
             android:textColor="@color/titles_text_color"
@@ -185,6 +186,7 @@
             android:layout_marginStart="24dp"
             android:fontFamily="@font/titles"
             android:textAlignment="center"
+            android:text="@string/synopsis"
             android:textColor="@color/titles_text_color"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -204,7 +206,6 @@
             android:fontFamily="@font/titles"
             android:textColor="@color/titles_text_color"
             android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/detailsSynopsisTitleTextView"
             app:layout_constraintTop_toBottomOf="@+id/detailsSynopsisTitleTextView"
             tools:text="American car designer Carroll Shelby and driver Kn Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order.">
@@ -237,11 +238,19 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/detailsCastTitleTextView"
             app:layout_constraintTop_toBottomOf="@+id/detailsCastTitleTextView"
             tools:listitem="@layout/cast_and_crew_recycler_view" />
+
+        <ProgressBar
+            android:id="@+id/movieDetailsProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

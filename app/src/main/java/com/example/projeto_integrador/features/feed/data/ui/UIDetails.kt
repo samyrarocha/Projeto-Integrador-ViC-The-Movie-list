@@ -1,6 +1,6 @@
 package com.example.projeto_integrador.features.feed.data.ui
 
-class UIDetails(
+data class UIDetails(
     val detailsOverview: String,
     val detailsReleasedYear: String,
     val detailsRuntime: String,
@@ -8,20 +8,20 @@ class UIDetails(
     val credits: List<UICredits>
 )
 
-class UICredits(
+data class UICredits(
     val creditsMovieId: Long?,
     val creditCast: List<UICast>,
     val creditCrew: List<UICrew>
 )
 
-class UICast(
+data class UICast(
     val castId: Long,
     val castCharacter: String,
     val castName: String,
     val castPosterPath: String
 )
 
-class UICrew(
+data class UICrew(
     val crewId: Long,
     val crewName: String,
     val crewJob: String,

@@ -13,6 +13,7 @@ import com.example.projeto_integrador.features.feed.domain.usecases.GenreListUse
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
+import com.example.projeto_integrador.features.moviedetails.MovieDetailsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
@@ -54,6 +55,13 @@ internal val allMoviesModule = module {
             uiGenreMapper = UiGenreMapper(),
             requestNextPageOfMoviesUseCase = get(),
             genreListUseCase = get(),
+            dispatchersProvider = get()
+        )
+    }
+
+    viewModel {
+        MovieDetailsViewModel(
+            moviesRepository = get(),
             dispatchersProvider = get()
         )
     }

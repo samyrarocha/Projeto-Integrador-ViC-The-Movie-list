@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +18,7 @@ import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
+import com.example.projeto_integrador.features.feed.data.ui.UIGenre
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,17 +33,22 @@ class AllMoviesFragment: Fragment() {
     private val viewModel: AllMoviesViewModel by viewModel()
     private var _binding: FragmentAllMoviesBinding? = null
     private val allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter by lazy {
-        AllMoviesRecyclerViewAdapter()
+        AllMoviesRecyclerViewAdapter(::navigateToDetails)
     }
     private val genreRecyclerViewAdapter: GenreRecyclerViewAdapter by lazy {
         GenreRecyclerViewAdapter(){
-            updateSelectedGenres(it)
+            updateSelectedGenre(it)
         }
     }
+    private fun navigateToDetails(movieId: Long?){
+        val bundle = bundleOf("movie_id" to movieId)
+        view?.findNavController()?.navigate(R.id.navigateToMovieDetails, bundle)
 
-    private fun updateSelectedGenres(selectedGenres: MutableList<Long?>){
+    }
+
+    private fun updateSelectedGenre(selectedGenre: UIGenre){
         viewModel.onMoviesEvent(
-            AllMoviesEvent.UpdateGenres(selectedGenres)
+            AllMoviesEvent.UpdateGenre(selectedGenre)
         )
     }
 
@@ -67,6 +76,7 @@ class AllMoviesFragment: Fragment() {
         setupMovieRecyclerView()
         observeViewStateUpdates()
         setupGenreRecyclerView()
+        observeGenreSelection()
     }
 
     private fun setupMovieRecyclerView() {
@@ -117,6 +127,24 @@ class AllMoviesFragment: Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             state.updateScreenState()
         }
+    }
+
+    private fun observeGenreSelection() {
+        viewModel.selectedGenre.observe(viewLifecycleOwner, Observer { newGenre ->
+            val previousSelectedGenre = genreRecyclerViewAdapter.selectedGenre
+            genreRecyclerViewAdapter.selectedGenre = newGenre
+            previousSelectedGenre?.let {
+                viewModel.state.value?.genre?.indexOf(it)?.let {
+                    genreRecyclerViewAdapter.notifyItemChanged(it)
+                }
+            }
+
+            newGenre?.let {
+                viewModel.state.value?.genre?.indexOf(it)?.let {
+                    genreRecyclerViewAdapter.notifyItemChanged(it)
+                }
+            }
+        })
     }
 
     private fun requestMoreMovies() {

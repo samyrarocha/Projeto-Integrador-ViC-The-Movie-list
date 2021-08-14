@@ -41,7 +41,7 @@ class AllMoviesViewModel(
     var isLoadingMoreMovies: Boolean = false
     var isLastPage = false
 
-    private var selectedGenres: MutableList<Long?> = mutableListOf()
+    var selectedGenre = MutableLiveData<UIGenre?>()
 
 
     private var page = 1
@@ -57,8 +57,7 @@ class AllMoviesViewModel(
         when (event) {
             is AllMoviesEvent.RequestInitialMoviesList -> loadMovies()
             is AllMoviesEvent.RequestMoreMovies -> loadNextMoviePage()
-            is AllMoviesEvent.UpdateGenres ->
-                selectedGenres = event.selectedGenres
+            is AllMoviesEvent.UpdateGenre -> selectGenre(event.selectedGenre)
         }
     }
 
@@ -96,11 +95,19 @@ class AllMoviesViewModel(
         }
     }
 
-    private fun subscribeToGenreFilterUpdate(uiGenre: UIGenre) {
+    fun selectGenre(genre: UIGenre) {
+        if (genre == selectedGenre.value) {
+            selectedGenre.value = null
+        } else {
+            selectedGenre.value = genre
+        }
+
+        _state.value = _state.value?.copy(loading = true)
+
         viewModelScope.launch {
-            kotlin.runCatching {
+            runCatching {
                 withContext(Dispatchers.IO) {
-                    requestNextPageOfMoviesUseCase(page, uiGenre.id.toString())
+                    requestNextPageOfMoviesUseCase(page, selectedGenre?.value?.id.toString())
                 }
             }.onSuccess {
                 onNewMovieList(it.movies)
@@ -109,7 +116,6 @@ class AllMoviesViewModel(
             }
         }
     }
-
 
     fun onNewMovieList(movies: List<Movie>) {
         _state.value = _state.value?.copy(

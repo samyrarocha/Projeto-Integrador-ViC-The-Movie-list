@@ -12,7 +12,9 @@ import com.example.projeto_integrador.features.feed.data.ui.UIMovie
 import com.squareup.picasso.Picasso
 
 
-class AllMoviesRecyclerViewAdapter :
+class AllMoviesRecyclerViewAdapter(
+    private val onClickPerformed: (movieId: Long?) -> Unit
+) :
     ListAdapter<UIMovie, AllMoviesRecyclerViewAdapter.MoviesViewHolder>
         (ITEM_COMPARATOR) {
 
@@ -36,6 +38,9 @@ class AllMoviesRecyclerViewAdapter :
 
         fun bind(item: UIMovie) {
             binding.itemMovieTitleTextView.text = item.name
+            binding.itemMovieImageView.setOnClickListener {
+                onClickPerformed(item.id)
+            }
             binding.itemRatingTitleTextView.text = item.popularity.toInt().toString() + "%"
             Picasso.get()
                 .load(

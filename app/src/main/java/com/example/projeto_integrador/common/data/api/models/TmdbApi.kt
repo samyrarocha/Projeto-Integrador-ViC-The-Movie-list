@@ -24,9 +24,15 @@ interface TmdbApi {
     suspend fun getMovie( // 2
         @Path(ApiParameters.MOVIE_ID) movieId: Long,
         @Query(ApiParameters.LANGUAGE) dataLanguage: String,
-        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String,
-        @Query(ApiParameters.CREDITS) credits: Credits?
+        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String
     ): ApiMovie// 4
+
+    @GET("movie/{movieId}?append_to_response=images,videos,reviews") // 1
+    suspend fun getMovieDetails( // 2
+        @Path(ApiParameters.MOVIE_ID) movieId: Long,
+        @Query(ApiParameters.LANGUAGE) dataLanguage: String,
+        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String
+    ): ApiMovieDetails// 4
 
     @GET(ApiConstants.GENRE_ENDPOINT) // 1
     suspend fun getGenre( // 2
