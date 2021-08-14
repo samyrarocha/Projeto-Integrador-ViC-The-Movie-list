@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecycle
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
+import com.example.projeto_integrador.features.moviedetails.MovieDetailsFragment
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,9 +42,14 @@ class AllMoviesFragment: Fragment() {
             updateSelectedGenre(it)
         }
     }
-    private fun navigateToDetails(movieId: Long?){
-        val bundle = bundleOf("movie_id" to movieId)
-        view?.findNavController()?.navigate(R.id.navigateToMovieDetails, bundle)
+    private fun navigateToDetails(movieId: Long){
+        val fragment = MovieDetailsFragment()
+        val arguments = Bundle()
+        arguments.putLong("movie_id", movieId)
+        fragment.arguments = arguments
+        val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_all_movies, fragment, "MovieDetailsFragmentFragment")
+        fragmentTransaction.commit()
 
     }
 

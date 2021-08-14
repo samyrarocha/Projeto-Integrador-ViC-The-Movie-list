@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 
 
 class AllMoviesRecyclerViewAdapter(
-    private val onClickPerformed: (movieId: Long?) -> Unit
+    private val onClickPerformed: (movieId: Long) -> Unit
 ) :
     ListAdapter<UIMovie, AllMoviesRecyclerViewAdapter.MoviesViewHolder>
         (ITEM_COMPARATOR) {
