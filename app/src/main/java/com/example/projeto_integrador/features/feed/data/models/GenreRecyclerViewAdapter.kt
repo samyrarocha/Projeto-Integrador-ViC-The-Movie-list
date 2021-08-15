@@ -39,6 +39,7 @@ class GenreRecyclerViewAdapter(
             binding.genreButton.text = item.name
             binding.genreButton.isSelected = selectedGenre == item
             binding.genreButton.setOnClickListener {
+                binding.genreButton.textColors.defaultColor
                 onClickPerformed(item)
             }
         }

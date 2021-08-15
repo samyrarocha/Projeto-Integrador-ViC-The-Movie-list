@@ -47,7 +47,8 @@ class MovieDetailsViewModel(
     private fun handleSuccess(movieDetails: ApiMovieDetails) {
         _state.value = _state.value?.copy(
             loading = false,
-            movieDetails = movieDetails
+            movieDetails = movieDetails,
+            genre = movieDetails.detailsGenreId
         )
     }
 

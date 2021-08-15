@@ -13,8 +13,8 @@ import com.example.projeto_integrador.common.domain.model.movies.Genre
 import com.example.projeto_integrador.common.domain.model.movies.Movie
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
-import com.example.projeto_integrador.features.feed.data.models.mappers.UiGenreMapper
-import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
+import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
+import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.domain.usecases.GenreListUseCase
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp

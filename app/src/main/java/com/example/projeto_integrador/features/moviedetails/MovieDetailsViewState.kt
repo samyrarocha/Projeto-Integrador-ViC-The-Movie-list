@@ -1,5 +1,6 @@
 package com.example.projeto_integrador.features.moviedetails
 
+import com.example.projeto_integrador.common.data.api.models.ApiGenre
 import com.example.projeto_integrador.common.data.api.models.ApiMovieDetails
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
@@ -11,5 +12,6 @@ data class MovieDetailsViewState(
     val noMoreMovies: Boolean = false,
     val noMoreGenre: Boolean = false,
     val failure: Event<Throwable>? = null,
-    val message: Int? = null
+    val message: Int? = null,
+    val genre: List<ApiGenre> = emptyList()
 )

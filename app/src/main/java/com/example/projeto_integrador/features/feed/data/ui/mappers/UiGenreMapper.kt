@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.features.feed.data.models.mappers
+package com.example.projeto_integrador.features.feed.data.ui.mappers
 
 import com.example.projeto_integrador.common.domain.model.movies.Genre
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre

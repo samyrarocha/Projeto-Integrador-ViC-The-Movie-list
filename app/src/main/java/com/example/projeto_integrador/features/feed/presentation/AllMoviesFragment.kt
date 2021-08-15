@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +19,6 @@ import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecycle
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
-import com.example.projeto_integrador.features.moviedetails.MovieDetailsFragment
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,7 +32,8 @@ class AllMoviesFragment: Fragment() {
 
     private val viewModel: AllMoviesViewModel by viewModel()
     private var _binding: FragmentAllMoviesBinding? = null
-    private val allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter by lazy {
+    private val allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter
+    by lazy {
         AllMoviesRecyclerViewAdapter(::navigateToDetails)
     }
     private val genreRecyclerViewAdapter: GenreRecyclerViewAdapter by lazy {
@@ -44,7 +43,8 @@ class AllMoviesFragment: Fragment() {
     }
     private fun navigateToDetails(movieId: Long){
         val bundle = bundleOf("movie_id" to movieId)
-        view?.findNavController()?.navigate(R.id.navigateToMovieDetails, bundle)
+        view?.findNavController()?.navigate(
+            R.id.navigateToMovieDetails, bundle)
 
     }
 
@@ -60,7 +60,8 @@ class AllMoviesFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAllMoviesBinding.inflate(inflater, container, false)
+        _binding = FragmentAllMoviesBinding.inflate(
+            inflater, container, false)
 
         return binding.root
 
@@ -85,9 +86,13 @@ class AllMoviesFragment: Fragment() {
         binding.moviesRecyclerView.apply {
             adapter = allMoviesRecyclerViewAdapter
             PagerSnapHelper().attachToRecyclerView(this)
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false)
             setHasFixedSize(true)
-            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
+            addOnScrollListener(createInfiniteScrollListener(
+                layoutManager as LinearLayoutManager))
 
         }
     }
@@ -132,7 +137,8 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun observeGenreSelection() {
-        viewModel.selectedGenre.observe(viewLifecycleOwner, Observer { newGenre ->
+        viewModel.selectedGenre.observe(
+            viewLifecycleOwner, Observer { newGenre ->
             val previousSelectedGenre = genreRecyclerViewAdapter.selectedGenre
             genreRecyclerViewAdapter.selectedGenre = newGenre
             previousSelectedGenre?.let {

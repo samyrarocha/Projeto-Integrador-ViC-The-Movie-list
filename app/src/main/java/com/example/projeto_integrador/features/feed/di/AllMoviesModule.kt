@@ -7,8 +7,8 @@ import com.example.projeto_integrador.common.data.api.models.mappers.*
 import com.example.projeto_integrador.common.data.di.ApiService
 import com.example.projeto_integrador.common.domain.repositories.GenreRepository
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
-import com.example.projeto_integrador.features.feed.data.models.mappers.UiGenreMapper
-import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
+import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
+import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.domain.usecases.GenreListUseCase
 import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel

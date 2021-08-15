@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class ApiMovieDetails (
     @field:Json(name = "id") val detailsMovieId: Long?,
-    @field:Json(name = "genres") val detailsGenreId: List<ApiGenre>?,
+    @field:Json(name = "genres") val detailsGenreId: List<ApiGenre>,
     @field:Json(name = "backdrop_path") val detailsPosterPath: String?,
     @field:Json(name = "title") val detailsTitle:String?,
     @field:Json(name = "runtime") val detailsRuntime: Int?,

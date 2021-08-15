@@ -1,16 +1,10 @@
 package com.example.projeto_integrador.features.search.presentation
 
-import android.view.SearchEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.projeto_integrador.R
-import com.example.projeto_integrador.common.domain.model.NoMoreMoviesException
-import com.example.projeto_integrador.features.feed.data.models.mappers.UiMovieMapper
+import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProvider
-import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
-import com.example.projeto_integrador.features.search.domain.model.SearchParameters
 import com.example.projeto_integrador.features.search.domain.usecase.SearchMovies
 import io.reactivex.internal.disposables.ArrayCompositeDisposable
 import io.reactivex.subjects.BehaviorSubject

@@ -8,17 +8,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.domain.model.movies.MediaSizes
-import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
 import com.example.projeto_integrador.databinding.FragmentMovieDetailsBinding
-import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
-import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
-import com.example.projeto_integrador.features.feed.presentation.AllMoviesEvent
+import com.example.projeto_integrador.features.moviedetails.data.DetailsGenreRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,6 +25,10 @@ class MovieDetailsFragment: Fragment() {
 
     private val viewModel: MovieDetailsViewModel by viewModel()
     private var _binding: FragmentMovieDetailsBinding? = null
+
+    private val detailsGenreRecyclerViewAdapter: DetailsGenreRecyclerViewAdapter by lazy {
+        DetailsGenreRecyclerViewAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,10 +49,23 @@ class MovieDetailsFragment: Fragment() {
         }
 
         observeViewStateUpdates()
+        setupUI()
 
     }
 
+    private fun setupUI() {
+        setupDetailsGenreRecyclerView()
+        observeViewStateUpdates()
+    }
 
+    private fun setupDetailsGenreRecyclerView() {
+        binding.detailsGenre.adapter= detailsGenreRecyclerViewAdapter
+        binding.detailsGenre.layoutManager= LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+    }
 
     private fun observeViewStateUpdates() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
@@ -62,6 +74,7 @@ class MovieDetailsFragment: Fragment() {
     }
 
     private fun MovieDetailsViewState.updateScreenState() {
+        detailsGenreRecyclerViewAdapter.submitList(genre)
         binding.movieDetailsProgressBar.isVisible = loading
         binding.detailsMovieTitleTextView.text = movieDetails?.detailsTitle ?: ""
         binding.detailsOverviewTextView.text = movieDetails?.overview ?: ""

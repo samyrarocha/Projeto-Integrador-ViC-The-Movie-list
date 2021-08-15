@@ -177,14 +177,15 @@
         </androidx.appcompat.widget.AppCompatTextView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/genreRecyclerView"
+            android:id="@+id/detailsGenre"
             android:layout_width="0dp"
             android:layout_height="60dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/detailsYearTextView"
             app:layout_constraintTop_toBottomOf="@+id/detailsYearTextView"
-            tools:listitem="@layout/genre_button_recycler_view" />
+            tools:listitem="@layout/details_genre_recycler_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/detailsSynopsisTitleTextView"
@@ -199,7 +200,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/genreRecyclerView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsGenre"
             tools:text="Sinopse">
 
         </androidx.appcompat.widget.AppCompatTextView>
