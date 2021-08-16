@@ -7,5 +7,5 @@ data class Crew(
     val crewId: Long,
     val crewName: String,
     val crewJob: String,
-    val crewPosterPath: String
+    val crewPosterPath: String?
 )

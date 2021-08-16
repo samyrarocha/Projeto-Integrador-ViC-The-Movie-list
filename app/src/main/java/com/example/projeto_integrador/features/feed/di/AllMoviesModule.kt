@@ -9,11 +9,15 @@ import com.example.projeto_integrador.common.domain.repositories.GenreRepository
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
-import com.example.projeto_integrador.features.feed.domain.usecases.GenreListUseCase
-import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
+import com.example.projeto_integrador.features.feed.usecases.GenreListUseCase
+import com.example.projeto_integrador.features.feed.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.moviedetails.MovieDetailsViewModel
+import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCastMapper
+import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCrewMapper
+import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiMovieDetailsMapper
+import com.example.projeto_integrador.features.moviedetails.usecase.GetMovieDetailsUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
@@ -27,7 +31,13 @@ internal val allMoviesModule = module {
         MoviesRepositoryImpl(
             api = get(),
             apiDiscoverMapper =  ApiDiscoverMapper(apiMovieMapper = ApiMovieMapper()),
-            apiSearchMapper = ApiSearchMapper(apiSearchResultsMapper = ApiSearchResultsMapper())
+            apiSearchMapper = ApiSearchMapper(apiSearchResultsMapper = ApiSearchResultsMapper()),
+            apiMovieDetailsMapper = ApiMovieDetailsMapper(
+                apiCreditsMapper = ApiCreditsMapper(
+                    apiCastMapper = ApiCastMapper(),
+                    apiCrewMapper = ApiCrewMapper()
+                ),
+            apiGenreMapper = ApiGenreMapper())
         )
     }
 
@@ -47,6 +57,10 @@ internal val allMoviesModule = module {
         GenreListUseCase(get())
     }
 
+    factory {
+        GetMovieDetailsUseCase(get())
+    }
+
     single { DispatchersProviderImp() }
 
     viewModel {
@@ -61,8 +75,12 @@ internal val allMoviesModule = module {
 
     viewModel {
         MovieDetailsViewModel(
-            moviesRepository = get(),
-            dispatchersProvider = get()
+            uiMovieDetailsMapper = UiMovieDetailsMapper(
+                UiGenreMapper(),
+                UiCrewMapper(),
+                UiCastMapper()),
+            dispatchersProvider = get(),
+            getMovieDetailsUseCase = GetMovieDetailsUseCase(get())
         )
     }
 

@@ -15,8 +15,8 @@ import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
-import com.example.projeto_integrador.features.feed.domain.usecases.GenreListUseCase
-import com.example.projeto_integrador.features.feed.domain.usecases.RequestNextPageOfMoviesUseCase
+import com.example.projeto_integrador.features.feed.usecases.GenreListUseCase
+import com.example.projeto_integrador.features.feed.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
 import kotlinx.coroutines.Dispatchers

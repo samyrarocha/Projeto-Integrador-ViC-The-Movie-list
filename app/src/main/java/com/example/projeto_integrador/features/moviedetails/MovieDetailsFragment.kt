@@ -13,10 +13,12 @@ import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.domain.model.movies.MediaSizes
 import com.example.projeto_integrador.databinding.FragmentMovieDetailsBinding
 import com.example.projeto_integrador.features.feed.data.models.Event
-import com.example.projeto_integrador.features.moviedetails.data.DetailsGenreRecyclerViewAdapter
+import com.example.projeto_integrador.features.moviedetails.data.models.CreditsRecyclerViewAdapter
+import com.example.projeto_integrador.features.moviedetails.data.models.DetailsGenreRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.time.ExperimentalTime
 
 class MovieDetailsFragment: Fragment() {
 
@@ -30,6 +32,10 @@ class MovieDetailsFragment: Fragment() {
         DetailsGenreRecyclerViewAdapter()
     }
 
+    private val creditsRecyclerViewAdapter: CreditsRecyclerViewAdapter by lazy {
+        CreditsRecyclerViewAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +47,7 @@ class MovieDetailsFragment: Fragment() {
 
     }
 
+    @ExperimentalTime
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = arguments?.getLong("movie_id")
@@ -54,6 +61,7 @@ class MovieDetailsFragment: Fragment() {
     }
 
     private fun setupUI() {
+        setupCreditsRecyclerView()
         setupDetailsGenreRecyclerView()
         observeViewStateUpdates()
     }
@@ -67,6 +75,15 @@ class MovieDetailsFragment: Fragment() {
         )
     }
 
+    private fun setupCreditsRecyclerView() {
+        binding.castAndCrewRecyclerView.adapter= creditsRecyclerViewAdapter
+        binding.castAndCrewRecyclerView.layoutManager= LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+    }
+
     private fun observeViewStateUpdates() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             state.updateScreenState()
@@ -74,14 +91,14 @@ class MovieDetailsFragment: Fragment() {
     }
 
     private fun MovieDetailsViewState.updateScreenState() {
-        detailsGenreRecyclerViewAdapter.submitList(genre)
+        detailsGenreRecyclerViewAdapter.submitList(movieDetails?.detailsGenreName)
+        creditsRecyclerViewAdapter.submitList(movieDetails?.credits)
         binding.movieDetailsProgressBar.isVisible = loading
-        binding.detailsMovieTitleTextView.text = movieDetails?.detailsTitle ?: ""
-        binding.detailsOverviewTextView.text = movieDetails?.overview ?: ""
-        binding.detailsYearTextView.text = movieDetails?.releaseDate ?: ""
-        val popularity = movieDetails?.detailsVoteAverage ?: 0
-        binding.detailsRatingTextView.text = "${popularity.toInt()*10}%"
-        binding.detailsRuntimeTextView.text = movieDetails?.detailsRuntime.toString() ?: ""
+        binding.detailsMovieTitleTextView.text = movieDetails?.detailsMovieTitle ?: ""
+        binding.detailsOverviewTextView.text = movieDetails?.detailsOverview ?: ""
+        binding.detailsYearTextView.text = movieDetails?.detailsReleasedYear ?: ""
+        binding.detailsRatingTextView.text = movieDetails?.detailsVoteAverage
+        binding.detailsRuntimeTextView.text = movieDetails?.detailsRuntime
         Picasso.get()
             .load(
                 ApiConstants.BASE_IMAGE_ENDPOINT

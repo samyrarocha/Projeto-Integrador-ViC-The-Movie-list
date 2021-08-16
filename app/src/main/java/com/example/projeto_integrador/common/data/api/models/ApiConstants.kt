@@ -7,12 +7,11 @@ object ApiConstants {
     const val AUTH_ENDPOINT = "https://api.themoviedb.org/3/movie/76341"
     const val CONTENT_TYPE_ENDPOINT = "application/json;charset=utf-8"
 
-    const val MOVIES_ENDPOINT = "movies"
-    const val MOVIES_DETAILS_ENDPOINT = "movie"
+    const val MOVIES_ENDPOINT = "movie"
     const val GENRE_ENDPOINT = "genre/movie/list"
     const val SEARCH_ENDPOINT = "search/company"
     const val DISCOVER_ENDPOINT = "discover/movie"
-
+    const val MOVIE_DETAILS = "movie/{movieId}"
 }
 
 object ApiParameters {
@@ -22,6 +21,7 @@ object ApiParameters {
 
     const val PAGE = "page"
     const val MOVIE_ID = "movieId"
+
     const val IMAGES = "images"
     const val CREDITS = "credits"
     const val RELEASE_DATES = "release_dates"

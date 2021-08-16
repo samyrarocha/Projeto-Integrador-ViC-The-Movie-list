@@ -16,7 +16,6 @@ class ApiCreditsMapper constructor(
 
     override fun mapToDomain(apiEntity: ApiCredits): Credits {
         return Credits(
-            creditsMovieId = apiEntity.creditMovieMovieId,
             creditCast = apiCastMapper.mapToDomain(apiEntity.creditCast),
             creditCrew = apiCrewMapper.mapToDomain(apiEntity.creditCrew)
         )

@@ -1,65 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/castAndCrewRecyclerView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:elevation="0dp"
+    app:cardElevation="0dp">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/castAndCrewCardView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="24dp"
-        app:cardCornerRadius="40dp"
-        app:cardElevation="16dp"
-        android:orientation="horizontal"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/castAndCrewImageView"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:contentDescription="@string/itemMovieTitle"
             android:scaleType="centerCrop"
-            tools:src="@drawable/cast_sample"/>
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.SmallComponent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/cast_sample" />
 
-    </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/castAndCrewNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/titles"
+            android:textAlignment="center"
+            android:textColor="@color/titles_text_color"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:minLines="2"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="8sp"
+            android:autoSizeMaxTextSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/castAndCrewImageView"
+            tools:text="James Mangold" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/castAndCrewNameTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/castAndCrewCardView"
-        tools:text="James Mangold" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/castAndCrewJobTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/titles"
+            android:autoSizeTextType="uniform"
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/castAndCrewJobTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/titles"
-        android:textAlignment="center"
-        android:textColor="@color/titles_text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/castAndCrewNameTextView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/castAndCrewNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/castAndCrewNameTextView"
-        tools:text="Diretor" />
+            android:autoSizeMinTextSize="8sp"
+            android:autoSizeMaxTextSize="16sp"
+            android:textAlignment="center"
+            android:textColor="#9A9BB2"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/castAndCrewNameTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/castAndCrewNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/castAndCrewNameTextView"
+            tools:text="Diretor"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -15,7 +15,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 val ApiMovieModule = module {
-    single { HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT) }
+    single { provideOkHttpLoggingInterceptor(LoggingInterceptor())}//HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT) }
     single { ConnectionManager(context = androidContext()) }
     single { NetworkStatusInterceptor(
         connectionManager = ConnectionManager(

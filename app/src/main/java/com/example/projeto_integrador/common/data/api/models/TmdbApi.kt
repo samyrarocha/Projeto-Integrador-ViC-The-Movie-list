@@ -17,21 +17,21 @@ interface TmdbApi {
     suspend fun getSearch( // 2
         @Query(ApiParameters.PAGE) pageToLoad: Int, // 3
         @Query(ApiParameters.QUERY) searchQuery: String,
-        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String
+        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String?
     ): ApiSearch// 4
 
     @GET(ApiConstants.MOVIES_ENDPOINT) // 1
     suspend fun getMovie( // 2
         @Path(ApiParameters.MOVIE_ID) movieId: Long,
         @Query(ApiParameters.LANGUAGE) dataLanguage: String,
-        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String
+        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String?
     ): ApiMovie// 4
 
-    @GET("movie/{movieId}?append_to_response=images,videos,reviews") // 1
+    @GET(ApiConstants.MOVIE_DETAILS) // 1
     suspend fun getMovieDetails( // 2
         @Path(ApiParameters.MOVIE_ID) movieId: Long,
         @Query(ApiParameters.LANGUAGE) dataLanguage: String,
-        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String
+        @Query(ApiParameters.MOVIE_APPEND_TO_RESPONSE) appendToResponse: String?
     ): ApiMovieDetails// 4
 
     @GET(ApiConstants.GENRE_ENDPOINT) // 1

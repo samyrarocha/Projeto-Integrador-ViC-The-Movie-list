@@ -7,7 +7,7 @@ class MovieWithDetails (
     val discoverVoteAverage: Int,
     val favorite: Boolean,
     val discoverPosterPath: String,
-    val details: Details
+    val movieDetails: MovieDetails
 ) {
     val aproval: Int
         get() = discoverVoteAverage.times(10)
