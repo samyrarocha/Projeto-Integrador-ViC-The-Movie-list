@@ -6,5 +6,7 @@ sealed class AllMoviesEvent{
     object RequestInitialMoviesList: AllMoviesEvent()
     object RequestMoreMovies: AllMoviesEvent()
     data class UpdateGenre(val selectedGenre: UIGenre): AllMoviesEvent()
+    data class QueryInput(val input: String): AllMoviesEvent()
+    object PrepareForSearch : AllMoviesEvent()
 }
 

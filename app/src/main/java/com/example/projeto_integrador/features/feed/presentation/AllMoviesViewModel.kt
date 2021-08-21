@@ -8,27 +8,33 @@ import androidx.lifecycle.viewModelScope
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.common.domain.model.NetworkUnavailableException
 import com.example.projeto_integrador.common.domain.model.NoMoreMoviesException
-import com.example.projeto_integrador.common.domain.model.movies.Discover
-import com.example.projeto_integrador.common.domain.model.movies.Genre
-import com.example.projeto_integrador.common.domain.model.movies.Movie
+import com.example.projeto_integrador.common.domain.model.movies.*
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.usecases.GenreListUseCase
 import com.example.projeto_integrador.features.feed.usecases.RequestNextPageOfMoviesUseCase
+import com.example.projeto_integrador.features.feed.usecases.SearchMoviesUseCase
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
+import com.example.projeto_integrador.features.search.data.UiSearchResultsMapper
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 
 class AllMoviesViewModel(
     private val uiMovieMapper: UiMovieMapper,
     private val uiGenreMapper: UiGenreMapper,
+    private val uiSearchResultsMapper: UiSearchResultsMapper,
+    private val searchMoviesUseCase: SearchMoviesUseCase,
     private val requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase,
     private val genreListUseCase: GenreListUseCase,
-    private val dispatchersProvider: DispatchersProviderImp,
+    private val dispatchersProvider: DispatchersProviderImp
 ): ViewModel() {
 
     companion object {
@@ -40,6 +46,9 @@ class AllMoviesViewModel(
 
     var isLoadingMoreMovies: Boolean = false
     var isLastPage = false
+    private val querySubject = BehaviorSubject.create<String>()
+    private var compositeDisposable = CompositeDisposable()
+
 
     var selectedGenre = MutableLiveData<UIGenre?>()
 
@@ -58,6 +67,8 @@ class AllMoviesViewModel(
             is AllMoviesEvent.RequestInitialMoviesList -> loadMovies()
             is AllMoviesEvent.RequestMoreMovies -> loadNextMoviePage()
             is AllMoviesEvent.UpdateGenre -> selectGenre(event.selectedGenre)
+            is AllMoviesEvent.PrepareForSearch -> prepareForSearch()
+            is AllMoviesEvent.QueryInput -> querySubject.onNext(event.input)
         }
     }
 
@@ -107,7 +118,7 @@ class AllMoviesViewModel(
         viewModelScope.launch {
             runCatching {
                 withContext(Dispatchers.IO) {
-                    requestNextPageOfMoviesUseCase(page, selectedGenre?.value?.id.toString())
+                    requestNextPageOfMoviesUseCase(page, selectedGenre.value?.id.toString())
                 }
             }.onSuccess {
                 onNewMovieList(it.movies)
@@ -117,7 +128,44 @@ class AllMoviesViewModel(
         }
     }
 
-    fun onNewMovieList(movies: List<Movie>) {
+    private fun prepareForSearch() {
+        setupSearchSubscription()
+    }
+
+
+    private fun setupSearchSubscription() {
+        querySubject
+            .debounce(500L, TimeUnit.MILLISECONDS)
+            .filter { it.isNotEmpty() }
+            .distinctUntilChanged()
+            .subscribe {
+                viewModelScope.launch {
+                    runCatching {
+                        withContext(Dispatchers.IO) {
+                            searchMoviesUseCase(it)
+                        }
+                    }.onSuccess {
+                        onSearchResults(it)
+                    }.onFailure {
+                        onFailure(it)
+                    }
+                }
+            }
+            .addTo(compositeDisposable)
+    }
+
+    private fun onSearchResults(search: Search) {
+        onSearchMovieList(search.searchResults)
+    }
+
+    private fun onSearchMovieList(searchResults: List<SearchResults>) {
+        _state.value =
+            state.value?.updateToHasSearchResults(searchResults.map {
+                uiSearchResultsMapper.mapToView(it) })
+    }
+
+
+    private fun onNewMovieList(movies: List<Movie>) {
         _state.value = _state.value?.copy(
             loading = false,
             movies = movies.map { uiMovieMapper.mapToView(it) }

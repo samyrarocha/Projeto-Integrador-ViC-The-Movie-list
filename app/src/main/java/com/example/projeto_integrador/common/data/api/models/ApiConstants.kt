@@ -9,7 +9,7 @@ object ApiConstants {
 
     const val MOVIES_ENDPOINT = "movie"
     const val GENRE_ENDPOINT = "genre/movie/list"
-    const val SEARCH_ENDPOINT = "search/company"
+    const val SEARCH_ENDPOINT = "search/movie"
     const val DISCOVER_ENDPOINT = "discover/movie"
     const val MOVIE_DETAILS = "movie/{movieId}"
 }

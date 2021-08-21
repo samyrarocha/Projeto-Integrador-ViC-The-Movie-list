@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AutoCompleteTextView
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -80,6 +83,7 @@ class AllMoviesFragment: Fragment() {
         observeViewStateUpdates()
         setupGenreRecyclerView()
         observeGenreSelection()
+        setupSearchViewListener()
     }
 
     private fun setupMovieRecyclerView() {
@@ -105,6 +109,29 @@ class AllMoviesFragment: Fragment() {
             false
         )
     }
+
+    private fun setupSearchViewListener() {
+        binding.searchEditText.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
+                    viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(query.orEmpty()))
+                    binding.searchEditText.clearFocus()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
+                    viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(newText.orEmpty()))
+                    return true
+                }
+            }
+        )
+    }
+
+//    private fun setupSearchViewListener() {
+//        val searchView: SearchView = binding.
+//    }
 
     private fun requestInitialMovieList() {
         viewModel.onMoviesEvent(AllMoviesEvent.RequestInitialMoviesList)
@@ -141,7 +168,7 @@ class AllMoviesFragment: Fragment() {
             viewLifecycleOwner, Observer { newGenre ->
             val previousSelectedGenre = genreRecyclerViewAdapter.selectedGenre
             genreRecyclerViewAdapter.selectedGenre = newGenre
-            previousSelectedGenre?.let {
+            previousSelectedGenre?.let { it ->
                 viewModel.state.value?.genre?.indexOf(it)?.let {
                     genreRecyclerViewAdapter.notifyItemChanged(it)
                 }

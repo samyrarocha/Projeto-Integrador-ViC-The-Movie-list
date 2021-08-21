@@ -12,7 +12,9 @@ class ApiSearchMapper(
     override fun mapToDomain(apiEntity: ApiSearch): Search {
         return Search(
             searchPage = apiEntity.searchPage,
-            searchResults = apiSearchResultsMapper.mapToDomain(apiEntity.searchResults)
+            searchResults = apiSearchResultsMapper.mapToDomain(apiEntity.searchResults),
+            searchTotalPages = apiEntity.totalPages,
+            searchTotalResults = apiEntity.totalResults
         )
     }
 }

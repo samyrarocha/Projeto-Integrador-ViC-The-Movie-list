@@ -12,12 +12,14 @@ import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMappe
 import com.example.projeto_integrador.features.feed.usecases.GenreListUseCase
 import com.example.projeto_integrador.features.feed.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
+import com.example.projeto_integrador.features.feed.usecases.SearchMoviesUseCase
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.moviedetails.MovieDetailsViewModel
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCastMapper
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCrewMapper
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiMovieDetailsMapper
 import com.example.projeto_integrador.features.moviedetails.usecase.GetMovieDetailsUseCase
+import com.example.projeto_integrador.features.search.data.UiSearchResultsMapper
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
@@ -61,12 +63,18 @@ internal val allMoviesModule = module {
         GetMovieDetailsUseCase(get())
     }
 
+    factory {
+        SearchMoviesUseCase(get())
+    }
+
     single { DispatchersProviderImp() }
 
     viewModel {
         AllMoviesViewModel(
             uiMovieMapper = UiMovieMapper(),
             uiGenreMapper = UiGenreMapper(),
+            uiSearchResultsMapper = UiSearchResultsMapper(),
+            searchMoviesUseCase = SearchMoviesUseCase(get()),
             requestNextPageOfMoviesUseCase = get(),
             genreListUseCase = get(),
             dispatchersProvider = get()

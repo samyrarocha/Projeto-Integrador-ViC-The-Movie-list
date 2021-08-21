@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/itemRecyclerView"
+        android:id="@+id/searchMovieRecyclerView"
         android:layout_width="@dimen/all_movies_image_width"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
@@ -43,8 +43,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/itemNotFavoritedImageView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/itemRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/itemRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/searchMovieRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/searchMovieRecyclerView"
         tools:text="Ford vs Ferrari" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -54,7 +54,7 @@
         android:layout_marginStart="8dp"
         android:src="@drawable/heartbuttonnotpressed"
         app:layout_constraintBottom_toBottomOf="@id/itemMovieTitleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/itemRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/searchMovieRecyclerView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
         app:layout_constraintTop_toTopOf="@id/itemMovieTitleTextView"

@@ -8,7 +8,7 @@ import com.example.projeto_integrador.common.domain.model.movies.Discover
 import com.example.projeto_integrador.common.domain.model.movies.Search
 import com.example.projeto_integrador.common.domain.model.movies.details.MovieDetails
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
-import com.example.projeto_integrador.features.search.domain.model.SearchParameters
+import com.example.projeto_integrador.features.feed.data.models.SearchParameters
 
 class MoviesRepositoryImpl(
     private val api: TmdbApi,
