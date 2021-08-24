@@ -12,6 +12,7 @@ data class UISearchResults(
     val searchPosterPath: String = "",
     val searchMovieId: Long = 0,
     val searchMovieTitle: String = "",
-    val searchVoteAverage: String = ""
+    val searchVoteAverage: String = "",
+    val favorite: Boolean = false
 )
 

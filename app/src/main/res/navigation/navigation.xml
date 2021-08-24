@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/allMoviesFragment"
         android:name="com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment"
-        android:label="Alll Movies"
+        android:label="All Movies"
         tools:layout="@layout/fragment_all_movies"/>
 
     <action
@@ -27,6 +27,17 @@
         android:name="com.example.projeto_integrador.features.moviedetails.MovieDetailsFragment"
         android:label="Movie Details"
         tools:layout="@layout/fragment_movie_details"/>
+
+<!--    <action-->
+<!--        android:id="@+id/navigateToErrorScreen"-->
+<!--        app:destination="@+id/errorLayout"-->
+<!--        app:popUpToInclusive="true"/>-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/errorLayout"-->
+<!--        android:name="com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment"-->
+<!--        android:label="@string/an_error_occurred"-->
+<!--        tools:layout="@layout/error_layout"/>-->
 
 
 

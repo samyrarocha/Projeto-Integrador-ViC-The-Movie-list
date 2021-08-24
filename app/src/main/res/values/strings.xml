@@ -11,4 +11,7 @@
     <string name="user_rating_description">Avaliação\ndos usuários</string>
     <string name="synopsis">Sinopse</string>
     <string name="certification">PG-13</string>
+    <string name="system_failure">O sistema falhou</string>
+    <string name="system_failure_subtitle">Por algum motivo, não foi possível processar com essa solicitação. Por favor, tente novamente.</string>
+    <string name="try_again">Tente novamente</string>
 </resources>

@@ -11,7 +11,8 @@ class UiSearchResultsMapper: UiMapper<SearchResults, UIMovie> {
                         id = input.searchMovieId,
                         name = input.searchMovieTitle,
                         image = input.searchPosterPath,
-                        popularity = input.popularity
+                        popularity = input.popularity,
+                        favorite = input.favorite
                 )
         }
 }

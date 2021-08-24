@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/allMoviesFragment"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,71 +15,98 @@
         android:backgroundTint="@color/background_color"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_all_movies_header"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchEditText"
+            android:layout_width="@dimen/search_edit_text_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="@string/search_for_movie_hint_text"
+            app:searchHintIcon="@drawable/search_image_view"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/moviesTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/background_color"
-            android:orientation="vertical"
+            android:layout_marginTop="24dp"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+            app:tabIndicatorColor="@color/tab_indicator"
+            app:tabIndicatorHeight="6dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/titles_selected_text_color"
+            app:tabIndicatorFullWidth="false"
+            app:tabTextColor="@color/titles_not_selected_text_color">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchEditText"
-                android:layout_width="@dimen/search_edit_text_width"
-                android:layout_height="wrap_content"
-                android:alpha="0.5"
-                android:focusedByDefault="false"
-                android:gravity="top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:queryHint="@string/search_for_movie_hint_text"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:searchHintIcon="@drawable/search_image_view"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/allMoviesTabTextView"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
                 android:text="@string/all_movies_tab"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+                android:visibility="visible"
+                android:contextClickable="true"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/favoriteMoviesTabTextView"
+            <com.google.android.material.tabs.TabItem
+                android:contextClickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="48dp"
-                android:text="@string/favorite_tab"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+                android:text="@string/favorite_tab"/>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_all_movies"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/allMoviesTabTextView" />
+        </com.google.android.material.tabs.TabLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/searchTabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+            app:tabGravity="start"
+            app:tabIndicatorColor="@color/tab_indicator"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorGravity="top"
+            app:tabIndicatorHeight="6dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/titles_selected_text_color"
+            app:tabTextColor="@color/titles_not_selected_text_color">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contextClickable="true"
+                android:text="@string/search_mode"
+                android:visibility="visible" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            android:text="@string/go_back_to_the_start"
+            android:textColor="@color/tab_indicator"
+            app:layout_constraintStart_toStartOf="@+id/searchTabLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchTabLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/genreRecyclerView"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_all_movies_header"
+            app:layout_constraintStart_toStartOf="@id/moviesTabLayout"
+            app:layout_constraintTop_toBottomOf="@id/moviesTabLayout"
             tools:listitem="@layout/genre_button_recycler_view" />
 
         <androidx.recyclerview.widget.RecyclerView

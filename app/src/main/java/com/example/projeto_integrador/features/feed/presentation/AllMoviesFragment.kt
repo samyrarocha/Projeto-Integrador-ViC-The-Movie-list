@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AutoCompleteTextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -23,21 +21,23 @@ import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllMoviesFragment: Fragment() {
 
-    companion object {
-        const val ARG_POSITION = "position"
-    }
 
     private val binding get() = _binding!!
-
-    private val viewModel: AllMoviesViewModel by viewModel()
+     private val viewModel: AllMoviesViewModel by viewModel()
     private var _binding: FragmentAllMoviesBinding? = null
+    private var selectedTab: Int = 0
     private val allMoviesRecyclerViewAdapter: AllMoviesRecyclerViewAdapter
     by lazy {
-        AllMoviesRecyclerViewAdapter(::navigateToDetails)
+        AllMoviesRecyclerViewAdapter(::navigateToDetails) {
+            viewModel.onMoviesEvent(
+                AllMoviesEvent.UpdateFavoriteMovie(it)
+            )
+        }
     }
     private val genreRecyclerViewAdapter: GenreRecyclerViewAdapter by lazy {
         GenreRecyclerViewAdapter(){
@@ -48,7 +48,18 @@ class AllMoviesFragment: Fragment() {
         val bundle = bundleOf("movie_id" to movieId)
         view?.findNavController()?.navigate(
             R.id.navigateToMovieDetails, bundle)
+    }
 
+    private fun navigateErrorScreen(){
+        val bundle = bundleOf()
+//        view?.findNavController()?.navigate(
+//            R.id.navigateToErrorScreen, bundle)
+    }
+
+    private fun navigateToMoviesFeed(){
+        val bundle = bundleOf()
+//        view?.findNavController()?.navigate(
+//            R.id.navigateToMovieFeed, bundle)
     }
 
     private fun updateSelectedGenre(selectedGenre: UIGenre){
@@ -57,6 +68,11 @@ class AllMoviesFragment: Fragment() {
         )
     }
 
+    private fun getFavoriteMovies(){
+        viewModel.onMoviesEvent(
+            AllMoviesEvent.GetFavoriteMovies
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,8 +90,33 @@ class AllMoviesFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
+        getFavoriteMovies()
         requestInitialMovieList()
         requestGenreList()
+
+        binding.moviesTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> {
+                        selectedTab = 0
+                        requestInitialMovieList()
+                    }
+                    1 -> {
+                        selectedTab = 1
+                        getFavoriteMovies()
+                    }
+                }
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                return
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                return
+            }
+        })
+
     }
 
     private fun setupUI() {
@@ -114,6 +155,9 @@ class AllMoviesFragment: Fragment() {
         binding.searchEditText.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    binding.moviesTabLayout.isVisible = false
+                    binding.searchTabLayout.isVisible = true
+                    binding.backButton.isVisible = true
                     viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
                     viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(query.orEmpty()))
                     binding.searchEditText.clearFocus()
@@ -128,10 +172,6 @@ class AllMoviesFragment: Fragment() {
             }
         )
     }
-
-//    private fun setupSearchViewListener() {
-//        val searchView: SearchView = binding.
-//    }
 
     private fun requestInitialMovieList() {
         viewModel.onMoviesEvent(AllMoviesEvent.RequestInitialMoviesList)
@@ -188,13 +228,18 @@ class AllMoviesFragment: Fragment() {
 
     private fun AllMoviesViewState.updateScreenState() {
         binding.progressBar.isVisible = loading
-        allMoviesRecyclerViewAdapter.submitList(movies)
+        when (selectedTab) {
+            0 -> allMoviesRecyclerViewAdapter.submitList(movies)
+            1 -> allMoviesRecyclerViewAdapter.submitList(favoriteMovie)
+        }
+
         genreRecyclerViewAdapter.submitList(genre)
         handleFailures(failure)
     }
 
 
     private fun handleFailures(failure: Event<Throwable>?) {
+        navigateErrorScreen()
         val unhandledFailure = failure?.getContentIfNotHandled() ?: return
 
         val fallbackMessage = getString(R.string.an_error_occurred)

@@ -10,7 +10,8 @@ class UiMovieMapper: UiMapper<Movie, UIMovie> {
             id = input.discoverMovieId,
             name = input.discoverMovieTitle,
             image = input.discoverPosterPath,
-            popularity = input.popularity
+            popularity = input.popularity,
+            favorite = input.favorite
         )
     }
 }

@@ -2,6 +2,7 @@ package com.example.projeto_integrador.features.feed.data.models
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,8 @@ import com.squareup.picasso.Picasso
 
 
 class AllMoviesRecyclerViewAdapter(
-    private val onClickPerformed: (movieId: Long) -> Unit
+    private val onClickPerformed: (movieId: Long) -> Unit,
+    private val onFavoriteClickPerformed: (uiMovie: UIMovie) -> Unit
 ) :
     ListAdapter<UIMovie, AllMoviesRecyclerViewAdapter.MoviesViewHolder>
         (ITEM_COMPARATOR) {
@@ -38,9 +40,23 @@ class AllMoviesRecyclerViewAdapter(
 
         fun bind(item: UIMovie) {
             binding.itemMovieTitleTextView.text = item.name
+
+            if (item.favorite) {
+                binding.NotFavoritedImageView.isVisible = false
+                binding.FavoritedImageView.isVisible = true
+            } else {
+                binding.NotFavoritedImageView.isVisible = true
+                binding.FavoritedImageView.isVisible = false
+            }
+
+            binding.NotFavoritedImageView.setOnClickListener{
+                onFavoriteClickPerformed(item)
+            }
+
             binding.itemMovieImageView.setOnClickListener {
                 onClickPerformed(item.id)
             }
+
             binding.itemRatingTitleTextView.text = item.popularity.toInt().toString() + "%"
             Picasso.get()
                 .load(

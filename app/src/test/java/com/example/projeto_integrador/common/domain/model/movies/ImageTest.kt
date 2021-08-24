@@ -6,8 +6,8 @@ import org.junit.Test
 
 class ImageTest {
 
-    private val feedImage = MediaSizes.W342
-    private val detailsImage = MediaSizes.W500
+//    private val feedImage = MediaSizes.W342
+//    private val detailsImage = MediaSizes.W500
 //    private val invalidImage = MediaSizes.valueOf("") // what's tested in Photo.isValidPhoto()
 
     @Test

@@ -1,7 +1,7 @@
 package com.example.projeto_integrador.features.feed.di
 
 import com.example.projeto_integrador.common.data.GenreRepositoryImp
-import com.example.projeto_integrador.common.data.MoviesRepositoryImpl
+import com.example.projeto_integrador.common.data.MoviesRepositoryImp
 import com.example.projeto_integrador.common.data.api.models.TmdbApi
 import com.example.projeto_integrador.common.data.api.models.mappers.*
 import com.example.projeto_integrador.common.data.di.ApiService
@@ -9,10 +9,8 @@ import com.example.projeto_integrador.common.domain.repositories.GenreRepository
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
-import com.example.projeto_integrador.features.feed.usecases.GenreListUseCase
-import com.example.projeto_integrador.features.feed.usecases.RequestNextPageOfMoviesUseCase
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
-import com.example.projeto_integrador.features.feed.usecases.SearchMoviesUseCase
+import com.example.projeto_integrador.features.feed.usecases.*
 import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.moviedetails.MovieDetailsViewModel
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCastMapper
@@ -30,7 +28,7 @@ internal val allMoviesModule = module {
     factory { ApiService(retrofit = get()).createService(TmdbApi::class.java)}
 
     factory<MoviesRepository> {
-        MoviesRepositoryImpl(
+        MoviesRepositoryImp(
             api = get(),
             apiDiscoverMapper =  ApiDiscoverMapper(apiMovieMapper = ApiMovieMapper()),
             apiSearchMapper = ApiSearchMapper(apiSearchResultsMapper = ApiSearchResultsMapper()),
@@ -39,7 +37,9 @@ internal val allMoviesModule = module {
                     apiCastMapper = ApiCastMapper(),
                     apiCrewMapper = ApiCrewMapper()
                 ),
-            apiGenreMapper = ApiGenreMapper())
+            apiGenreMapper = ApiGenreMapper()),
+            cache = get()
+
         )
     }
 
@@ -67,6 +67,10 @@ internal val allMoviesModule = module {
         SearchMoviesUseCase(get())
     }
 
+    factory {
+        GetFavoriteMoviesUseCase(get())
+    }
+
     single { DispatchersProviderImp() }
 
     viewModel {
@@ -77,7 +81,10 @@ internal val allMoviesModule = module {
             searchMoviesUseCase = SearchMoviesUseCase(get()),
             requestNextPageOfMoviesUseCase = get(),
             genreListUseCase = get(),
-            dispatchersProvider = get()
+            dispatchersProvider = get(),
+            getFavoriteMoviesUseCase = GetFavoriteMoviesUseCase(get()),
+            storeFavoriteMovieUseCase = StoreFavoriteMovieUseCase(get()),
+            deleteFavoriteMovieUseCase =  DeleteFavoriteMovieUseCase(get())
         )
     }
 

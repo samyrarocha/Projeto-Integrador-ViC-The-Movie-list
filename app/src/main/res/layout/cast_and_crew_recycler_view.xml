@@ -37,7 +37,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/titles"
             android:textAlignment="center"
-            android:textColor="@color/titles_text_color"
+            android:textColor="@color/titles_selected_text_color"
             android:textSize="16sp"
             android:textStyle="normal"
             android:minLines="2"

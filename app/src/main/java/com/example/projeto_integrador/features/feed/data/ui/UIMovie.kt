@@ -4,5 +4,6 @@ data class UIMovie(
     val id: Long,
     val name: String,
     val image: String,
-    val popularity: Float
+    val popularity: Float,
+    val favorite: Boolean
 )

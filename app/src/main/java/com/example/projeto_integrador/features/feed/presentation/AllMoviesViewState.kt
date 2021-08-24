@@ -8,6 +8,7 @@ data class AllMoviesViewState(
     val loading: Boolean = true,
     val movies: List<UIMovie> = emptyList(),
     val genre: List<UIGenre> = emptyList(),
+    val favoriteMovie: List<UIMovie> = emptyList(),
     val searchResults: List<UIMovie> = emptyList(),
     val noSearchQuery: Boolean = true,
     val searchingMovies: Boolean = false,
@@ -17,26 +18,41 @@ data class AllMoviesViewState(
     val failure: Event<Throwable>? = null,
     val message: Int? = null
 ) {
-    fun updateToNoSearchQuery(): AllMoviesViewState {
+
+    fun updateMovies(movies: List<UIMovie>): AllMoviesViewState {
+        var moviesCopy = mutableListOf<UIMovie>()
+        moviesCopy.addAll(movies)
+
+        for (movie in movies) {
+            if (favoriteMovie.contains(movie)) {
+                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+            } else {
+                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+            }
+        }
+
         return copy(
-            noSearchQuery = true,
-            searchResults = emptyList(),
-            noRemoteResults = false
+            loading = false,
+            movies = moviesCopy
         )
     }
 
-    fun updateToSearching(): AllMoviesViewState {
-        return copy(
-            noSearchQuery = false,
-            searchingMovies = false,
-            noRemoteResults = false
-        )
-    }
+    fun updateFavoriteMovies(favoriteMovies: List<UIMovie>): AllMoviesViewState {
+        var moviesCopy = mutableListOf<UIMovie>()
+        moviesCopy.addAll(movies)
 
-    fun updateToSearchingMovies(): AllMoviesViewState {
+        for (movie in movies) {
+            if (favoriteMovies.contains(movie)) {
+                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+            } else {
+                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+            }
+        }
+
         return copy(
-            searchingMovies = true,
-            searchResults = emptyList()
+            loading = false,
+            movies = moviesCopy,
+            favoriteMovie = favoriteMovies
         )
     }
 
@@ -49,11 +65,4 @@ data class AllMoviesViewState(
         )
     }
 
-    fun updateToNoResultsAvailable(): AllMoviesViewState {
-        return copy(searchingMovies = false, noRemoteResults = true)
-    }
-
-    fun updateToHasFailure(throwable: Throwable): AllMoviesViewState {
-        return copy(failure = Event(throwable))
-    }
 }

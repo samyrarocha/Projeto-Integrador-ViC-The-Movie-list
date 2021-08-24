@@ -3,6 +3,7 @@ package com.example.projeto_integrador.common
 import android.app.Application
 import com.example.projeto_integrador.common.data.di.initApiMoviesDependencies
 import com.example.projeto_integrador.features.feed.di.initAllMoviesDependencies
+import com.example.projeto_integrador.features.feed.di.initCacheDependencies
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import org.koin.android.ext.koin.androidContext
@@ -20,6 +21,7 @@ class MovieApplication: Application() {
         }
         initApiMoviesDependencies()
         initAllMoviesDependencies()
+        initCacheDependencies()
         setupPicassoInstance()
     }
 
