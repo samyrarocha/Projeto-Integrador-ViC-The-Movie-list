@@ -51,7 +51,6 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun navigateErrorScreen(){
-        val bundle = bundleOf()
 //        view?.findNavController()?.navigate(
 //            R.id.navigateToErrorScreen, bundle)
     }

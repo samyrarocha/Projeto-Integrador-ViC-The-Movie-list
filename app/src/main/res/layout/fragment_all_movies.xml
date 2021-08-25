@@ -19,8 +19,9 @@
             android:id="@+id/searchEditText"
             android:layout_width="@dimen/search_edit_text_width"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/medium"
             android:gravity="top"
+            android:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,23 +33,24 @@
             android:id="@+id/moviesTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/medium"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchEditText"
             app:tabIndicatorColor="@color/tab_indicator"
-            app:tabIndicatorHeight="6dp"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorHeight="@dimen/xxsmall"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/titles_selected_text_color"
             app:tabIndicatorFullWidth="false"
-            app:tabTextColor="@color/titles_not_selected_text_color">
+            app:tabTextColor="@color/titles_not_selected_text_color"
+            app:tabTextAppearance="@style/movieTitle">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/all_movies_tab"
-                android:visibility="visible"
                 android:contextClickable="true"/>
 
             <com.google.android.material.tabs.TabItem
@@ -63,7 +65,7 @@
             android:id="@+id/searchTabLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/medium"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchEditText"
@@ -71,17 +73,18 @@
             app:tabIndicatorColor="@color/tab_indicator"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorGravity="top"
-            app:tabIndicatorHeight="6dp"
+            app:tabIndicatorHeight="@dimen/xxsmall"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/titles_selected_text_color"
-            app:tabTextColor="@color/titles_not_selected_text_color">
+            app:tabTextColor="@color/titles_not_selected_text_color"
+            app:tabTextAppearance="@style/CustomTabTextLayout">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contextClickable="true"
                 android:text="@string/search_mode"
-                android:visibility="visible" />
+                android:visibility="visible"/>
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -100,10 +103,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/genreRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/xxlarge"
             android:orientation="horizontal"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/medium"
+            android:layout_marginStart="@dimen/medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/moviesTabLayout"
             app:layout_constraintTop_toBottomOf="@id/moviesTabLayout"
@@ -113,17 +116,18 @@
             android:id="@+id/movies_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/large"
             android:clipToPadding="false"
             android:descendantFocusability="blocksDescendants"
             android:orientation="horizontal"
-            android:paddingHorizontal="24dp"
+            android:paddingHorizontal="@dimen/medium"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/genreRecyclerView"
             tools:listitem="@layout/recycler_view_movie_item"
             tools:spanCount="1" />
+
 
         <ProgressBar
             android:id="@+id/progress_bar"

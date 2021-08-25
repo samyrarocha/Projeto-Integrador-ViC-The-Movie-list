@@ -39,9 +39,10 @@
     <dimen name="favorited_image_height">21.35dp</dimen>
     <dimen name="favorited_image_margin_top">1.31dp</dimen>
 
-    //Search Edit Text
+    //Search View
     <dimen name="search_edit_text_width">300dp</dimen>
     <dimen name="search_edit_text_height">31dp</dimen>
+    <dimen name="search_edit_text_margin_top">24dp</dimen>
 
     //All Movies tab text view
     <dimen name="all_movies_tab_text_view_width">218dp</dimen>
@@ -58,8 +59,8 @@
     <dimen name="search_image_width">16dp</dimen>
 
     //Genre Button recycler view
-    <dimen name="genre_button_margin_top">237dp</dimen>
-    <dimen name="genre_button_margin_left">32dp</dimen>
+    <dimen name="genre_button_margin_top">24dp</dimen>
+    <dimen name="genre_button_margin_start">32dp</dimen>
     <dimen name="genre_button_corner_radius">50dp</dimen>
     <dimen name="genre_button_height">40dp</dimen>
     <dimen name="genre_button_width">105dp</dimen>
@@ -69,6 +70,29 @@
     <dimen name="genre_button_text_margin_left">62dp</dimen>
     <dimen name="genre_button_text_height">24dp</dimen>
     <dimen name="genre_button_text_width">45dp</dimen>
+
+    //Movie Details
+    <dimen name="movie_details_height">288dp</dimen>
+    <dimen name="movie_details_image_view_margin_top">288dp</dimen>
+
+    //Text Sizes
+    <dimen name="xxxsmall">4dp</dimen>
+    <dimen name="xxsmall">6dp</dimen>
+    <dimen name="xsmall">8dp</dimen>
+    <dimen name="small">16dp</dimen>
+    <dimen name="medium">24dp</dimen>
+    <dimen name="large">32dp</dimen>
+    <dimen name="xlarge">48dp</dimen>
+    <dimen name="xxlarge">60dp</dimen>
+    <dimen name="xxxlarge">64dp</dimen>
+    <dimen name="xLlarge">72dp</dimen>
+    <dimen name="xxsmall_sp">6sp</dimen>
+    <dimen name="xsmall_sp">8sp</dimen>
+    <dimen name="small_sp">16sp</dimen>
+    <dimen name="medium_sp">24sp</dimen>
+    <dimen name="large_sp">32sp</dimen>
+    <dimen name="xlarge_sp">40sp</dimen>
+    <dimen name="xxlarge_Sp">48sp</dimen>
 
 
 

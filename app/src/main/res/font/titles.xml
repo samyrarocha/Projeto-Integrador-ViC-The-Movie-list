@@ -4,7 +4,6 @@
     <font
         android:font="@font/lato_thin"
         android:fontWeight="700"
-        android:fontStyle="normal"
-        android:textSize="32dp"/>
+        android:fontStyle="normal"/>
 
 </font-family>

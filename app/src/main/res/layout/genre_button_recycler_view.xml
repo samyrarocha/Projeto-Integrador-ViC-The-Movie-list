@@ -10,7 +10,7 @@
         android:id="@+id/genreButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/xxxsmall"
         tools:text="Hello"
         android:backgroundTint="@color/genre_state_color"
         app:layout_constraintEnd_toEndOf="parent"

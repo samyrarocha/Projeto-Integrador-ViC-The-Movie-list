@@ -7,19 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="titles_selected_text_color">#223334</color>
-
     <color name="titles_not_selected_text_color">#9A9BB2</color>
-
     <color name="tab_indicator">#11C76F</color>
-
-
     <color name="genre_button_text_color">#223324</color>
-
-
-
     <color name="background_color">#E5E5E5</color>
-
     <color name="rating_text_color">#434670</color>
 </resources>

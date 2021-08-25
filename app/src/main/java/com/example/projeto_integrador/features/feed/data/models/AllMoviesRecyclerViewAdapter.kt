@@ -38,6 +38,7 @@ class AllMoviesRecyclerViewAdapter(
         private val binding: RecyclerViewMovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+
         fun bind(item: UIMovie) {
             binding.itemMovieTitleTextView.text = item.name
 
