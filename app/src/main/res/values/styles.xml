@@ -47,6 +47,15 @@
         <item name="colorOnSurface">#12153D</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">
+            @anim/fade_in
+        </item>
+        <item name="android:windowExitAnimation">
+            @anim/fade_out
+        </item>
+    </style>
+
     <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Body2">
         <item name="fontFamily">@font/genre_button_text</item>
         <item name="android:fontFamily">@font/genre_button_text</item>

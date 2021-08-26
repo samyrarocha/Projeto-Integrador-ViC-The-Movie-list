@@ -32,6 +32,7 @@ class ErrorDialogFragment: DialogFragment(R.layout.error_layout) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireDialog().window?.setWindowAnimations(R.style.DialogAnimation)
         val closeButton: AppCompatImageView = view.findViewById(R.id.closeErrorDialog)
         closeButton.setOnClickListener {
             dismiss()

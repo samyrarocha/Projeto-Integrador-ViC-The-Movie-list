@@ -260,8 +260,8 @@ class AllMoviesFragment: Fragment() {
             ErrorDialogFragment().apply {
                 listener = object: ErrorDialogFragment.Listener {
                     override fun onDialogButtonClicked() {
-                        requestInitialMovieList()
                         requestGenreList()
+                        requestInitialMovieList()
                     }
                 }
             }.show(it, "ErrorDialogFragment")
