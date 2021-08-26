@@ -5,13 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TableLayout
 import androidx.appcompat.widget.SearchView
-import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.core.view.marginTop
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -23,12 +19,9 @@ import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
 import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
-import com.example.projeto_integrador.features.feed.data.ui.UIGenre
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIGenre
 import com.google.android.material.tabs.TabLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.absoluteValue
 
 private const val EMPTY = ""
 
@@ -173,9 +166,9 @@ class AllMoviesFragment: Fragment() {
         binding.searchEditText.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    binding.moviesTabLayout.isVisible = false
-                    binding.searchTabLayout.isVisible = true
-                    binding.backButton.isVisible = true
+//                    binding.moviesTabLayout.isVisible = false
+//                    binding.searchTabLayout.isVisible = true
+//                    binding.backButton.isVisible = true
                     viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
                     viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(query.orEmpty()))
                     binding.searchEditText.clearFocus()

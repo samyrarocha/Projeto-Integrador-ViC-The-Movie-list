@@ -7,8 +7,8 @@ import com.example.projeto_integrador.common.data.api.models.mappers.*
 import com.example.projeto_integrador.common.data.di.ApiService
 import com.example.projeto_integrador.common.domain.repositories.GenreRepository
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
-import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
-import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
+import com.example.projeto_integrador.features.feed.data.mappers.mappers.UiGenreMapper
+import com.example.projeto_integrador.features.feed.data.mappers.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
 import com.example.projeto_integrador.features.feed.domain.usecases.*
 import com.example.projeto_integrador.features.feed.domain.uttils.DispatchersProviderImp
@@ -17,7 +17,7 @@ import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCas
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCrewMapper
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiMovieDetailsMapper
 import com.example.projeto_integrador.features.moviedetails.usecase.GetMovieDetailsUseCase
-import com.example.projeto_integrador.features.search.data.UiSearchResultsMapper
+import com.example.projeto_integrador.features.feed.data.mappers.mappers.UiSearchResultsMapper
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module

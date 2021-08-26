@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projeto_integrador.common.domain.model.movies.details.MovieWithDetails
 import com.example.projeto_integrador.databinding.GenreButtonRecyclerViewBinding
-import com.example.projeto_integrador.features.feed.data.ui.UIGenre
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIGenre
 
 class GenreRecyclerViewAdapter(
     private val onClickPerformed: (selectedGenre: UIGenre) -> Unit

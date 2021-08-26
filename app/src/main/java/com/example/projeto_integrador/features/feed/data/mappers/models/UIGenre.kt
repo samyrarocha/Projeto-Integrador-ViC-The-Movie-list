@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.features.feed.data.ui
+package com.example.projeto_integrador.features.feed.data.mappers.models
 
 data class UIGenre(
     val id: Long? = null,

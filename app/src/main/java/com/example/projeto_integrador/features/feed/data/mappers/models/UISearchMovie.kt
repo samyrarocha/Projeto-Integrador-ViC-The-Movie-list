@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.features.search.data
+package com.example.projeto_integrador.features.feed.data.mappers.models
 
 
 data class UISearchMovie(

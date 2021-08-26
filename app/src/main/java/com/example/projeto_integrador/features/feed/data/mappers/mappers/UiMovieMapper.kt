@@ -1,7 +1,7 @@
-package com.example.projeto_integrador.features.feed.data.ui.mappers
+package com.example.projeto_integrador.features.feed.data.mappers.mappers
 
 import com.example.projeto_integrador.common.domain.model.movies.Movie
-import com.example.projeto_integrador.features.feed.data.ui.UIMovie
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIMovie
 
 class UiMovieMapper: UiMapper<Movie, UIMovie> {
 

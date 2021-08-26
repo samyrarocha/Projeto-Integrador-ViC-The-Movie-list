@@ -3,10 +3,10 @@ package com.example.projeto_integrador.features.moviedetails.data.ui.mapper
 import com.example.projeto_integrador.common.domain.model.movies.details.MovieDetails
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.cast.Cast
 import com.example.projeto_integrador.common.domain.model.movies.details.credits.crew.Crew
-import com.example.projeto_integrador.features.feed.data.ui.UICredits
-import com.example.projeto_integrador.features.feed.data.ui.UIMovieDetails
-import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
-import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMapper
+import com.example.projeto_integrador.features.feed.data.mappers.UICredits
+import com.example.projeto_integrador.features.feed.data.mappers.UIMovieDetails
+import com.example.projeto_integrador.features.feed.data.mappers.mappers.UiGenreMapper
+import com.example.projeto_integrador.features.feed.data.mappers.mappers.UiMapper
 import kotlin.time.ExperimentalTime
 
 class UiMovieDetailsMapper(

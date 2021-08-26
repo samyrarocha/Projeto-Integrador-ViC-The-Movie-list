@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.domain.model.movies.MediaSizes
 import com.example.projeto_integrador.databinding.CastAndCrewRecyclerViewBinding
-import com.example.projeto_integrador.features.feed.data.ui.UICredits
+import com.example.projeto_integrador.features.feed.data.mappers.UICredits
 import com.squareup.picasso.Picasso
 
 

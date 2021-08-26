@@ -1,4 +1,6 @@
-package com.example.projeto_integrador.features.feed.data.ui
+package com.example.projeto_integrador.features.feed.data.mappers
+
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIGenre
 
 data class UIMovieDetails(
     val detailsMovieTitle: String? = "",

@@ -1,8 +1,8 @@
-package com.example.projeto_integrador.features.search.data
+package com.example.projeto_integrador.features.feed.data.mappers.mappers
 
 import com.example.projeto_integrador.common.domain.model.movies.SearchResults
-import com.example.projeto_integrador.features.feed.data.ui.UIMovie
-import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMapper
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIMovie
+import com.example.projeto_integrador.features.feed.data.mappers.mappers.UiMapper
 
 class UiSearchResultsMapper: UiMapper<SearchResults, UIMovie> {
 

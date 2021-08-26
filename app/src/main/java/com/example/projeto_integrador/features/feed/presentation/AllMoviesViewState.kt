@@ -1,8 +1,8 @@
 package com.example.projeto_integrador.features.feed.presentation
 
 import com.example.projeto_integrador.features.feed.data.models.Event
-import com.example.projeto_integrador.features.feed.data.ui.UIGenre
-import com.example.projeto_integrador.features.feed.data.ui.UIMovie
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIGenre
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIMovie
 
 data class AllMoviesViewState(
     val loading: Boolean = true,

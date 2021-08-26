@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.features.feed.data.ui
+package com.example.projeto_integrador.features.feed.data.mappers.models
 
 data class UIMovie(
     val id: Long,

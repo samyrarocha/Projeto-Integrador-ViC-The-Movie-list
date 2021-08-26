@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.databinding.DetailsGenreRecyclerViewBinding
-import com.example.projeto_integrador.features.feed.data.ui.UIGenre
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIGenre
 
 class DetailsGenreRecyclerViewAdapter :
     ListAdapter<UIGenre, DetailsGenreRecyclerViewAdapter.DetailsGenreViewHolder>

@@ -1,7 +1,7 @@
-package com.example.projeto_integrador.features.feed.data.ui.mappers
+package com.example.projeto_integrador.features.feed.data.mappers.mappers
 
 import com.example.projeto_integrador.common.domain.model.movies.Genre
-import com.example.projeto_integrador.features.feed.data.ui.UIGenre
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIGenre
 
 class UiGenreMapper: UiMapper<Genre, UIGenre> {
 
