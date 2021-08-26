@@ -13,6 +13,7 @@ import com.example.projeto_integrador.common.data.api.models.ApiConstants
 import com.example.projeto_integrador.common.domain.model.movies.MediaSizes
 import com.example.projeto_integrador.databinding.FragmentMovieDetailsBinding
 import com.example.projeto_integrador.features.feed.data.models.Event
+import com.example.projeto_integrador.features.feed.presentation.ErrorDialogFragment
 import com.example.projeto_integrador.features.moviedetails.data.models.CreditsRecyclerViewAdapter
 import com.example.projeto_integrador.features.moviedetails.data.models.DetailsGenreRecyclerViewAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -27,6 +28,7 @@ class MovieDetailsFragment: Fragment() {
 
     private val viewModel: MovieDetailsViewModel by viewModel()
     private var _binding: FragmentMovieDetailsBinding? = null
+    private var movieId: Long? = null
 
     private val detailsGenreRecyclerViewAdapter: DetailsGenreRecyclerViewAdapter by lazy {
         DetailsGenreRecyclerViewAdapter()
@@ -50,7 +52,7 @@ class MovieDetailsFragment: Fragment() {
     @ExperimentalTime
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieId = arguments?.getLong("movie_id")
+        movieId = arguments?.getLong("movie_id")
         movieId?.let {
             viewModel.getMovieDetails(it)
         }
@@ -60,6 +62,7 @@ class MovieDetailsFragment: Fragment() {
 
     }
 
+    @ExperimentalTime
     private fun setupUI() {
         setupCreditsRecyclerView()
         setupDetailsGenreRecyclerView()
@@ -84,12 +87,14 @@ class MovieDetailsFragment: Fragment() {
         )
     }
 
+    @ExperimentalTime
     private fun observeViewStateUpdates() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             state.updateScreenState()
         }
     }
 
+    @ExperimentalTime
     private fun MovieDetailsViewState.updateScreenState() {
         detailsGenreRecyclerViewAdapter.submitList(movieDetails?.detailsGenreName)
         creditsRecyclerViewAdapter.submitList(movieDetails?.credits)
@@ -111,7 +116,23 @@ class MovieDetailsFragment: Fragment() {
         handleFailures(failure)
     }
 
+    @ExperimentalTime
+    private fun showErrorDialog(){
+        activity?.supportFragmentManager?.let {
+            ErrorDialogFragment().apply {
+                listener = object: ErrorDialogFragment.Listener {
+                    override fun onDialogButtonClicked() {
+                        movieId?.let { id ->
+                            viewModel.getMovieDetails(id)
+                        }
+                    }
+                }
+            }.show(it, "MovieDetailsFragment")
+        }
+    }
 
+
+    @ExperimentalTime
     private fun handleFailures(failure: Event<Throwable>?) {
         val unhandledFailure = failure?.getContentIfNotHandled() ?: return
 
@@ -123,7 +144,7 @@ class MovieDetailsFragment: Fragment() {
             unhandledFailure.message!!
         }
         if (snackbarMessage.isNotEmpty()) {
-            Snackbar.make(requireView(), snackbarMessage, Snackbar.LENGTH_SHORT).show()
+            showErrorDialog()
         }
     }
 }

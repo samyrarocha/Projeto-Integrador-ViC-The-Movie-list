@@ -12,17 +12,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/error"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        android:layout_marginBottom="@dimen/medium"
+        app:layout_constraintBottom_toTopOf="@+id/systemFailure"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/systemFailure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/system_failure"
-        android:textSize="32sp"
+        android:textSize="@dimen/large_sp"
+        android:textColor="@color/titles_selected_text_color"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/appCompatTextView3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -34,36 +36,47 @@
         android:id="@+id/appCompatTextView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/small"
         android:text="@string/system_failure_subtitle"
         android:textSize="16sp"
         android:gravity="center"
+        android:textColor="@color/titles_selected_text_color"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/systemFailure"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/systemFailure" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/closeErrorDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_dialog_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/medium"
+        android:layout_marginEnd="@dimen/medium"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/tryAgainButton"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        android:elevation="0dp"
         android:text="@string/try_again"
+        android:layout_marginBottom="@dimen/medium"
         android:textColor="@color/tab_indicator"
-        android:layout_marginTop="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="446dp" />
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/guideline3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintGuide_begin="491dp" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

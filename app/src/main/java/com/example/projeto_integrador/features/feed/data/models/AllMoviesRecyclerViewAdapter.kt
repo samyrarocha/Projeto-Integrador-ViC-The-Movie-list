@@ -20,8 +20,11 @@ class AllMoviesRecyclerViewAdapter(
     ListAdapter<UIMovie, AllMoviesRecyclerViewAdapter.MoviesViewHolder>
         (ITEM_COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
-        val binding = RecyclerViewMovieItemBinding.inflate(LayoutInflater.from(parent.context),
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): MoviesViewHolder {
+        val binding = RecyclerViewMovieItemBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent, false)
 
         return MoviesViewHolder(binding)

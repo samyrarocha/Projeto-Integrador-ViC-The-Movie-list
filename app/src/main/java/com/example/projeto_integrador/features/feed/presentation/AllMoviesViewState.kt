@@ -25,9 +25,19 @@ data class AllMoviesViewState(
 
         for (movie in movies) {
             if (favoriteMovie.contains(movie)) {
-                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+                moviesCopy.add(UIMovie(
+                    movie.id,
+                    movie.name,
+                    movie.image,
+                    movie.popularity,
+                    true))
             } else {
-                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+                moviesCopy.add(UIMovie(
+                    movie.id,
+                    movie.name,
+                    movie.image,
+                    movie.popularity,
+                    true))
             }
         }
 
@@ -43,9 +53,19 @@ data class AllMoviesViewState(
 
         for (movie in movies) {
             if (favoriteMovies.contains(movie)) {
-                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+                moviesCopy.add(UIMovie(
+                    movie.id,
+                    movie.name,
+                    movie.image,
+                    movie.popularity,
+                    true))
             } else {
-                moviesCopy.add(UIMovie(movie.id, movie.name, movie.image, movie.popularity, true))
+                moviesCopy.add(UIMovie(
+                    movie.id,
+                    movie.name,
+                    movie.image,
+                    movie.popularity,
+                    true))
             }
         }
 

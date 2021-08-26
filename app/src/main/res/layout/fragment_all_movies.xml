@@ -128,7 +128,6 @@
             tools:listitem="@layout/recycler_view_movie_item"
             tools:spanCount="1" />
 
-
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"

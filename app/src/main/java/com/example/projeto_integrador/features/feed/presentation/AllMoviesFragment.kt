@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableLayout
 import androidx.appcompat.widget.SearchView
+import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.view.marginTop
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -20,9 +24,13 @@ import com.example.projeto_integrador.features.feed.data.models.AllMoviesRecycle
 import com.example.projeto_integrador.features.feed.data.models.Event
 import com.example.projeto_integrador.features.feed.data.models.GenreRecyclerViewAdapter
 import com.example.projeto_integrador.features.feed.data.ui.UIGenre
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.absoluteValue
+
+private const val EMPTY = ""
 
 class AllMoviesFragment: Fragment() {
 
@@ -57,8 +65,8 @@ class AllMoviesFragment: Fragment() {
 
     private fun navigateToMoviesFeed(){
         val bundle = bundleOf()
-//        view?.findNavController()?.navigate(
-//            R.id.navigateToMovieFeed, bundle)
+        view?.findNavController()?.navigate(
+            R.id.navigateToMovieFeed, bundle)
     }
 
     private fun updateSelectedGenre(selectedGenre: UIGenre){
@@ -93,22 +101,14 @@ class AllMoviesFragment: Fragment() {
         requestInitialMovieList()
         requestGenreList()
 
-        binding.moviesTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.moviesTabLayout.addOnTabSelectedListener(
+            object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        selectedTab = 0
-                        requestInitialMovieList()
-                    }
-                    1 -> {
-                        selectedTab = 1
-                        getFavoriteMovies()
-                    }
-                }
+                handleTabSelection(tab?.position)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                return
+                handleTabSelection(tab?.position)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -116,6 +116,25 @@ class AllMoviesFragment: Fragment() {
             }
         })
 
+        binding.searchEditText.setOnSearchClickListener{
+            binding.moviesTabLayout.isVisible = false
+            binding.searchTabLayout.isVisible = true
+            binding.backButton.isVisible = true
+        }
+
+    }
+
+    private fun handleTabSelection(position: Int?) {
+        when (position) {
+            0 -> {
+                selectedTab = 0
+                requestInitialMovieList()
+            }
+            1 -> {
+                selectedTab = 1
+                getFavoriteMovies()
+            }
+        }
     }
 
     private fun setupUI() {
@@ -236,9 +255,21 @@ class AllMoviesFragment: Fragment() {
         handleFailures(failure)
     }
 
+    private fun showErrorDialog(){
+        activity?.supportFragmentManager?.let {
+            ErrorDialogFragment().apply {
+                listener = object: ErrorDialogFragment.Listener {
+                    override fun onDialogButtonClicked() {
+                        requestInitialMovieList()
+                        requestGenreList()
+                    }
+                }
+            }.show(it, "ErrorDialogFragment")
+        }
+    }
+
 
     private fun handleFailures(failure: Event<Throwable>?) {
-        navigateErrorScreen()
         val unhandledFailure = failure?.getContentIfNotHandled() ?: return
 
         val fallbackMessage = getString(R.string.an_error_occurred)
@@ -246,10 +277,10 @@ class AllMoviesFragment: Fragment() {
         val snackbarMessage = if (unhandledFailure.message.isNullOrEmpty()) {
             fallbackMessage
         } else {
-            unhandledFailure.message!!
+            unhandledFailure.message ?: EMPTY
         }
         if (snackbarMessage.isNotEmpty()) {
-            Snackbar.make(requireView(), snackbarMessage, Snackbar.LENGTH_SHORT).show()
+            showErrorDialog()
         }
     }
 
