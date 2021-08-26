@@ -1,7 +1,6 @@
-package com.example.projeto_integrador.features.feed.usecases
+package com.example.projeto_integrador.features.feed.domain.usecases
 
 import com.example.projeto_integrador.common.domain.model.movies.Search
-import com.example.projeto_integrador.common.domain.model.movies.SearchResults
 import com.example.projeto_integrador.common.domain.repositories.MoviesRepository
 import com.example.projeto_integrador.features.feed.data.models.SearchParameters
 

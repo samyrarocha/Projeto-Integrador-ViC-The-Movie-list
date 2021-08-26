@@ -1,4 +1,4 @@
-package com.example.projeto_integrador.features.feed.uttils
+package com.example.projeto_integrador.features.feed.domain.uttils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

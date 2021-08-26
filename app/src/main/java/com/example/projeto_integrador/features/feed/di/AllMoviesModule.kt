@@ -10,8 +10,8 @@ import com.example.projeto_integrador.common.domain.repositories.MoviesRepositor
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
 import com.example.projeto_integrador.features.feed.presentation.AllMoviesViewModel
-import com.example.projeto_integrador.features.feed.usecases.*
-import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
+import com.example.projeto_integrador.features.feed.domain.usecases.*
+import com.example.projeto_integrador.features.feed.domain.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.moviedetails.MovieDetailsViewModel
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCastMapper
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiCrewMapper

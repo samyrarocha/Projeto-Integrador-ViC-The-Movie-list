@@ -14,9 +14,9 @@ import com.example.projeto_integrador.features.feed.data.ui.UIGenre
 import com.example.projeto_integrador.features.feed.data.ui.UIMovie
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiGenreMapper
 import com.example.projeto_integrador.features.feed.data.ui.mappers.UiMovieMapper
-import com.example.projeto_integrador.features.feed.usecases.*
-import com.example.projeto_integrador.features.feed.uttils.DispatchersProviderImp
-import com.example.projeto_integrador.features.feed.uttils.createExceptionHandler
+import com.example.projeto_integrador.features.feed.domain.usecases.*
+import com.example.projeto_integrador.features.feed.domain.uttils.DispatchersProviderImp
+import com.example.projeto_integrador.features.feed.domain.uttils.createExceptionHandler
 import com.example.projeto_integrador.features.search.data.UiSearchResultsMapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
