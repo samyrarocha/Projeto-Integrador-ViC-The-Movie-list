@@ -7,8 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projeto_integrador.common.domain.model.NetworkUnavailableException
 import com.example.projeto_integrador.common.domain.model.NoMoreMoviesException
+import com.example.projeto_integrador.common.domain.model.movies.Movie
 import com.example.projeto_integrador.common.domain.model.movies.details.MovieDetails
+import com.example.projeto_integrador.features.feed.data.mappers.models.UIMovie
 import com.example.projeto_integrador.features.feed.data.models.Event
+import com.example.projeto_integrador.features.feed.domain.usecases.DeleteFavoriteMovieUseCase
+import com.example.projeto_integrador.features.feed.domain.usecases.StoreFavoriteMovieUseCase
 import com.example.projeto_integrador.features.feed.domain.uttils.DispatchersProviderImp
 import com.example.projeto_integrador.features.moviedetails.data.ui.mapper.UiMovieDetailsMapper
 import com.example.projeto_integrador.features.moviedetails.usecase.GetMovieDetailsUseCase
@@ -19,7 +23,7 @@ import kotlin.time.ExperimentalTime
 class MovieDetailsViewModel(
     private val uiMovieDetailsMapper: UiMovieDetailsMapper,
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
-    private val dispatchersProvider: DispatchersProviderImp,
+    private val dispatchersProvider: DispatchersProviderImp
 ): ViewModel() {
 
 
@@ -46,6 +50,7 @@ class MovieDetailsViewModel(
             }
         }
     }
+
 
     @ExperimentalTime
     private fun handleSuccess(movieDetails: MovieDetails) {

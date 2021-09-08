@@ -51,11 +51,6 @@ class AllMoviesFragment: Fragment() {
             R.id.navigateToMovieDetails, bundle)
     }
 
-    private fun navigateErrorScreen(){
-//        view?.findNavController()?.navigate(
-//            R.id.navigateToErrorScreen, bundle)
-    }
-
     private fun navigateToMoviesFeed(){
         val bundle = bundleOf()
         view?.findNavController()?.navigate(
@@ -110,9 +105,20 @@ class AllMoviesFragment: Fragment() {
         })
 
         binding.searchEditText.setOnSearchClickListener{
-            binding.moviesTabLayout.isVisible = false
+            binding.moviesTabLayout.visibility = View.INVISIBLE
+            binding.searchModeTabIndicator.isVisible = true
             binding.searchTabLayout.isVisible = true
             binding.backButton.isVisible = true
+        }
+
+        binding.backButton.setOnClickListener{
+            binding.moviesTabLayout.visibility = View.VISIBLE
+            binding.searchModeTabIndicator.isVisible = false
+            binding.searchTabLayout.isVisible = false
+            binding.backButton.isVisible = false
+            binding.searchEditText.clearFocus()
+            requestInitialMovieList()
+            requestGenreList()
         }
 
     }
@@ -166,9 +172,6 @@ class AllMoviesFragment: Fragment() {
         binding.searchEditText.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-//                    binding.moviesTabLayout.isVisible = false
-//                    binding.searchTabLayout.isVisible = true
-//                    binding.backButton.isVisible = true
                     viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
                     viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(query.orEmpty()))
                     binding.searchEditText.clearFocus()

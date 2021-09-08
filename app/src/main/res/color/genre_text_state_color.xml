@@ -2,11 +2,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_selected="true"
-        android:color="#223324"/><!-- pressed -->
+        android:color="#C4C4C4"/><!-- pressed -->
 
     <item android:state_pressed="true"
-        android:color="#223324"/> <!-- pressed -->
+        android:color="#C4C4C4"/><!-- pressed -->
 
-    <item android:color="#C8C8C8"/> <!-- default -->
+    <item android:color="#223324"/> <!-- default -->
+
 
 </selector>

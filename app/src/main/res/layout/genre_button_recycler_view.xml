@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/xxxsmall"
         tools:text="Hello"
-        android:backgroundTint="@color/genre_state_color"
+        style="@style/Widget.App.Chip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
