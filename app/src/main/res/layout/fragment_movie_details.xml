@@ -53,7 +53,7 @@
             android:layout_marginStart="@dimen/xLlarge"
             android:layout_marginBottom="@dimen/small"
             android:elevation="@dimen/medium"
-            android:src="@drawable/starrating"
+            android:src="@drawable/star_rating"
             app:layout_constraintBottom_toBottomOf="@+id/detailsRatingImageView"
             app:layout_constraintStart_toStartOf="@+id/detailsRatingImageView"
             app:layout_constraintTop_toTopOf="@+id/detailsRatingImageView" />
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="@dimen/medium"
-            android:src="@drawable/heartbuttonnotpressed"
+            android:src="@drawable/heart_button_not_pressed"
             app:layout_constraintBottom_toBottomOf="@+id/detailsMovieTitleTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/allMoviesFragment"
-        android:name="com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment"
+        android:name="com.example.projeto_integrador.presentation.feed.AllMoviesFragment"
         android:label="All Movies"
         tools:layout="@layout/fragment_all_movies"/>
 
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.projeto_integrador.features.moviedetails.MovieDetailsFragment"
+        android:name="com.example.projeto_integrador.presentation.moviedetails.MovieDetailsFragment"
         android:label="Movie Details"
         tools:layout="@layout/fragment_movie_details"/>
 
@@ -35,7 +35,7 @@
 
 <!--    <fragment-->
 <!--        android:id="@+id/errorLayout"-->
-<!--        android:name="com.example.projeto_integrador.features.feed.presentation.AllMoviesFragment"-->
+<!--        android:name="com.example.projeto_integrador.AllMoviesFragment"-->
 <!--        android:label="@string/an_error_occurred"-->
 <!--        tools:layout="@layout/error_layout"/>-->
 

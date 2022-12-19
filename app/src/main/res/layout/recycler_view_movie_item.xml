@@ -3,17 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recycler_view_item_container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchMovieRecyclerView"
         android:layout_width="@dimen/all_movies_image_width"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/medium"
-        android:orientation="vertical"
         android:clickable="true"
+        android:orientation="vertical"
         app:cardCornerRadius="@dimen/default_card_corner_radius"
         app:cardElevation="@dimen/small"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,8 +23,8 @@
             android:id="@+id/itemMovieImageView"
             android:layout_width="@dimen/all_movies_image_width"
             android:layout_height="@dimen/all_movies_image_height"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/itemMovieTitle" />
+            android:contentDescription="@string/itemMovieTitle"
+            android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
 
@@ -35,76 +34,52 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/small"
+        android:layout_marginStart="@dimen/medium"
+        android:layout_marginEnd="@dimen/small"
         android:fontFamily="@font/titles"
         android:textAlignment="center"
         android:textColor="@color/titles_selected_text_color"
-        android:textSize="@dimen/medium"
+        android:textSize="@dimen/medium_sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/NotFavoritedImageView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/searchMovieRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/searchMovieRecyclerView"
-        tools:text="Ford vs Ferrari" />
+        app:layout_constraintEnd_toStartOf="@id/favoritedIconButton"
+        app:layout_constraintStart_toStartOf="@id/searchMovieRecyclerView"
+        app:layout_constraintTop_toBottomOf="@id/searchMovieRecyclerView"
+        tools:text="Ford vs Ferrariiiiiiiiiiiiiiiiiiiiiiiiiiiii" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/NotFavoritedImageView"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/favoritedIconButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/heartbuttonnotpressed"
-        android:visibility="visible"
+        android:layout_marginStart="@dimen/small"
+        android:button="@drawable/favorited_icon_button"
         app:layout_constraintBottom_toBottomOf="@id/itemMovieTitleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/searchMovieRecyclerView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
+        app:layout_constraintEnd_toEndOf="@id/searchMovieRecyclerView"
         app:layout_constraintTop_toTopOf="@id/itemMovieTitleTextView"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/FavoritedImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/xsmall"
-        android:src="@drawable/heartbuttonpressed"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/itemMovieTitleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/searchMovieRecyclerView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/itemMovieTitleTextView"
-        app:layout_constraintTop_toTopOf="@id/itemMovieTitleTextView"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/itemRatingTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/xsmall"
-        android:layout_marginTop="@dimen/xsmall"
-        android:fontFamily="@font/rating_text"
-        android:textAlignment="gravity"
-        android:textColor="@color/rating_text_color"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/itemRatingImageView"
-        app:layout_constraintTop_toBottomOf="@id/itemMovieTitleTextView"
-        tools:text="80%"
-        tools:textSize="18dp" />
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/itemRatingImageView"
-        android:layout_width="@dimen/default_rating_image_width"
-        android:layout_height="@dimen/default_rating_image_width"
-        android:src="@drawable/starrating"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintBottom_toBottomOf="@id/itemRatingTitleTextView"
-        app:layout_constraintEnd_toEndOf="@id/itemMovieTitleTextView"
-        app:layout_constraintEnd_toStartOf="@+id/itemRatingTitleTextView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/itemRatingTitleTextView" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small"
+        android:src="@drawable/star_rating"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/itemMovieTitleTextView"
+        app:layout_constraintTop_toBottomOf="@id/itemMovieTitleTextView"
+        app:layout_constraintEnd_toEndOf="@id/itemMovieTitleTextView"/>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/itemRatingTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/xsmall"
+        android:fontFamily="@font/rating_text"
+        android:textColor="@color/rating_text_color"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingImageView"
+        app:layout_constraintTop_toTopOf="@id/itemRatingImageView"
+        app:layout_constraintStart_toEndOf="@id/itemRatingImageView"
+        tools:text="80%"
+        tools:textSize="18sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

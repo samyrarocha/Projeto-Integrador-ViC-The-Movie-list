@@ -1,7 +1,6 @@
 package com.example.projeto_integrador.common.domain.model.movies
 
-import junit.framework.Assert.assertEquals
-import org.junit.Assert
+import com.example.projeto_integrador.domain.model.movies.Media
 import org.junit.Test
 
 class ImageTest {
@@ -13,7 +12,7 @@ class ImageTest {
     @Test
     fun image_getAvailablePhoto_hasW320Photo() {
         // Given
-        val image = Media.ImageSize(feedImage, detailsImage)
+        //val image = Media.ImageSize(feedImage, detailsImage)
 //        val expectedValue = MediaSizes.W342
 //
 //        // When
