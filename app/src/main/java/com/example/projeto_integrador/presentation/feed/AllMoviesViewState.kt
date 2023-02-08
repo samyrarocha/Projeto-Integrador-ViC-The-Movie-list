@@ -61,7 +61,7 @@ data class AllMoviesViewState(
     fun updateToHasSearchResults(searchResults: List<UIMovie>): AllMoviesViewState {
         return copy(
             noSearchQuery = false,
-            searchResults = searchResults,
+            movies = searchResults,
             searchingMovies = false,
             noRemoteResults = false
         )

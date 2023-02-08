@@ -110,22 +110,21 @@ class AllMoviesViewModel(
         }
     }
 
-    fun selectGenre(genre: UIGenre) {
+    private fun selectGenre(genre: UIGenre) {
         if (genre == selectedGenre.value) {
             selectedGenre.value = null
         } else {
             selectedGenre.value = genre
         }
 
-        _state.value = _state.value?.copy(loading = true)
-
         viewModelScope.launch {
             runCatching {
+                _state.value = _state.value?.copy(loading = true)
                 withContext(Dispatchers.IO) {
                     requestNextPageOfMoviesUseCase(page, selectedGenre.value?.id.toString())
                 }
             }.onSuccess {
-                _state.value = _state.value?.copy()
+                onNewMovieList(it.movies)
             }.onFailure {
                 onFailure(it)
             }
@@ -245,7 +244,6 @@ class AllMoviesViewModel(
                 uiMovie.copy(favorite = false)
                 deleteFavoriteMovieUseCase(movie)
             }
-            //updateFavoriteItem(uiMovie)
         }
     }
 

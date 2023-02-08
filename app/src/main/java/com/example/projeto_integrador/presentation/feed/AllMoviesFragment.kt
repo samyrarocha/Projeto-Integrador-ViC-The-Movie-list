@@ -127,7 +127,7 @@ class AllMoviesFragment: Fragment() {
         when (position) {
             0 -> {
                 selectedTab = 0
-                observeViewStateUpdates()
+                viewModel.onMoviesEvent(AllMoviesEvent.RequestInitialMoviesList)
             }
             1 -> {
                 selectedTab = 1

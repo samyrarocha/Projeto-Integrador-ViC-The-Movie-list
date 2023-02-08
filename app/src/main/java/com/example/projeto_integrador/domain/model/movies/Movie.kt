@@ -1,7 +1,5 @@
 package com.example.projeto_integrador.domain.model.movies
 
-import android.media.Image
-
 data class Movie(
     val discoverMovieId: Long,
     val discoverMovieTitle: String,
@@ -11,5 +9,4 @@ data class Movie(
 ) {
     val popularity: Float
         get() = discoverVoteAverage.times(10)
-
 }
