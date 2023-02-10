@@ -57,8 +57,8 @@ internal val allMoviesModule = module {
             genreListUseCase = GenreListUseCase(get()),
             dispatchersProvider = get(),
             getFavoriteMoviesUseCase = GetFavoriteMoviesUseCase(get()),
-            storeFavoriteMovieUseCase = StoreFavoriteMovieUseCase(get()),
-            deleteFavoriteMovieUseCase =  DeleteFavoriteMovieUseCase(get())
+            storeCashedData = StoreCashedDataUseCase(get()),
+            updateFavoriteMovieUseCase =  UpdateFavoriteMovieUseCase(get())
         )
     }
 

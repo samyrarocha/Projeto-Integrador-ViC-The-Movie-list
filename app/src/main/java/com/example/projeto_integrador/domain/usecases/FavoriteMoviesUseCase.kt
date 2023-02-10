@@ -12,18 +12,10 @@ class GetFavoriteMoviesUseCase(
     }
 }
 
-class StoreFavoriteMovieUseCase(
+class UpdateFavoriteMovieUseCase(
     private val moviesRepository: MoviesRepository
 ){
     suspend operator fun invoke (movie: Movie) {
-        moviesRepository.storeFavoriteMovie(movie)
-    }
-}
-
-class DeleteFavoriteMovieUseCase(
-    private val moviesRepository: MoviesRepository
-){
-    suspend operator fun invoke (movie: Movie) {
-        moviesRepository.deleteFavoriteMovie(movie)
+        moviesRepository.updateFavoriteMovie(movie)
     }
 }

@@ -9,15 +9,17 @@ import com.example.projeto_integrador.presentation.feed.models.SearchParameters
 
 interface MoviesRepository {
 
-    suspend fun requestMoreMovies (pageToLoad: Int, genreFilter: String?): Discover
+    suspend fun requestMovies (pageToLoad: Int, genreFilter: String?): Discover
 
     suspend fun searchMovies (pageToLoad: Int, searchParameters: SearchParameters): Search
 
     suspend fun getMovieDetails(movieId: Long): MovieDetails
 
+    suspend fun getMovies(): List<Movie>
+
     suspend fun getFavoriteMovies(): List<Movie>
 
-    suspend fun storeFavoriteMovie(movie: Movie)
+    suspend fun storeMovieList(movie: List<Movie>)
 
-    suspend fun deleteFavoriteMovie(movie: Movie)
+    suspend fun updateFavoriteMovie(movie: Movie)
 }

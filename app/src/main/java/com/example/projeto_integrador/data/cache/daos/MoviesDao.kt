@@ -9,11 +9,19 @@ abstract class MoviesDao {
     @Query("SELECT * FROM movies ORDER BY movieId DESC")
     abstract suspend fun getMovies(): List<CachedMovie>
 
-    @Delete
-    abstract suspend fun deleteMovie(movie: CachedMovie)
-//    @Query("SELECT * FROM favoriteMovies")
-//    abstract fun getFavoriteMovies(): Flowable<List<CachedFavoriteMovies>>
+    @Transaction
+    @Query("SELECT * FROM movies WHERE favorite = 1")
+    abstract suspend fun getFavoriteMovies(): List<CachedMovie>
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun updateFavoriteMovie(movie: CachedMovie)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertFavoriteMovie(movie: CachedMovie)
+    abstract suspend fun insertCachedMovie(movie: CachedMovie)
+
+    suspend fun storeNewCacheData(movies: List<CachedMovie>) {
+        for (movie in movies) {
+            insertCachedMovie(movie)
+        }
+    }
 }

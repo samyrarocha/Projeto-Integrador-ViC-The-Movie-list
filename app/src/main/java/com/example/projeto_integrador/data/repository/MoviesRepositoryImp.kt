@@ -23,7 +23,7 @@ class MoviesRepositoryImp(
     private val cache: Cache
 ): MoviesRepository {
 
-    override suspend fun requestMoreMovies(pageToLoad: Int, genreFilter: String?): Discover {
+    override suspend fun requestMovies(pageToLoad: Int, genreFilter: String?): Discover {
 
         val apiDiscover = api.getDiscover(
             pageToLoad,
@@ -60,6 +60,19 @@ class MoviesRepositoryImp(
 
     }
 
+    override suspend fun getMovies(): List<Movie> {
+        return cache.getMovies()
+            .map { cachedMovie ->
+                Movie(
+                    cachedMovie.movieId,
+                    cachedMovie.movieTitle,
+                    cachedMovie.popularity,
+                    cachedMovie.favorite,
+                    cachedMovie.posterPath
+                )
+            }
+    }
+
     override suspend fun getFavoriteMovies(): List<Movie> {
         return cache.getFavoriteMovies()
             .map { cachedMovie ->
@@ -73,20 +86,14 @@ class MoviesRepositoryImp(
             }
     }
 
-    override suspend fun storeFavoriteMovie(movie: Movie) {
-        cache.storeFavoriteMovie(
-            CachedMovie(
-                movie.discoverMovieId,
-                movie.discoverMovieTitle,
-                movie.popularity,
-                movie.discoverPosterPath,
-                movie.favorite
-            )
+    override suspend fun storeMovieList(movie: List<Movie>) {
+        cache.storeNewCachedData(
+            movie.map { CachedMovie.fromDomain(it) }
         )
     }
 
-    override suspend fun deleteFavoriteMovie(movie: Movie) {
-        cache.deleteFavorite(
+    override suspend fun updateFavoriteMovie(movie: Movie) {
+        cache.updateFavoriteMovie(
             CachedMovie(
                 movie.discoverMovieId,
                 movie.discoverMovieTitle,

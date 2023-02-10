@@ -4,9 +4,11 @@ import com.example.projeto_integrador.data.cache.model.CachedMovie
 
 interface Cache {
 
+    suspend fun getMovies(): List<CachedMovie>
+
     suspend fun getFavoriteMovies(): List<CachedMovie>
 
-    suspend fun storeFavoriteMovie(movie: CachedMovie)
+    suspend fun storeNewCachedData(movie: List<CachedMovie>)
 
-    suspend fun deleteFavorite(movie: CachedMovie)
+    suspend fun updateFavoriteMovie(movie: CachedMovie)
 }

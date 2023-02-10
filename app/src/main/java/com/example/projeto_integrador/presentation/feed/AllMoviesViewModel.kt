@@ -34,8 +34,8 @@ class AllMoviesViewModel(
     private val requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase,
     private val genreListUseCase: GenreListUseCase,
     private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
-    private val storeFavoriteMovieUseCase: StoreFavoriteMovieUseCase,
-    private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
+    private val storeCashedData: StoreCashedDataUseCase,
+    private val updateFavoriteMovieUseCase: UpdateFavoriteMovieUseCase,
     private val dispatchersProvider: DispatchersProviderImp
 ): ViewModel() {
 
@@ -59,7 +59,7 @@ class AllMoviesViewModel(
 
     init {
         _state.value = AllMoviesViewState(loading = true)
-
+        getFavoriteMovies()
         subscribeToMovieUpdate()
         subscribeToGenreUpdate()
     }
@@ -72,7 +72,7 @@ class AllMoviesViewModel(
             is AllMoviesEvent.PrepareForSearch -> prepareForSearch()
             is AllMoviesEvent.QueryInput -> querySubject.onNext(event.input)
             is AllMoviesEvent.GetFavoriteMovies -> getFavoriteMovies()
-            is AllMoviesEvent.UpdateFavoriteMovie -> updateFavoriteMovie(event.uiMovie)
+            is AllMoviesEvent.UpdateFavoriteMovie -> updateCache(event.uiMovie)
         }
     }
 
@@ -133,6 +133,7 @@ class AllMoviesViewModel(
 
     private fun prepareForSearch() {
         setupSearchSubscription()
+        _state.value = _state.value?.copy(searchingMovies = true)
     }
 
 
@@ -227,24 +228,24 @@ class AllMoviesViewModel(
         }
     }
 
-    private fun updateFavoriteMovie(uiMovie: UIMovie){
+    private fun updateCache(uiMovie: UIMovie){
         viewModelScope.launch {
-            val movie = Movie(
-                discoverVoteAverage = uiMovie.popularity,
-                discoverPosterPath = uiMovie.image,
-                discoverMovieTitle = uiMovie.name,
-                discoverMovieId = uiMovie.id,
-                favorite = uiMovie.favorite
-            )
-
             if (state.value?.favoriteMovie?.contains(uiMovie) == false){
-                uiMovie.copy(favorite = true)
-                storeFavoriteMovieUseCase(movie)
+                updateFavoriteMovieUseCase(uiMovie.mapToDomain().copy(favorite = true))
             } else if (state.value?.favoriteMovie?.contains(uiMovie) == true && uiMovie.favorite){
-                uiMovie.copy(favorite = false)
-                deleteFavoriteMovieUseCase(movie)
+                updateFavoriteMovieUseCase(uiMovie.mapToDomain().copy(favorite = false))
             }
         }
+    }
+
+    private fun UIMovie.mapToDomain(): Movie{
+        return Movie(
+            discoverMovieId = id,
+            discoverMovieTitle = name,
+            discoverPosterPath = image,
+            discoverVoteAverage = popularity,
+            favorite = favorite
+        )
     }
 
     private fun onFailure(failure: Throwable) {

@@ -7,15 +7,19 @@ class RoomCache(
     private val moviesDao: MoviesDao
 ): Cache {
 
-    override suspend fun getFavoriteMovies(): List<CachedMovie> {
+    override suspend fun getMovies(): List<CachedMovie> {
         return moviesDao.getMovies()
     }
 
-    override suspend fun storeFavoriteMovie(movie: CachedMovie) {
-        moviesDao.insertFavoriteMovie(movie)
+    override suspend fun getFavoriteMovies(): List<CachedMovie> {
+        return moviesDao.getFavoriteMovies()
     }
 
-    override suspend fun deleteFavorite(movie: CachedMovie) {
-        moviesDao.deleteMovie(movie)
+    override suspend fun storeNewCachedData(movie: List<CachedMovie>) {
+        moviesDao.storeNewCacheData(movie)
+    }
+
+    override suspend fun updateFavoriteMovie(movie: CachedMovie) {
+        moviesDao.updateFavoriteMovie(movie)
     }
 }
