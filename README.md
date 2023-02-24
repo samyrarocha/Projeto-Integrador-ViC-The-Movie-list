@@ -1,5 +1,5 @@
-# Projeto Integrador-ViC: The Movie List
-The goal of the final project of the Vitória Code Bootcamp, sponsored by PicPay, was to consolidate the knowledge acquired during the course.
+# The Movie List
+The movie list was the final project of the Vitória Code Bootcamp, sponsored by PicPay, and aimed to integrate the knowledge acquired during the course.
 
 The project aimed to implement a movie list using the TMDB API. The requirements were:
 
@@ -9,7 +9,7 @@ The project aimed to implement a movie list using the TMDB API. The requirements
 - Use Crashlytics to map any usage failures;
 - Implement automated tests for the created features
 
-Of these points, I could implement only three: implementation according to the UI, modularized design, and local storage of movies.
+Of these points, I could implement only three: implementation according to the UI, modularized design following MVVM architecture, and local storage of movies. Tests are in progress.
 
 ## Screens
 
@@ -61,7 +61,6 @@ Of these points, I could implement only three: implementation according to the U
 ## Improvements
 
   - Room is working, but the state of the favorite button is not working as it is supposed to. Sometimes it is enabled, and sometimes it is not.
-  - The app is modularized but has no tests implemented yet;
   - Crashlytics is not implemented;
   
 
