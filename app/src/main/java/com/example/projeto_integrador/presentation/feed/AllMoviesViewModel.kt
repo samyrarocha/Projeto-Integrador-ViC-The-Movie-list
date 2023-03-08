@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projeto_integrador.domain.model.NetworkUnavailableException
-import com.example.projeto_integrador.domain.model.NoMoreMoviesException
+import com.example.projeto_integrador.domain.model.NoMoreItemsException
 import com.example.projeto_integrador.domain.model.movies.*
 import com.example.projeto_integrador.domain.usecases.*
 import com.example.projeto_integrador.presentation.feed.models.Event
@@ -249,7 +249,7 @@ class AllMoviesViewModel(
                     failure = Event(failure)
                 )
             }
-            is NoMoreMoviesException -> {
+            is NoMoreItemsException -> {
                 _state.value = state.value?.copy(
                     loading = false,
                     noMoreMovies = true,

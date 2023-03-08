@@ -129,7 +129,7 @@ fun getCreditsForApiMovieDetails() = ApiCredits(
 )
 
 fun getMovieDetails() = MovieDetails(
-    detailsGenreName = getGenreListForMovieDetails(),
+    detailsGenreName = getGenreList(),
     detailsBackDropPath = "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
     detailsNameTitle = "Fight Club",
     detailsRuntime = 139,
@@ -139,7 +139,7 @@ fun getMovieDetails() = MovieDetails(
     credits = getCreditsForMovieDetails()
 )
 
-fun getGenreListForMovieDetails() = listOf(
+fun getGenreList() = listOf(
     Genre(
         genreId = 18,
         genreName = "Drama"

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projeto_integrador.domain.mappers.UiMovieDetailsMapper
 import com.example.projeto_integrador.domain.model.NetworkUnavailableException
-import com.example.projeto_integrador.domain.model.NoMoreMoviesException
+import com.example.projeto_integrador.domain.model.NoMoreItemsException
 import com.example.projeto_integrador.domain.model.movies.details.MovieDetails
 import com.example.projeto_integrador.presentation.feed.models.Event
 import com.example.projeto_integrador.domain.uttils.DispatchersProviderImp
@@ -65,7 +65,7 @@ class MovieDetailsViewModel(
                     failure = Event(failure)
                 )
             }
-            is NoMoreMoviesException -> {
+            is NoMoreItemsException -> {
                 _state.value = _state.value?.copy(
                     loading = false,
                     noMoreMovies = true,
