@@ -89,38 +89,26 @@ class AllMoviesFragment: Fragment() {
         observeViewStateUpdates()
         setupSearchViewListener()
         requestGenreList()
+        tabLayoutSelectionListener()
 
+    }
+
+    private fun tabLayoutSelectionListener() {
         binding.moviesTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                handleTabSelection(tab?.position)
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    handleTabSelection(tab?.position)
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    handleTabSelection(tab?.position)
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    return
+                }
             }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                handleTabSelection(tab?.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                return
-            }
-        })
-
-        binding.searchEditText.setOnSearchClickListener{
-            binding.moviesTabLayout.visibility = View.INVISIBLE
-            binding.searchModeTabIndicator.isVisible = true
-            binding.searchTabLayout.isVisible = true
-            binding.backButton.isVisible = true
-        }
-
-        binding.backButton.setOnClickListener{
-            binding.moviesTabLayout.visibility = View.VISIBLE
-            binding.searchModeTabIndicator.isVisible = false
-            binding.searchTabLayout.isVisible = false
-            binding.backButton.isVisible = false
-            binding.searchEditText.clearFocus()
-            requestGenreList()
-        }
-
+        )
     }
 
     private fun handleTabSelection(position: Int?) {
@@ -149,7 +137,7 @@ class AllMoviesFragment: Fragment() {
                 context,
                 LinearLayoutManager.HORIZONTAL,
                 false)
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             addOnScrollListener(createInfiniteScrollListener(
                 layoutManager as LinearLayoutManager))
 
@@ -166,22 +154,50 @@ class AllMoviesFragment: Fragment() {
     }
 
     private fun setupSearchViewListener() {
-        binding.searchEditText.setOnQueryTextListener(
-            object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
-                    viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(query.orEmpty()))
-                    binding.searchEditText.clearFocus()
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
-                    viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(newText.orEmpty()))
-                    return true
-                }
+        binding.searchEditText.apply {
+            setOnSearchClickListener{
+                binding.moviesTabLayout.visibility = View.INVISIBLE
+                binding.searchModeTabIndicator.isVisible = true
+                binding.searchTabLayout.isVisible = true
+                binding.backButton.isVisible = true
             }
-        )
+
+            setOnCloseListener{
+                binding.moviesTabLayout.visibility = View.VISIBLE
+                binding.searchModeTabIndicator.isVisible = false
+                binding.searchTabLayout.isVisible = false
+                binding.backButton.isVisible = false
+                binding.searchEditText.clearFocus()
+                requestGenreList()
+                false
+            }
+
+            setOnQueryTextListener(
+                object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
+                        viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(query.orEmpty()))
+                        binding.searchEditText.clearFocus()
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        viewModel.onMoviesEvent(AllMoviesEvent.PrepareForSearch)
+                        viewModel.onMoviesEvent(AllMoviesEvent.QueryInput(newText.orEmpty()))
+                        return true
+                    }
+                }
+            )
+        }
+
+        binding.backButton.setOnClickListener{
+            binding.moviesTabLayout.visibility = View.VISIBLE
+            binding.searchModeTabIndicator.isVisible = false
+            binding.searchTabLayout.isVisible = false
+            binding.backButton.isVisible = false
+            binding.searchEditText.isIconified = true
+            requestGenreList()
+        }
     }
 
     private fun requestGenreList() {

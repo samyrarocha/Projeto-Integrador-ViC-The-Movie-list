@@ -109,21 +109,27 @@
             app:layout_constraintTop_toBottomOf="@id/moviesTabLayout"
             tools:listitem="@layout/genre_button_recycler_view" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movies_recycler_view"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/large"
-            android:clipToPadding="false"
-            android:descendantFocusability="blocksDescendants"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/medium"
-            app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/genreRecyclerView"
-            tools:listitem="@layout/recycler_view_movie_item"
-            tools:spanCount="1" />
+            app:layout_constraintTop_toBottomOf="@id/genreRecyclerView">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/movies_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:clipToPadding="false"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/medium"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/recycler_view_movie_item"
+                tools:spanCount="1" />
+
+        </androidx.core.widget.NestedScrollView>
 
         <ProgressBar
             android:id="@+id/progress_bar"
