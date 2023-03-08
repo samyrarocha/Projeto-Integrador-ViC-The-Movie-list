@@ -19,38 +19,6 @@ data class AllMoviesViewState(
     val message: Int? = null
 ) {
 
-    fun updateMovies(movies: List<UIMovie>): AllMoviesViewState {
-        val moviesCopy = mutableListOf<UIMovie>()
-        moviesCopy.addAll(movies)
-
-        for (movie in movies) {
-            if (favoriteMovie.contains(movie)) {
-                moviesCopy.add(
-                    UIMovie(
-                    movie.id,
-                    movie.name,
-                    movie.image,
-                    movie.popularity,
-                    true)
-                )
-            } else {
-                moviesCopy.add(
-                    UIMovie(
-                    movie.id,
-                    movie.name,
-                    movie.image,
-                    movie.popularity,
-                    true)
-                )
-            }
-        }
-
-        return copy(
-            loading = false,
-            movies = moviesCopy
-        )
-    }
-
     fun updateFavoriteMovies(favoriteMovies: List<UIMovie>): AllMoviesViewState {
         return copy(
             loading = false,

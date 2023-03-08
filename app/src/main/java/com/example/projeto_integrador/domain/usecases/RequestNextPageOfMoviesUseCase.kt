@@ -12,6 +12,8 @@ class RequestNextPageOfMoviesUseCase (
         pageToLoad: Int,
         genreId: String?
     ): Discover {
-        return moviesRepository.requestMoreMovies(pageToLoad, genreId)
+        val movies =  moviesRepository.requestMovies(pageToLoad, genreId)
+        moviesRepository.storeMovieList(movies.movies)
+        return movies
     }
 }

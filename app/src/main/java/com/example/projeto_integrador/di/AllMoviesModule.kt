@@ -55,9 +55,8 @@ internal val allMoviesModule = module {
             searchMoviesUseCase = SearchMoviesUseCase(get()),
             requestNextPageOfMoviesUseCase = RequestNextPageOfMoviesUseCase(get()),
             genreListUseCase = GenreListUseCase(get()),
-            dispatchersProvider = get(),
             getFavoriteMoviesUseCase = GetFavoriteMoviesUseCase(get()),
-            storeCashedData = StoreCashedDataUseCase(get()),
+            getMoviesUseCase = GetMoviesUseCase(get()),
             updateFavoriteMovieUseCase =  UpdateFavoriteMovieUseCase(get())
         )
     }

@@ -11,11 +11,3 @@ class GetFavoriteMoviesUseCase(
         return moviesRepository.getFavoriteMovies()
     }
 }
-
-class UpdateFavoriteMovieUseCase(
-    private val moviesRepository: MoviesRepository
-){
-    suspend operator fun invoke (movie: Movie) {
-        moviesRepository.updateFavoriteMovie(movie)
-    }
-}

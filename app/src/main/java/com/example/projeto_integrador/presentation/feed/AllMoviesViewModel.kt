@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.projeto_integrador.R
 import com.example.projeto_integrador.domain.model.NetworkUnavailableException
 import com.example.projeto_integrador.domain.model.NoMoreMoviesException
 import com.example.projeto_integrador.domain.model.movies.*
@@ -15,8 +14,6 @@ import com.example.projeto_integrador.presentation.models.UIGenre
 import com.example.projeto_integrador.presentation.models.UIMovie
 import com.example.projeto_integrador.domain.mappers.UiGenreMapper
 import com.example.projeto_integrador.domain.mappers.UiMovieMapper
-import com.example.projeto_integrador.domain.uttils.DispatchersProviderImp
-import com.example.projeto_integrador.domain.uttils.createExceptionHandler
 import com.example.projeto_integrador.domain.mappers.UiSearchResultsMapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -34,9 +31,8 @@ class AllMoviesViewModel(
     private val requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase,
     private val genreListUseCase: GenreListUseCase,
     private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
-    private val storeCashedData: StoreCashedDataUseCase,
+    private val getMoviesUseCase: GetMoviesUseCase,
     private val updateFavoriteMovieUseCase: UpdateFavoriteMovieUseCase,
-    private val dispatchersProvider: DispatchersProviderImp
 ): ViewModel() {
 
     companion object {
@@ -59,8 +55,7 @@ class AllMoviesViewModel(
 
     init {
         _state.value = AllMoviesViewState(loading = true)
-        getFavoriteMovies()
-        subscribeToMovieUpdate()
+        loadMovies()
         subscribeToGenreUpdate()
     }
 
@@ -82,11 +77,11 @@ class AllMoviesViewModel(
         }
     }
 
-    private fun subscribeToMovieUpdate() {
+    private fun subscribeToMovieUpdate(genreId: String = "") {
         viewModelScope.launch {
             runCatching {
                 withContext(Dispatchers.IO) {
-                    requestNextPageOfMoviesUseCase(page, "")
+                    requestNextPageOfMoviesUseCase(page, genreId)
                 }
             }.onSuccess {
                 onNewMovieList(it.movies)
@@ -116,24 +111,12 @@ class AllMoviesViewModel(
         } else {
             selectedGenre.value = genre
         }
-
-        viewModelScope.launch {
-            runCatching {
-                _state.value = _state.value?.copy(loading = true)
-                withContext(Dispatchers.IO) {
-                    requestNextPageOfMoviesUseCase(page, selectedGenre.value?.id.toString())
-                }
-            }.onSuccess {
-                onNewMovieList(it.movies)
-            }.onFailure {
-                onFailure(it)
-            }
-        }
+        subscribeToMovieUpdate(selectedGenre.value?.id.toString())
     }
 
     private fun prepareForSearch() {
         setupSearchSubscription()
-        _state.value = _state.value?.copy(searchingMovies = true)
+        _state.value = state.value?.copy(searchingMovies = true)
     }
 
 
@@ -170,11 +153,15 @@ class AllMoviesViewModel(
 
 
     private fun onNewMovieList(movies: List<Movie>) {
-        _state.value = _state.value?.updateMovies(movies.map { uiMovieMapper.mapToView(it) })
+        val uiMovieList = movies.map { uiMovieMapper.mapToView(it) }
+        _state.value = state.value?.copy(
+            loading = false,
+            movies = uiMovieList
+        )
     }
 
     fun onNewGenreList(genre: List<Genre>) {
-        _state.value = _state.value?.copy(
+        _state.value = state.value?.copy(
             loading = false,
             genre = genre.map { uiGenreMapper.mapToView(it) }
         )
@@ -182,34 +169,41 @@ class AllMoviesViewModel(
 
     private fun loadMovies() {
         selectedGenre.value = null
-        page = 1
-        _state.value = _state.value?.copy(
-            movies = emptyList()
-        )
-
-        if (state.value?.movies?.isEmpty() == true) {
-            loadNextMoviePage()
+        viewModelScope.launch {
+            runCatching {
+                withContext(Dispatchers.IO){
+                    getMoviesUseCase.invoke()
+                }
+            }.onSuccess {
+                if (it.isEmpty()){
+                    subscribeToMovieUpdate()
+                } else {
+                    onNewMovieList(it)
+                }
+            }
         }
     }
 
     private fun loadGenres() {}
 
     private fun loadNextMoviePage() {
-        val exceptionHandler = viewModelScope.createExceptionHandler(R.string.no_more_movies) {
-            onFailure(it)
-        }
-
-        viewModelScope.launch(exceptionHandler) {
-            val discover = withContext(dispatchersProvider.io()) {
-                requestNextPageOfMoviesUseCase(page++, "")
+        viewModelScope.launch() {
+            runCatching {
+                withContext(Dispatchers.IO){
+                    requestNextPageOfMoviesUseCase(page++, "")
+                }
+            }.onSuccess {
+                onPaginationInfoObtained(it)
+                onNewMovieList(it.movies)
+            }.onFailure {
+                onFailure(it)
             }
-            onPaginationInfoObtained(discover)
         }
     }
 
     private fun onPaginationInfoObtained(pagination: Discover) {
         page = pagination.page
-        _state.value = _state.value?.updateMovies(pagination.movies.map { uiMovieMapper.mapToView(it) })
+        isLastPage = page == pagination.totalPages
     }
 
     private fun getFavoriteMovies() {
@@ -219,7 +213,7 @@ class AllMoviesViewModel(
                     getFavoriteMoviesUseCase()
                 }
             }.onSuccess {
-                _state.value = _state.value?.updateFavoriteMovies(it.map { favoriteMovieList ->
+                _state.value = state.value?.updateFavoriteMovies(it.map { favoriteMovieList ->
                     uiMovieMapper.mapToView(favoriteMovieList)
                 })
             }.onFailure {
@@ -230,15 +224,13 @@ class AllMoviesViewModel(
 
     private fun updateCache(uiMovie: UIMovie){
         viewModelScope.launch {
-            if (state.value?.favoriteMovie?.contains(uiMovie) == false){
-                updateFavoriteMovieUseCase(uiMovie.mapToDomain().copy(favorite = true))
-            } else if (state.value?.favoriteMovie?.contains(uiMovie) == true && uiMovie.favorite){
-                updateFavoriteMovieUseCase(uiMovie.mapToDomain().copy(favorite = false))
-            }
+            updateFavoriteMovieUseCase(
+                uiMovie.mapToDomain().copy(favorite = uiMovie.favorite.not())
+            )
         }
     }
 
-    private fun UIMovie.mapToDomain(): Movie{
+    private fun UIMovie.mapToDomain(): Movie {
         return Movie(
             discoverMovieId = id,
             discoverMovieTitle = name,
@@ -252,34 +244,18 @@ class AllMoviesViewModel(
         when (failure) {
             is NetworkErrorException,
             is NetworkUnavailableException -> {
-                _state.value = _state.value?.copy(
+                _state.value = state.value?.copy(
                     loading = false,
                     failure = Event(failure)
                 )
             }
             is NoMoreMoviesException -> {
-                _state.value = _state.value?.copy(
+                _state.value = state.value?.copy(
                     loading = false,
                     noMoreMovies = true,
                     failure = Event(failure)
                 )
             }
         }
-    }
-
-    private fun updateFavoriteItem(uiMovie: UIMovie) {
-        val movie = state.value?.movies
-        movie?.forEachIndexed { index, favoritedMovie ->
-            if (favoritedMovie.id == uiMovie.id){
-                updateAllMoviesList(movie, index, uiMovie.favorite)
-            }
-        }
-    }
-
-    private fun updateAllMoviesList(movie: List<UIMovie>, index: Int, isFavorite: Boolean) {
-        val updatedList = movie.toMutableList().apply {
-            this[index] = this[index].copy(favorite = isFavorite)
-        }
-        _state.value = _state.value?.copy(movies = updatedList)
     }
 }
