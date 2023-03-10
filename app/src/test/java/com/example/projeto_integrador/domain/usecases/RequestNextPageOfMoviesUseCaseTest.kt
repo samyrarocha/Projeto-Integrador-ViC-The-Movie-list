@@ -7,6 +7,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 
 class RequestNextPageOfMoviesUseCaseTest {
     private lateinit var requestNextPageOfMoviesUseCase: RequestNextPageOfMoviesUseCase
@@ -22,7 +23,7 @@ class RequestNextPageOfMoviesUseCaseTest {
         //Given
         val pageToLoad = 1
         val genreId = ""
-        Mockito.`when`(fakeRepository.requestMovies(pageToLoad, genreId))
+        `when`(fakeRepository.requestMovies(pageToLoad, genreId))
             .thenReturn(getDiscoverStub())
 
         //When

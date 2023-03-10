@@ -189,3 +189,11 @@ fun getFavoriteMovies() = listOf(
         favorite = true
     )
 )
+
+fun updateFavoriteMovie() = Movie(
+    discoverPosterPath = "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+    discoverVoteAverage = 7.4F,
+    discoverMovieTitle = "Black Panther: Wakanda Forever",
+    discoverMovieId = 505642,
+    favorite = true
+)
