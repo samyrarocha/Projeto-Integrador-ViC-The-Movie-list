@@ -172,3 +172,20 @@ fun getCreditsForMovieDetails() = Credits(
         )
     )
 )
+
+fun getFavoriteMovies() = listOf(
+    Movie(
+        discoverMovieId = 631842,
+        discoverMovieTitle = "Knock at the Cabin",
+        discoverVoteAverage = 6.5F,
+        favorite = true,
+        discoverPosterPath = "/dm06L9pxDOL9jNSK4Cb6y139rrG.jpg"
+    ),
+    Movie(
+        discoverPosterPath = "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+        discoverVoteAverage = 7.4F,
+        discoverMovieTitle = "Black Panther: Wakanda Forever",
+        discoverMovieId = 505642,
+        favorite = true
+    )
+)
