@@ -43,3 +43,13 @@ fun changedSecondMovieStub() = CachedMovie(
     favorite = true
 )
 
+fun searchResults() = listOf(
+    CachedMovie(
+        movieId = 505642,
+        movieTitle = "Black Panther: Wakanda Forever",
+        popularity = 3055.545F,
+        posterPath = "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+        favorite = true
+    )
+)
+

@@ -13,6 +13,7 @@ import com.example.projeto_integrador.domain.model.movies.details.MovieDetails
 import com.example.projeto_integrador.domain.repository.MoviesRepository
 import com.example.projeto_integrador.data.cache.Cache
 import com.example.projeto_integrador.data.cache.model.CachedMovie
+import com.example.projeto_integrador.domain.model.movies.SearchResults
 import com.example.projeto_integrador.presentation.feed.models.SearchParameters
 
 class MoviesRepositoryImp(
@@ -34,7 +35,7 @@ class MoviesRepositoryImp(
         return apiDiscoverMapper.mapToDomain(apiDiscover)
     }
 
-    override suspend fun searchMovies(
+    override suspend fun searchMoviesRemote(
         pageToLoad: Int,
         searchParameters: SearchParameters
     ): Search {
@@ -77,6 +78,19 @@ class MoviesRepositoryImp(
         return cache.getFavoriteMovies()
             .map { cachedMovie ->
                 Movie(
+                    cachedMovie.movieId,
+                    cachedMovie.movieTitle,
+                    cachedMovie.popularity,
+                    cachedMovie.favorite,
+                    cachedMovie.posterPath
+                )
+            }
+    }
+
+    override suspend fun searchMoviesLocally(query: String): List<SearchResults>{
+        return cache.searchMovies(query)
+            .map { cachedMovie ->
+                SearchResults(
                     cachedMovie.movieId,
                     cachedMovie.movieTitle,
                     cachedMovie.popularity,

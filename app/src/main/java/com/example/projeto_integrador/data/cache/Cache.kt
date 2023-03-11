@@ -8,6 +8,8 @@ interface Cache {
 
     suspend fun getFavoriteMovies(): List<CachedMovie>
 
+    suspend fun searchMovies(query: String): List<CachedMovie>
+
     suspend fun storeNewCachedData(movie: List<CachedMovie>)
 
     suspend fun updateFavoriteMovie(movie: CachedMovie)

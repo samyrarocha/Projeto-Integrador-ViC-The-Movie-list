@@ -82,6 +82,15 @@ fun getResultsForSearch() = Search(
     searchTotalResults = 1
 )
 
+fun getResultsForLocalSearch() = listOf(
+    SearchResults(
+        searchPosterPath = "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+        searchVoteAverage = 7.4F,
+        searchMovieTitle = "Black Panther: Wakanda Forever",
+        searchMovieId = 505642,
+    )
+)
+
 fun getApiMovieDetails() = ApiMovieDetails(
     detailsMovieId = 550,
     detailsGenres = getGenreListForApiMovieDetails(),

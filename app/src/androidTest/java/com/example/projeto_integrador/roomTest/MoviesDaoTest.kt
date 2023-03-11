@@ -9,6 +9,7 @@ import com.example.projeto_integrador.data.cache.daos.MoviesDao
 import com.example.projeto_integrador.stubs.*
 import kotlinx.coroutines.*
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -81,6 +82,19 @@ class MoviesDaoTest {
         //Then
         assert(moviesDao.getFavoriteMovies().contains(firstMovieStub()))
         assert(!moviesDao.getFavoriteMovies().contains(secondMovieStub()))
+    }
+
+    @Test
+    fun searchMovies_returnsSuccess() = runBlocking {
+        //Given
+        val query = "Bl%"
+        moviesDao.storeNewCacheData(moviesListStub())
+
+        //When
+        val result = moviesDao.searchMovie(query)
+
+        //Then
+        assertEquals(searchResults(), result)
     }
 
 }

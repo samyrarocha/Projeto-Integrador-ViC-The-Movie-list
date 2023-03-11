@@ -15,6 +15,7 @@ import com.example.projeto_integrador.presentation.models.UIMovie
 import com.example.projeto_integrador.domain.mappers.UiGenreMapper
 import com.example.projeto_integrador.domain.mappers.UiMovieMapper
 import com.example.projeto_integrador.domain.mappers.UiSearchResultsMapper
+import com.example.projeto_integrador.domain.model.NoSearchResultsException
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
@@ -243,7 +244,8 @@ class AllMoviesViewModel(
     private fun onFailure(failure: Throwable) {
         when (failure) {
             is NetworkErrorException,
-            is NetworkUnavailableException -> {
+            is NetworkUnavailableException,
+            is NoSearchResultsException-> {
                 _state.value = state.value?.copy(
                     loading = false,
                     failure = Event(failure)

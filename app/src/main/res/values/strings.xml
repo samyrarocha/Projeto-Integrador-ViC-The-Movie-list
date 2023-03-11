@@ -14,4 +14,6 @@
     <string name="system_failure">O sistema falhou</string>
     <string name="system_failure_subtitle">Por algum motivo, não foi possível processar com essa solicitação. Por favor, tente novamente.</string>
     <string name="try_again">Tente novamente</string>
+    <string name="no_search_results_title">Esse filme não existe</string>
+    <string name="no_search_results_description">Não conseguimos encontrar o filme que voce procura.\nPor favor, refaça sua busca.</string>
 </resources>

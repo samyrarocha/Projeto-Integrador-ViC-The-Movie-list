@@ -1,6 +1,7 @@
 package com.example.projeto_integrador.presentation.feed
 
 
+import android.accounts.NetworkErrorException
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_integrador.R
 import com.example.projeto_integrador.databinding.FragmentAllMoviesBinding
+import com.example.projeto_integrador.domain.model.NetworkUnavailableException
+import com.example.projeto_integrador.domain.model.NoSearchResultsException
 import com.example.projeto_integrador.presentation.feed.models.Event
 import com.example.projeto_integrador.presentation.feed.recyclerview.AllMoviesRecyclerViewAdapter
 import com.example.projeto_integrador.presentation.feed.recyclerview.GenreRecyclerViewAdapter
@@ -168,6 +171,8 @@ class AllMoviesFragment: Fragment() {
                 binding.searchTabLayout.isVisible = false
                 binding.backButton.isVisible = false
                 binding.searchEditText.clearFocus()
+                binding.moviesRecyclerView.isVisible = true
+                binding.noSearchResultsLayout.isVisible = false
                 requestGenreList()
                 false
             }
@@ -196,6 +201,8 @@ class AllMoviesFragment: Fragment() {
             binding.searchTabLayout.isVisible = false
             binding.backButton.isVisible = false
             binding.searchEditText.isIconified = true
+            binding.moviesRecyclerView.isVisible = true
+            binding.noSearchResultsLayout.isVisible = false
             requestGenreList()
         }
     }
@@ -223,6 +230,7 @@ class AllMoviesFragment: Fragment() {
     private fun observeViewStateUpdates() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             state.updateScreenState()
+            state.onFailure()
         }
     }
 
@@ -256,7 +264,15 @@ class AllMoviesFragment: Fragment() {
             1 -> allMoviesRecyclerViewAdapter.submitList(favoriteMovie)
         }
         genreRecyclerViewAdapter.submitList(genre)
-        handleFailures(failure)
+    }
+
+    private fun AllMoviesViewState.onFailure(){
+        when(failure?.getContentIfNotHandled()) {
+            is NoSearchResultsException -> { showNoSearchResultLayout() }
+            is NetworkErrorException,
+            is NetworkUnavailableException -> { showErrorDialog() }
+            else -> handleFailures(failure)
+        }
     }
 
     private fun showErrorDialog(){
@@ -270,6 +286,11 @@ class AllMoviesFragment: Fragment() {
                 }
             }.show(it, "ErrorDialogFragment")
         }
+    }
+
+    private fun showNoSearchResultLayout(){
+        binding.moviesRecyclerView.isVisible = false
+        binding.noSearchResultsLayout.isVisible = true
     }
 
     private fun handleFailures(failure: Event<Throwable>?) {

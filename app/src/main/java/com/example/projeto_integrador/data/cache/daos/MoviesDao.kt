@@ -13,6 +13,10 @@ abstract class MoviesDao {
     @Query("SELECT * FROM movies WHERE favorite = 1")
     abstract suspend fun getFavoriteMovies(): List<CachedMovie>
 
+    @Transaction
+    @Query("SELECT * FROM movies WHERE movieTitle like :query")
+    abstract suspend fun searchMovie(query: String): List<CachedMovie>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun updateFavoriteMovie(movie: CachedMovie)
 

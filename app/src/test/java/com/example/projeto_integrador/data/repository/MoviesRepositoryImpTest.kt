@@ -71,7 +71,7 @@ class MoviesRepositoryImpTest{
             .thenReturn(getResultsForSearch())
 
         //When
-        val result = fakeMoviesRepositoryImp.searchMovies(pageToLoad, repositorySearchParameters)
+        val result = fakeMoviesRepositoryImp.searchMoviesRemote(pageToLoad, repositorySearchParameters)
 
         //Then
         assertEquals(result, getResultsForSearch())

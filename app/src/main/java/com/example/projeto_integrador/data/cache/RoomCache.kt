@@ -15,6 +15,10 @@ class RoomCache(
         return moviesDao.getFavoriteMovies()
     }
 
+    override suspend fun searchMovies(query: String): List<CachedMovie> {
+        return moviesDao.searchMovie(query = query)
+    }
+
     override suspend fun storeNewCachedData(movie: List<CachedMovie>) {
         moviesDao.storeNewCacheData(movie)
     }
